@@ -1,0 +1,37 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isLessThanFiveMegabytes() {
+      return request.resource.size < 5 * 1024 * 1024;
+    }
+
+    function isSupportedMimeType() {
+      return request.resource.contentType.matches('image/png') ||
+             request.resource.contentType.matches('image/jpeg') ||
+             request.resource.contentType.matches('image/webp');
+    }
+
+    // Isolated user storage path rules
+    match /users/{userId}/{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isOwner(userId) 
+                      && isLessThanFiveMegabytes() 
+                      && isSupportedMimeType();
+    }
+
+    // Default deny rule
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

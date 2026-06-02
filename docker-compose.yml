@@ -1,0 +1,133 @@
+version: '3.8'
+
+services:
+  # Database Layer
+  postgres:
+    image: postgres:16-alpine
+    container_name: wellness-db
+    environment:
+      POSTGRES_DB: wellness
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d wellness"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wellness-network
+
+  # Caching and Event Layer
+  redis:
+    image: redis:7-alpine
+    container_name: wellness-redis
+    command: redis-server --requirepass redispassword
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "redispassword", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - wellness-network
+
+  # Backend Microservice Monolith
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: wellness-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=wellness
+      - DB_USER=postgres
+      - DB_PASSWORD=postgrespassword
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=redispassword
+      - FIREBASE_PROJECT_ID=wellness-brand
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - SPRING_PROFILES_ACTIVE=dev # Set to dev profile locally for human-readable logging
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      otel-collector:
+        condition: service_started
+    networks:
+      - wellness-network
+
+  # Frontend Application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: wellness-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+    depends_on:
+      - backend
+    networks:
+      - wellness-network
+
+  # OpenTelemetry Collector (Receives OTLP traces & metrics from backend Java Agent)
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.95.0
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # OTLP gRPC receiver
+      - "4318:4318" # OTLP HTTP receiver
+      - "8889:8889" # Prometheus metrics exporter port
+    networks:
+      - wellness-network
+
+  # Jaeger (Distributed Tracing UI)
+  jaeger:
+    image: jaegertracing/all-in-one:1.53
+    container_name: wellness-jaeger
+    ports:
+      - "16686:16686" # Web UI
+      - "14250:14250" # gRPC collector
+    networks:
+      - wellness-network
+
+  # Prometheus (Metrics storage and visualization)
+  prometheus:
+    image: prom/prometheus:v2.49.1
+    container_name: wellness-prometheus
+    command: ["--config.file=/etc/prometheus/prometheus.yml"]
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - wellness-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  wellness-network:
+    driver: bridge

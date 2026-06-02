@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "dev": "eduqra-platform-dev",
+    "staging": "eduqra-platform-staging",
+    "prod": "eduqra-platform-prod"
+  }
+}
