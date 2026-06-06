@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useCartStore } from '../features/cart/cartStore';
-import { ShoppingBag, X, Plus, Minus, Trash2, User as UserIcon, LogOut, Leaf, Search, Heart } from 'lucide-react';
+import { ShoppingBag, X, Plus, Minus, Trash2, User as UserIcon, LogOut, Leaf, Search, Heart, Menu } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from '../providers/AuthProvider';
 import { useRouter } from 'next/navigation';
@@ -14,6 +14,7 @@ export default function Navbar() {
   const router = useRouter();
   
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -110,6 +111,14 @@ export default function Navbar() {
                 )}
               </>
             )}
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden p-2 rounded-full text-[#2c4a35] hover:bg-[#e8e5de] transition-colors ml-1 cursor-pointer"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
           </div>
         </div>
       </header>
@@ -222,6 +231,83 @@ export default function Navbar() {
                   </button>
                 </div>
               )}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Navigation Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.4 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="fixed inset-0 z-50 bg-black md:hidden"
+            />
+
+            {/* Panel */}
+            <motion.div
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="fixed inset-y-0 left-0 z-50 flex w-[280px] flex-col bg-[#f5f0e6] shadow-2xl border-r border-[#e8e5de] md:hidden"
+            >
+              <div className="flex items-center justify-between border-b border-[#e8e5de] p-5">
+                <div className="flex items-center gap-2">
+                  <Leaf className="h-5 w-5 text-[#2c4a35] fill-[#2c4a35]/15" />
+                  <span className="text-lg font-bold tracking-tight text-[#2c4a35]">Herbal Tea</span>
+                </div>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="rounded-full p-1.5 text-[#2c4a35] hover:bg-[#e8e5de] transition-colors cursor-pointer"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Mobile Nav Links */}
+              <div className="flex flex-col p-5 space-y-6 mt-4">
+                <Link 
+                  href="/" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-[16px] font-semibold text-[#2c4a35] hover:text-[#c49d56] transition-colors"
+                >
+                  Home
+                </Link>
+                <Link 
+                  href="/shop" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-[16px] font-semibold text-[#2c4a35] hover:text-[#c49d56] transition-colors"
+                >
+                  Shop
+                </Link>
+                <Link 
+                  href="/blog" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-[16px] font-semibold text-[#2c4a35] hover:text-[#c49d56] transition-colors"
+                >
+                  Blog
+                </Link>
+                <Link 
+                  href="/contact" 
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-[16px] font-semibold text-[#2c4a35] hover:text-[#c49d56] transition-colors"
+                >
+                  Contact Us
+                </Link>
+              </div>
+
+              {/* Mobile Bottom Section */}
+              <div className="mt-auto border-t border-[#e8e5de] p-5">
+                <p className="text-xs text-[#6b7b72] text-center" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  © 2026 Eduqra Wellness. All rights reserved.
+                </p>
+              </div>
             </motion.div>
           </>
         )}
