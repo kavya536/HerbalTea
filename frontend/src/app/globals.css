@@ -26,7 +26,7 @@
   --color-border: var(--border);
   
   --font-playfair: var(--font-playfair);
-  --font-inter: var(--font-inter);
+  --font-nunito: var(--font-nunito);
   
   --animate-marquee: marquee 35s linear infinite;
   
@@ -39,7 +39,7 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-family: var(--font-nunito), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
   margin: 0;
   padding: 0;
   -webkit-font-smoothing: antialiased;

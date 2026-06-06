@@ -64,7 +64,7 @@ export default function BlogPostPage() {
   if (!article) {
     return (
       <div className="flex flex-col items-center justify-center min-h-[60vh] bg-[#f5f0e6]">
-        <h1 className="text-[28px] font-bold text-[#1c2e24] mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>Article Not Found</h1>
+        <h1 className="text-[28px] font-bold text-[#1c2e24] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>Article Not Found</h1>
         <Link href="/blog" className="inline-flex items-center gap-2 text-[13px] font-bold uppercase tracking-[0.1em] text-[#8cb73d] hover:text-[#2c4a35] transition-colors">
           <ArrowLeft className="h-4 w-4 stroke-[2]" /> Return to Blog
         </Link>
@@ -84,7 +84,7 @@ export default function BlogPostPage() {
           <Link 
             href="/blog" 
             className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.15em] text-[#6b7b72] hover:text-[#2c4a35] transition-all duration-300 mb-12 md:mb-16 hover:-translate-x-1"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Nunito Sans, sans-serif' }}
           >
             <ArrowLeft className="h-4 w-4 stroke-[2]" /> Back to Journal
           </Link>
@@ -108,7 +108,7 @@ export default function BlogPostPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-[36px] sm:text-[48px] md:text-[56px] font-semibold text-[#1c2e24] leading-[1.15] mb-8 tracking-tight" 
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Playfair Display, serif' }}
           >
             {article.title}
           </motion.h1>
@@ -118,7 +118,7 @@ export default function BlogPostPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex items-center justify-center gap-3 text-[13px] text-[#6b7b72] font-medium tracking-wide uppercase"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Nunito Sans, sans-serif' }}
           >
             <span>{article.date}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-[#e2b755]"></span>
@@ -148,7 +148,7 @@ export default function BlogPostPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <p className="text-[20px] md:text-[24px] text-[#1c2e24] leading-[1.6] font-medium mb-12 md:mb-16 italic border-l-4 border-[#e2b755] pl-6 md:pl-8" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <p className="text-[20px] md:text-[24px] text-[#1c2e24] leading-[1.6] font-medium mb-12 md:mb-16 italic border-l-4 border-[#e2b755] pl-6 md:pl-8" style={{ fontFamily: 'Playfair Display, serif' }}>
               "{article.description}"
             </p>
           </motion.div>
@@ -159,7 +159,7 @@ export default function BlogPostPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-[#4a5e51]" 
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Nunito Sans, sans-serif' }}
           >
             {article.content.split('\n\n').map((paragraph, idx) => {
               // Highlight subheadings
@@ -167,7 +167,7 @@ export default function BlogPostPage() {
                 const [title, ...rest] = paragraph.split('\n');
                 return (
                   <div key={idx} className="mb-10 mt-16">
-                    <h3 className="text-[20px] md:text-[24px] font-semibold text-[#1c2e24] mb-4 flex items-center gap-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                    <h3 className="text-[20px] md:text-[24px] font-semibold text-[#1c2e24] mb-4 flex items-center gap-4" style={{ fontFamily: 'Playfair Display, serif' }}>
                       <span className="w-8 h-[2px] bg-[#8cb73d] inline-block rounded-full"></span>
                       {title}
                     </h3>
@@ -190,7 +190,7 @@ export default function BlogPostPage() {
           <div className="mt-16 flex items-center justify-between">
             <span 
               className="text-[14px] font-bold uppercase tracking-[0.15em] text-[#1c2e24]" 
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Nunito Sans, sans-serif' }}
             >
               Share Article
             </span>

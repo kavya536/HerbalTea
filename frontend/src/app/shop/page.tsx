@@ -70,10 +70,10 @@ export default function ShopPage() {
             transition={{ duration: 0.8 }}
             className="relative z-10 text-left max-w-xl"
           >
-            <h1 className="text-[40px] md:text-[64px] font-semibold text-white tracking-widest uppercase mb-4" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <h1 className="text-[40px] md:text-[64px] font-semibold text-white tracking-widest uppercase mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
               Our Shop
             </h1>
-            <p className="text-[16px] md:text-[20px] text-white/95 font-light tracking-wide leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-[16px] md:text-[20px] text-white/95 font-light tracking-wide leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Discover our premium collection of herbal wellness blends.
             </p>
           </motion.div>
@@ -89,30 +89,31 @@ export default function ShopPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
               {filteredProducts.map(product => (
                 <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5 }}
                   key={product.id} 
                   onClick={() => router.push(`/shop/${product.id}`)}
-                  className="flex flex-col group cursor-pointer bg-white rounded-lg border border-[#e8e5de] p-3 shadow-sm hover:shadow-md transition-shadow"
+                  className="flex flex-col group cursor-pointer bg-white rounded-2xl border border-[#e8e5de] p-3.5 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_32px_-8px_rgba(28,46,36,0.12)] hover:-translate-y-1.5 transition-all duration-300"
                 >
                   {/* Product Image */}
-                  <div className="relative aspect-[4/5] bg-[#f9f8f6] rounded-md overflow-hidden mb-4">
+                  <div className="relative aspect-[4/5] bg-[#f9f8f6] rounded-xl overflow-hidden mb-4">
                     <img 
                       src={product.img} 
                       alt={product.name} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out" 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
                     />
                   </div>
                   
                   {/* Product Details (Title, Prices, Reviews) matching Image 1 */}
                   <div className="flex flex-col px-1 pb-2">
-                    <h4 className="font-medium text-gray-500 text-[14px] truncate mb-2" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    <h4 className="font-medium text-gray-500 text-[14px] truncate mb-2" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                       {product.name}
                     </h4>
                     
                     <div className="flex items-baseline gap-2 mb-3">
-                      <span className="font-bold text-[#1c2e24] text-[20px]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                      <span className="font-bold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                         ₹{product.price}
                       </span>
                       {product.originalPrice && (
@@ -154,7 +155,7 @@ export default function ShopPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
-                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Poppins, sans-serif' }}>Search by Products</h3>
+                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Playfair Display, serif' }}>Search by Products</h3>
               </div>
               <div className="flex shadow-sm rounded-full bg-white">
                 <input 
@@ -174,12 +175,12 @@ export default function ShopPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
-                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Poppins, sans-serif' }}>Product Categories</h3>
+                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Playfair Display, serif' }}>Product Categories</h3>
               </div>
               <div className="flex flex-col gap-3">
                  {CATEGORIES.map(cat => (
                    <label key={cat} className="flex items-center gap-3 cursor-pointer group">
-                     <div className="relative flex items-center justify-center">
+                     <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                        <input 
                          type="radio" 
                          name="category" 
@@ -187,9 +188,9 @@ export default function ShopPage() {
                          onChange={() => setSelectedCategory(cat)}
                          className="peer appearance-none w-4 h-4 rounded-full border border-[#d1c8ba] checked:border-[#2c4a35] transition-colors" 
                        />
-                       <div className="absolute w-2 h-2 rounded-full bg-[#2c4a35] opacity-0 peer-checked:opacity-100 transition-opacity" />
+                       <div className="absolute w-2 h-2 rounded-full bg-[#2c4a35] opacity-0 peer-checked:opacity-100 transition-opacity duration-300 scale-50 peer-checked:scale-100" />
                      </div>
-                     <span className={`text-[14px] transition-colors ${selectedCategory === cat ? 'text-[#1c2e24] font-medium' : 'text-[#6b7b72] group-hover:text-[#1c2e24]'}`} style={{ fontFamily: 'Inter, sans-serif' }}>
+                     <span className={`text-[14px] transition-colors ${selectedCategory === cat ? 'text-[#1c2e24] font-medium' : 'text-[#6b7b72] group-hover:text-[#1c2e24]'}`} style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                        {cat}
                      </span>
                    </label>
@@ -201,12 +202,12 @@ export default function ShopPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
-                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Poppins, sans-serif' }}>Tea Type</h3>
+                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Playfair Display, serif' }}>Tea Type</h3>
               </div>
               <div className="flex flex-col gap-3">
                  {TEA_TYPES.map(type => (
                    <label key={type} className="flex items-center gap-3 cursor-pointer group">
-                     <div className="relative flex items-center justify-center">
+                     <div className="relative flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
                        <input 
                          type="radio" 
                          name="teaType" 
@@ -214,9 +215,9 @@ export default function ShopPage() {
                          onChange={() => setSelectedType(type)}
                          className="peer appearance-none w-4 h-4 rounded-full border border-[#d1c8ba] checked:border-[#2c4a35] transition-colors" 
                        />
-                       <div className="absolute w-2 h-2 rounded-full bg-[#2c4a35] opacity-0 peer-checked:opacity-100 transition-opacity" />
+                       <div className="absolute w-2 h-2 rounded-full bg-[#2c4a35] opacity-0 peer-checked:opacity-100 transition-opacity duration-300 scale-50 peer-checked:scale-100" />
                      </div>
-                     <span className={`text-[14px] transition-colors ${selectedType === type ? 'text-[#1c2e24] font-medium' : 'text-[#6b7b72] group-hover:text-[#1c2e24]'}`} style={{ fontFamily: 'Inter, sans-serif' }}>
+                     <span className={`text-[14px] transition-colors ${selectedType === type ? 'text-[#1c2e24] font-medium' : 'text-[#6b7b72] group-hover:text-[#1c2e24]'}`} style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                        {type}
                      </span>
                    </label>
@@ -228,15 +229,15 @@ export default function ShopPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
-                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Poppins, sans-serif' }}>Weight</h3>
+                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Playfair Display, serif' }}>Weight</h3>
               </div>
               <div className="flex flex-wrap gap-2.5">
                  {WEIGHTS.map(w => (
                    <button 
                      key={w} 
                      onClick={() => setSelectedWeight(w)}
-                     className={`px-4 py-2 rounded-full border text-[13px] font-medium transition-colors ${selectedWeight === w ? 'bg-[#2c4a35] text-white border-[#2c4a35]' : 'bg-transparent text-[#6b7b72] border-[#d1c8ba] hover:border-[#2c4a35] hover:text-[#1c2e24]'}`}
-                     style={{ fontFamily: 'Inter, sans-serif' }}
+                     className={`px-4 py-2 rounded-full border text-[13px] font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-sm ${selectedWeight === w ? 'bg-[#2c4a35] text-white border-[#2c4a35] shadow-md' : 'bg-transparent text-[#6b7b72] border-[#d1c8ba] hover:border-[#2c4a35] hover:text-[#1c2e24]'}`}
+                     style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                    >
                      {w}
                    </button>
@@ -248,7 +249,7 @@ export default function ShopPage() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
-                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Poppins, sans-serif' }}>Filter by Price</h3>
+                <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Playfair Display, serif' }}>Filter by Price</h3>
               </div>
               <div className="px-1 flex flex-col">
                 <input 
@@ -259,7 +260,7 @@ export default function ShopPage() {
                   onChange={(e) => setPriceValue(Number(e.target.value))}
                   className="w-full h-1.5 bg-[#d1c8ba] rounded-full appearance-none outline-none cursor-pointer accent-[#2c4a35] mb-3"
                 />
-                <div className="flex justify-between text-[13px] text-[#1c2e24] font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <div className="flex justify-between text-[13px] text-[#1c2e24] font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                   <span>₹4</span>
                   <span className="text-[#8cb73d] font-bold">Max: ₹{priceValue}</span>
                   <span>₹1020</span>

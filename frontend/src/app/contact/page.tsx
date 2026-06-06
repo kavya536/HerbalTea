@@ -130,22 +130,22 @@ export default function ContactPage() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
-                  <p className="text-[14px] font-semibold text-[#1c2e24] uppercase tracking-wide mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Visit Us</p>
-                  <p className="text-[13px] text-[#6b7b72] leading-tight" style={{ fontFamily: 'Inter, sans-serif' }}>123 Wellness Avenue, NY 10001</p>
+                  <p className="text-[14px] font-semibold text-[#1c2e24] uppercase tracking-wide mb-1" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>Visit Us</p>
+                  <p className="text-[13px] text-[#6b7b72] leading-tight" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>123 Wellness Avenue, NY 10001</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
-                  <p className="text-[14px] font-semibold text-[#1c2e24] uppercase tracking-wide mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Call Us</p>
-                  <p className="text-[13px] text-[#6b7b72]" style={{ fontFamily: 'Inter, sans-serif' }}>+1 (800) 123-4567</p>
+                  <p className="text-[14px] font-semibold text-[#1c2e24] uppercase tracking-wide mb-1" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>Call Us</p>
+                  <p className="text-[13px] text-[#6b7b72]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>+1 (800) 123-4567</p>
                 </div>
               </div>
               <div className="flex items-start gap-3 sm:col-span-2">
                 <Mail className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
-                  <p className="text-[14px] font-semibold text-[#1c2e24] uppercase tracking-wide mb-1" style={{ fontFamily: 'Inter, sans-serif' }}>Email Us</p>
-                  <p className="text-[13px] text-[#6b7b72]" style={{ fontFamily: 'Inter, sans-serif' }}>hello@eduqrawellness.com</p>
+                  <p className="text-[14px] font-semibold text-[#1c2e24] uppercase tracking-wide mb-1" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>Email Us</p>
+                  <p className="text-[13px] text-[#6b7b72]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>hello@eduqrawellness.com</p>
                 </div>
               </div>
             </div>
@@ -158,7 +158,7 @@ export default function ContactPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex flex-col justify-center"
           >
-            <h1 className="text-[28px] md:text-[32px] font-semibold text-[#1c2e24] mb-6 uppercase tracking-wide" style={{ fontFamily: 'Poppins, sans-serif' }}>
+            <h1 className="text-[28px] md:text-[32px] font-semibold text-[#1c2e24] mb-6 uppercase tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>
               CONTACT US
             </h1>
 
@@ -171,7 +171,7 @@ export default function ContactPage() {
                   onChange={handleNameChange}
                   placeholder="Full Name:"
                   className={`w-full bg-transparent border ${nameError ? 'border-red-500 focus:border-red-500' : 'border-[#d1c8ba] focus:border-[#8cb73d]'} rounded-lg px-4 py-3 text-[14px] text-[#1c2e24] placeholder:text-[#6b7b72] focus:outline-none transition-colors`}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                 />
                 {nameError && (
                   <p className="text-red-500 text-[11px] mt-1 ml-1">{nameError}</p>
@@ -186,7 +186,7 @@ export default function ContactPage() {
                     onChange={handlePhoneChange}
                     placeholder="Phone No:"
                     className={`w-full bg-transparent border ${phoneError ? 'border-red-500 focus:border-red-500' : 'border-[#d1c8ba] focus:border-[#8cb73d]'} rounded-lg px-4 py-3 text-[14px] text-[#1c2e24] placeholder:text-[#6b7b72] focus:outline-none transition-colors`}
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   />
                   {phoneError && (
                     <p className="text-red-500 text-[11px] mt-1 ml-1">{phoneError}</p>
@@ -200,7 +200,7 @@ export default function ContactPage() {
                     onChange={handleEmailChange}
                     placeholder="Email:"
                     className={`w-full bg-transparent border ${emailError ? 'border-red-500 focus:border-red-500' : 'border-[#d1c8ba] focus:border-[#8cb73d]'} rounded-lg px-4 py-3 text-[14px] text-[#1c2e24] placeholder:text-[#6b7b72] focus:outline-none transition-colors`}
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   />
                   {emailError && (
                     <p className="text-red-500 text-[11px] mt-1 ml-1">{emailError}</p>
@@ -215,7 +215,7 @@ export default function ContactPage() {
                   placeholder="Message:"
                   rows={4}
                   className={`w-full bg-transparent border ${messageError ? 'border-red-500 focus:border-red-500' : 'border-[#d1c8ba] focus:border-[#8cb73d]'} rounded-lg px-4 py-3 text-[14px] text-[#1c2e24] placeholder:text-[#6b7b72] focus:outline-none transition-colors resize-none`}
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                 ></textarea>
                 {messageError && (
                   <p className="text-red-500 text-[11px] mt-1 ml-1">{messageError}</p>
@@ -226,7 +226,7 @@ export default function ContactPage() {
                 <button 
                   type="submit"
                   className="bg-[#1c2e24] hover:bg-[#2a3f30] text-white font-bold tracking-wider rounded-lg px-10 py-3 text-[13px] uppercase transition-colors shadow-sm"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                 >
                   Send
                 </button>

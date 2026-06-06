@@ -45,12 +45,9 @@ export default function Navbar() {
               <Link href="/blog" className="hover:text-accent transition-colors">
                 Blog
               </Link>
-              <a href="#" className="hover:text-accent transition-colors">
-                About Us
-              </a>
-              <a href="#" className="hover:text-accent transition-colors">
+              <Link href="/contact" className="hover:text-accent transition-colors">
                 Contact Us
-              </a>
+              </Link>
             </nav>
           </div>
 

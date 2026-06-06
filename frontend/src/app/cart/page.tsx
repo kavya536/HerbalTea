@@ -51,7 +51,7 @@ export default function CartPage() {
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] py-8 font-sans" style={{ fontFamily: 'Inter, sans-serif' }}>
+    <div className="min-h-screen bg-[#f8f9fa] py-8 font-sans" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
       <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
         
         <button
@@ -67,7 +67,7 @@ export default function CartPage() {
             <p className="text-[#666] mb-6">Looks like you haven't added anything to your cart yet.</p>
             <button 
               onClick={() => router.push('/shop')}
-              className="bg-[#9c27b0] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#7b1fa2] transition-colors"
+              className="bg-[#1c2e24] text-white px-8 py-3 rounded-md font-semibold hover:bg-[#2a4536] transition-colors"
             >
               Start Shopping
             </button>
@@ -176,7 +176,7 @@ export default function CartPage() {
                     </div>
                     <button 
                       onClick={() => router.push('/checkout')}
-                      className="w-full bg-[#9c27b0] text-white font-bold text-[16px] py-3 rounded hover:bg-[#7b1fa2] transition-colors"
+                      className="w-full bg-[#1c2e24] text-white font-bold text-[16px] py-3 rounded hover:bg-[#2a4536] transition-colors"
                     >
                       Continue
                     </button>

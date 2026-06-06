@@ -118,10 +118,10 @@ function FAQSection() {
         {/* Header */}
         <div className="text-center mb-10 lg:mb-12 max-w-2xl mx-auto">
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8cb73d] mb-4 block">Got Questions?</span>
-          <h2 className="text-[28px] md:text-[36px] font-medium text-[#1c2e24] leading-[1.3] uppercase tracking-wide mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>
+          <h2 className="text-[28px] md:text-[36px] font-medium text-[#1c2e24] leading-[1.3] uppercase tracking-wide mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
             Frequently Asked<br/>Questions
           </h2>
-          <p className="text-[14px] text-[#6b7b72] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>
+          <p className="text-[14px] text-[#6b7b72] leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
             Everything you need to know about our herbal blends, sourcing, and brewing process. Can't find your answer? Reach out to our herbalist team.
           </p>
         </div>
@@ -137,7 +137,7 @@ function FAQSection() {
                 onClick={() => toggleFAQ(index)}
                 className="w-full flex items-center justify-between p-5 text-left focus:outline-none group"
               >
-                <span className="text-[15px] md:text-[16px] font-semibold text-[#1c2e24] group-hover:text-[#2c4a35] transition-colors pr-6" style={{ fontFamily: 'Poppins, sans-serif' }}>{faq.question}</span>
+                <span className="text-[15px] md:text-[16px] font-semibold text-[#1c2e24] group-hover:text-[#2c4a35] transition-colors pr-6" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>{faq.question}</span>
                 <div className={`flex items-center justify-center w-9 h-9 rounded-full shrink-0 transition-all duration-400 ease-in-out ${openIndex === index ? 'rotate-180 bg-[#1c2e24] text-[#c49d56]' : 'bg-[#f4f2ee] text-[#6b7b72] group-hover:bg-[#e8f2e1] group-hover:text-[#6b9933]'}`}>
                   <ChevronDown className="w-4 h-4 stroke-[2.5]" />
                 </div>
@@ -151,7 +151,7 @@ function FAQSection() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    <div className="px-5 pb-5 pt-0 text-[14px] text-[#6b7b72] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    <div className="px-5 pb-5 pt-0 text-[14px] text-[#6b7b72] leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                       {faq.answer}
                     </div>
                   </motion.div>
@@ -241,7 +241,7 @@ export default function Home() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
               }}
               className="font-bold text-[32px] sm:text-[38px] md:text-[52px] lg:text-[64px] leading-[1.1] tracking-[-0.02em] text-[#fbfaf7] mb-[24px] max-w-full"
-              style={{ fontFamily: 'Poppins, sans-serif' }}
+              style={{ fontFamily: 'Playfair Display, serif' }}
             >
               <span className="block whitespace-nowrap">One Herbal Solution</span>
               <span className="block whitespace-nowrap">for Everyday Wellness</span>
@@ -254,7 +254,7 @@ export default function Home() {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
               }}
               className="font-normal text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] text-[#e8e2d7]/90 mb-[36px]"
-              style={{ fontFamily: 'Inter, sans-serif' }}
+              style={{ fontFamily: 'Nunito Sans, sans-serif' }}
             >
               Naturally crafted herbal tea powders designed to support respiratory health, women's wellness, immunity, and daily well-being.
             </motion.p>
@@ -269,9 +269,9 @@ export default function Home() {
               whileTap={{ scale: 0.98 }}
             >
               <Link
-                href="#shop"
+                href="/shop"
                 className="inline-flex items-center justify-center font-semibold text-[15px] lg:text-[16px] text-[#1c2e24] bg-[#c49d56] hover:bg-[#d8b066] py-[16px] px-[32px] rounded-full transition-all duration-300 shadow-lg hover:shadow-accent/20 cursor-pointer"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Nunito Sans, sans-serif' }}
               >
                 Shop Collection
               </Link>
@@ -284,13 +284,15 @@ export default function Home() {
       <section className="bg-white py-24 border-b border-border/20 overflow-hidden">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 space-y-4 px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold tracking-tight text-[#1c2e24] sm:text-4xl">
+          <h2 
+            className="text-3xl font-bold tracking-tight text-[#1c2e24] sm:text-4xl uppercase"
+            style={{ fontFamily: 'Playfair Display, serif' }}
+          >
             Popular Categories
           </h2>
           <p className="text-sm md:text-base text-muted leading-relaxed">
             Explore our curated selection of premium organic herbal teas and botanical remedies, crafted to support your daily wellness journey.
           </p>
-          <div className="mx-auto h-0.5 w-16 bg-accent mt-4" />
         </div>
 
         {/* Cards Marquee */}
@@ -326,7 +328,7 @@ export default function Home() {
                   {/* Shop Now Button Container */}
                   <div className="px-6 pb-6 flex items-center justify-start mt-auto relative z-10">
                     <Link
-                      href="#shop"
+                      href="/shop"
                       className="group/btn inline-flex items-center gap-2.5 rounded-full bg-[#2c4a35] hover:bg-[#e2b755] text-white hover:text-[#1c2e24] px-5 py-3 text-xs font-semibold tracking-wider transition-all duration-300 shadow active:scale-[0.98] cursor-pointer"
                     >
                       <span>Shop Now</span>
@@ -362,20 +364,20 @@ export default function Home() {
                 <div className="flex items-center gap-1.5 text-[9px] font-bold tracking-[0.15em] text-[#2c4a35] uppercase mb-2.5">
                   <Sparkles className="w-3 h-3 text-[#8cb73d]" /> Herbal Wellness
                 </div>
-                <h4 className="text-[15px] font-bold text-[#1c2e24] mb-1.5" style={{ fontFamily: 'Poppins, sans-serif' }}>
+                <h4 className="text-[15px] font-bold text-[#1c2e24] mb-1.5" style={{ fontFamily: 'Playfair Display, serif' }}>
                   Supporting Everyday Health
                 </h4>
-                <p className="text-[12px] text-[#6b7b72] mb-3.5 leading-relaxed" style={{ fontFamily: 'Inter, sans-serif' }}>
+                <p className="text-[12px] text-[#6b7b72] mb-3.5 leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                   Crafted from carefully selected herbal ingredients inspired by traditional wellness practices.
                 </p>
                 <div className="space-y-2.5">
-                  <div className="flex items-center gap-2.5 text-[12px] text-[#1c2e24] font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <div className="flex items-center gap-2.5 text-[12px] text-[#1c2e24] font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                     <div className="flex items-center justify-center w-[18px] h-[18px] rounded-full bg-[#e8f2e1] text-[#6b9933] shrink-0">
                       <svg className="w-[9px] h-[9px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
                     Natural Ingredients
                   </div>
-                  <div className="flex items-center gap-2.5 text-[12px] text-[#1c2e24] font-medium" style={{ fontFamily: 'Inter, sans-serif' }}>
+                  <div className="flex items-center gap-2.5 text-[12px] text-[#1c2e24] font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                     <div className="flex items-center justify-center w-[18px] h-[18px] rounded-full bg-[#e8f2e1] text-[#6b9933] shrink-0">
                       <svg className="w-[9px] h-[9px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                     </div>
@@ -389,13 +391,13 @@ export default function Home() {
             <div className="w-full lg:w-[55%] flex flex-col justify-center mt-14 lg:mt-0 lg:pl-10">
               <h2 
                 className="text-[20px] md:text-[24px] lg:text-[27px] font-medium text-[#1c2e24] leading-[1.4] mb-5 tracking-wide uppercase" 
-                style={{ fontFamily: 'Poppins, sans-serif' }}
+                style={{ fontFamily: 'Playfair Display, serif' }}
               >
                 Rooted In Tradition,<br/>Crafted For Today
               </h2>
               <p 
                 className="text-[13px] md:text-[14px] text-[#6b7b72] leading-[1.8] mb-9" 
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Nunito Sans, sans-serif' }}
               >
                 Inspired by generations of herbal knowledge, our blends are thoughtfully crafted using premium natural ingredients. We believe wellness should be simple, accessible, and part of everyday life. Every herbal tea powder is prepared with care to help you embrace a healthier daily routine.
               </p>
@@ -404,7 +406,7 @@ export default function Home() {
               <Link
                 href="#shop"
                 className="inline-flex items-center justify-center self-start bg-[#1c2e24] hover:bg-[#2c4a35] text-white px-8 py-3.5 text-[11px] font-bold tracking-[0.15em] uppercase transition-all duration-300 shadow-sm"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Nunito Sans, sans-serif' }}
               >
                 Know More
               </Link>
@@ -487,14 +489,13 @@ export default function Home() {
             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8cb73d]">Our Journal</span>
             <h2 
               className="text-[26px] md:text-[32px] font-medium text-[#1c2e24] leading-[1.3] tracking-wide uppercase"
-              style={{ fontFamily: 'Poppins, sans-serif' }}
+              style={{ fontFamily: 'Playfair Display, serif' }}
             >
               From The Blog
             </h2>
-            <p className="text-[14px] text-[#6b7b72] leading-[1.8]" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-[14px] text-[#6b7b72] leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Insights, tips, and stories from the world of herbal wellness to inspire your daily routine.
             </p>
-            <div className="mx-auto h-0.5 w-16 bg-[#c49d56] mt-2" />
           </div>
 
           {/* Blog Grid */}
@@ -540,24 +541,24 @@ export default function Home() {
                   <div className="flex items-center gap-3 mb-3">
                     <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-[#8cb73d]">{post.category}</span>
                     <span className="w-1 h-1 rounded-full bg-[#6b7b72]/40" />
-                    <span className="text-[11px] text-[#6b7b72]" style={{ fontFamily: 'Inter, sans-serif' }}>{post.date}</span>
+                    <span className="text-[11px] text-[#6b7b72]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>{post.date}</span>
                   </div>
                   <h3 
                     className="text-[17px] font-bold text-[#1c2e24] leading-[1.4] mb-3 group-hover:text-[#2c4a35] transition-colors"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                    style={{ fontFamily: 'Playfair Display, serif' }}
                   >
                     {post.title}
                   </h3>
                   <p 
                     className="text-[13px] text-[#6b7b72] leading-[1.7] mb-5 flex-grow"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   >
                     {post.excerpt}
                   </p>
                   <Link 
                     href="#" 
                     className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.12em] text-[#2c4a35] hover:text-[#8cb73d] transition-colors group/link"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   >
                     Read More
                     <ArrowRight className="w-3.5 h-3.5 stroke-[2.5] transition-transform duration-300 group-hover/link:translate-x-1" />
@@ -597,13 +598,13 @@ export default function Home() {
               <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#8cb73d] mb-4">About Us</span>
               <h2 
                 className="text-[22px] md:text-[28px] lg:text-[32px] font-medium text-[#1c2e24] leading-[1.35] mb-6 tracking-wide uppercase"
-                style={{ fontFamily: 'Poppins, sans-serif' }}
+                style={{ fontFamily: 'Playfair Display, serif' }}
               >
                 Our Story, Steeped<br/>In Purpose
               </h2>
               <p 
                 className="text-[14px] md:text-[15px] text-[#6b7b72] leading-[1.85] mb-8"
-                style={{ fontFamily: 'Inter, sans-serif' }}
+                style={{ fontFamily: 'Nunito Sans, sans-serif' }}
               >
                 Rooted in traditional herbal wisdom, we craft premium blends from nature's purest ingredients to help you live healthier, one cup at a time.
               </p>
@@ -630,8 +631,8 @@ export default function Home() {
                     </div>
                     
                     <div className="relative z-10 pt-0.5">
-                      <h4 className="text-[14px] font-bold text-[#1c2e24] mb-1 tracking-wide" style={{ fontFamily: 'Poppins, sans-serif' }}>{item.title}</h4>
-                      <p className="text-[12px] text-[#6b7b72] leading-[1.6]" style={{ fontFamily: 'Inter, sans-serif' }}>{item.desc}</p>
+                      <h4 className="text-[14px] font-bold text-[#1c2e24] mb-1 tracking-wide" style={{ fontFamily: 'Playfair Display, serif' }}>{item.title}</h4>
+                      <p className="text-[12px] text-[#6b7b72] leading-[1.6]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>{item.desc}</p>
                     </div>
                   </motion.div>
                 ))}

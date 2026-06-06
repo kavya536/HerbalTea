@@ -70,7 +70,7 @@ export default function ProductDetailsPage() {
         <button
           onClick={() => router.back()}
           className="inline-flex items-center gap-2 text-[#6b7b72] hover:text-[#1c2e24] transition-colors mb-8 text-[14px] font-medium"
-          style={{ fontFamily: 'Inter, sans-serif' }}
+          style={{ fontFamily: 'Nunito Sans, sans-serif' }}
         >
           <ArrowLeft className="w-4 h-4" /> Back to Shop
         </button>
@@ -147,7 +147,7 @@ export default function ProductDetailsPage() {
                   </div>
                   <button 
                     onClick={() => router.push('/cart')}
-                    className="text-xs font-bold bg-[#f21b54] text-white px-3 py-1.5 rounded-lg hover:bg-[#d91449] transition-colors"
+                    className="text-xs font-bold bg-[#e2b755] text-[#1c2e24] px-3 py-1.5 rounded-lg hover:bg-[#d4a844] transition-colors"
                   >
                     View Cart
                   </button>
@@ -156,7 +156,7 @@ export default function ProductDetailsPage() {
             </AnimatePresence>
 
             <div className="flex justify-between items-start gap-4 mb-2">
-              <h1 className="text-[28px] md:text-[34px] font-bold text-[#1c2e24] leading-tight" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <h1 className="text-[28px] md:text-[34px] font-bold text-[#1c2e24] leading-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
                 {product.name}
               </h1>
               <div className="flex items-center gap-3 shrink-0 pt-2">
@@ -178,13 +178,13 @@ export default function ProductDetailsPage() {
                   />
                 ))}
               </div>
-              <span className="text-[#6b7b72] text-[14px]" style={{ fontFamily: 'Inter, sans-serif' }}>
+              <span className="text-[#6b7b72] text-[14px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                 ({product.reviews} customer reviews)
               </span>
             </div>
 
             <div className="flex items-baseline gap-3 mb-6">
-              <span className="text-[32px] font-bold text-[#1c2e24]" style={{ fontFamily: 'Poppins, sans-serif' }}>
+              <span className="text-[32px] font-bold text-[#1c2e24]" style={{ fontFamily: 'Playfair Display, serif' }}>
                 ₹{product.price.toFixed(2)}
               </span>
               {product.originalPrice && (
@@ -199,11 +199,11 @@ export default function ProductDetailsPage() {
               )}
             </div>
 
-            <p className="text-[#6b7b72] text-[15px] leading-relaxed mb-8" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <p className="text-[#6b7b72] text-[15px] leading-relaxed mb-8" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               {product.description}
             </p>
 
-            <div className="flex flex-col gap-3 text-[14px] mb-10" style={{ fontFamily: 'Inter, sans-serif' }}>
+            <div className="flex flex-col gap-3 text-[14px] mb-10" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               <div className="flex gap-2">
                 <span className="font-semibold text-[#1c2e24] w-24">Category:</span>
                 <span className="text-[#6b7b72]">{product.category}</span>
@@ -230,23 +230,23 @@ export default function ProductDetailsPage() {
                 {currentQuantity === 0 ? (
                   <button 
                     onClick={handleAddToCart}
-                    className="flex-1 bg-[#f21b54] text-white hover:bg-[#d91449] font-bold text-[16px] px-4 py-3.5 rounded-xl transition-colors shadow-sm whitespace-nowrap"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    className="flex-1 bg-[#e2b755] text-[#1c2e24] hover:bg-[#d4a844] font-bold text-[16px] px-4 py-3.5 rounded-xl transition-colors shadow-sm whitespace-nowrap"
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   >
                     Add To Cart
                   </button>
                 ) : (
-                  <div className="flex-1 flex items-center justify-between bg-[#f21b54] text-white rounded-xl px-2 py-2 shadow-sm">
+                  <div className="flex-1 flex items-center justify-between bg-[#e2b755] text-[#1c2e24] rounded-xl px-2 py-2 shadow-sm">
                     <button 
                       onClick={decreaseQuantity} 
-                      className="text-white hover:bg-white/20 transition-colors w-10 h-10 flex items-center justify-center rounded-lg text-2xl font-medium"
+                      className="text-[#1c2e24] hover:bg-black/10 transition-colors w-10 h-10 flex items-center justify-center rounded-lg text-2xl font-medium"
                     >
                       -
                     </button>
                     <span className="font-bold text-[18px]">{currentQuantity}</span>
                     <button 
                       onClick={increaseQuantity} 
-                      className="text-white hover:bg-white/20 transition-colors w-10 h-10 flex items-center justify-center rounded-lg text-2xl font-medium"
+                      className="text-[#1c2e24] hover:bg-black/10 transition-colors w-10 h-10 flex items-center justify-center rounded-lg text-2xl font-medium"
                     >
                       +
                     </button>
@@ -259,7 +259,7 @@ export default function ProductDetailsPage() {
                     router.push('/checkout');
                   }}
                   className="flex-1 bg-[#1c2e24] text-white hover:bg-[#2a4536] font-semibold tracking-wide text-[15px] px-4 py-3.5 rounded-xl transition-colors shadow-sm flex items-center justify-center gap-2 whitespace-nowrap"
-                  style={{ fontFamily: 'Inter, sans-serif' }}
+                  style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                 >
                   Buy Now
                 </button>

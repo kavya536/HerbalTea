@@ -75,7 +75,7 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-[32px] sm:text-[40px] md:text-[52px] font-medium text-[#1c2e24] leading-[1.2] mb-6 uppercase"
-            style={{ fontFamily: 'Poppins, sans-serif' }}
+            style={{ fontFamily: 'Playfair Display, serif' }}
           >
             FROM THE BLOG
           </motion.h1>
@@ -84,7 +84,7 @@ export default function BlogPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-[15px] sm:text-[17px] text-[#6b7b72] leading-[1.8] max-w-2xl mx-auto"
-            style={{ fontFamily: 'Inter, sans-serif' }}
+            style={{ fontFamily: 'Nunito Sans, sans-serif' }}
           >
             Insights, tips, and stories from the world of herbal wellness to inspire your daily routine.
           </motion.p>
@@ -121,21 +121,21 @@ export default function BlogPage() {
                       {article.category}
                     </span>
                     <span className="text-[12px] text-[#6b7b72]/60 font-black">•</span>
-                    <span className="text-[11px] text-[#6b7b72]" style={{ fontFamily: 'Inter, sans-serif' }}>
+                    <span className="text-[11px] text-[#6b7b72]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                       {article.date}
                     </span>
                   </div>
                   
                   <h3 
                     className="text-[18px] md:text-[20px] font-semibold text-[#1c2e24] leading-[1.4] mb-3 group-hover:text-[#2c4a35] transition-colors line-clamp-2"
-                    style={{ fontFamily: 'Poppins, sans-serif' }}
+                    style={{ fontFamily: 'Playfair Display, serif' }}
                   >
                     {article.title}
                   </h3>
                   
                   <p 
                     className="text-[14px] text-[#6b7b72] leading-[1.7] mb-6 flex-grow line-clamp-3"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   >
                     {article.description}
                   </p>
@@ -143,7 +143,7 @@ export default function BlogPage() {
                   <Link 
                     href={`/blog/${article.id}`} 
                     className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.15em] text-[#1c2e24] hover:text-[#8cb73d] transition-colors group/link mt-auto w-fit"
-                    style={{ fontFamily: 'Inter, sans-serif' }}
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   >
                     READ MORE <ArrowRight className="h-4 w-4 stroke-[2] transition-transform duration-300 group-hover/link:translate-x-1" />
                   </Link>
