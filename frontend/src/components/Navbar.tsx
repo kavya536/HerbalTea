@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useCartStore } from '../features/cart/cartStore';
-import { ShoppingBag, X, Plus, Minus, Trash2, User as UserIcon, LogOut } from 'lucide-react';
+import { ShoppingBag, X, Plus, Minus, Trash2, User as UserIcon, LogOut, Leaf, Search, Heart } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from '../providers/AuthProvider';
 import { useRouter } from 'next/navigation';
@@ -24,63 +24,95 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Logo */}
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
-            <span className="text-xl font-semibold tracking-wider text-primary">EDUQRA</span>
-            <span className="text-xs uppercase tracking-widest text-accent font-medium">Wellness</span>
+      <header className="sticky top-0 z-40 w-full border-b border-border bg-[#f5f0e6]">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Logo & Nav Links Group */}
+          <div className="flex items-center gap-10">
+            {/* Logo */}
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
+              <Leaf className="h-6 w-6 text-[#2c4a35] fill-[#2c4a35]/15" />
+              <span className="text-xl font-bold tracking-tight text-[#2c4a35]">Herbal Tea</span>
+            </div>
+
+            {/* Nav Links */}
+            <nav className="hidden md:flex items-center gap-6 text-sm font-semibold text-[#2c4a35]">
+              <Link href="/" className="hover:text-accent transition-colors">
+                Home
+              </Link>
+              <Link href="/shop" className="hover:text-accent transition-colors">
+                Shop
+              </Link>
+              <Link href="/blog" className="hover:text-accent transition-colors">
+                Blog
+              </Link>
+              <a href="#" className="hover:text-accent transition-colors">
+                About Us
+              </a>
+              <a href="#" className="hover:text-accent transition-colors">
+                Contact Us
+              </a>
+            </nav>
           </div>
 
-          {/* Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-foreground/80">
-            <Link href="/" className="hover:text-primary transition-colors">Shop</Link>
-            <a href="#" className="hover:text-primary transition-colors">Our Blend</a>
-            <a href="#" className="hover:text-primary transition-colors">Subscriptions</a>
-            <a href="#" className="hover:text-primary transition-colors">About Us</a>
-          </nav>
+          {/* Controls */}
+          <div className="flex items-center gap-3">
+            {/* Search Input */}
+            <div className="relative hidden lg:flex items-center bg-white border border-gray-200/80 rounded-full pl-4 pr-1 py-0.5 w-60 h-10">
+              <input 
+                type="text" 
+                placeholder="Search..." 
+                className="bg-transparent text-xs text-foreground placeholder-gray-400 focus:outline-none w-full pr-6 py-1"
+              />
+              <button className="bg-[#e2b755] text-white p-2 rounded-full hover:bg-[#d4a844] transition-colors flex items-center justify-center cursor-pointer">
+                <Search className="h-4 w-4 text-slate-800" />
+              </button>
+            </div>
 
-          {/* User Controls and Cart */}
-          <div className="flex items-center gap-4">
+            {/* Wishlist Heart */}
+            <button className="bg-[#e2b755] text-white p-2.5 rounded-full hover:bg-[#d4a844] transition-colors flex items-center justify-center cursor-pointer ml-8">
+              <Heart className="h-4.5 w-4.5 text-slate-800" />
+            </button>
+
+            {/* Cart Trigger */}
+            <button
+              onClick={() => router.push('/cart')}
+              className="relative bg-[#e2b755] text-white p-2.5 rounded-full hover:bg-[#d4a844] transition-colors flex items-center justify-center cursor-pointer ml-2"
+              aria-label="Open cart"
+            >
+              <ShoppingBag className="h-4.5 w-4.5 text-slate-800" />
+              {mounted && totalItems > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+
+            {/* User Auth controls */}
             {mounted && (
               <>
                 {user ? (
-                  <div className="flex items-center gap-3 text-xs font-semibold text-primary">
-                    <span className="hidden sm:inline-block max-w-[120px] truncate">
-                      Hi, {user.displayName || user.email?.split('@')[0]}
+                  <div className="flex items-center gap-2 text-xs font-semibold text-primary ml-2">
+                    <span className="hidden sm:inline-block max-w-[80px] truncate">
+                      {user.displayName || user.email?.split('@')[0]}
                     </span>
                     <button
                       onClick={() => logout()}
-                      className="p-2 rounded-full hover:bg-secondary text-primary hover:text-red-600 transition-all cursor-pointer"
+                      className="p-1 rounded-full hover:bg-secondary text-primary hover:text-red-600 transition-all cursor-pointer"
                       title="Sign Out"
                     >
-                      <LogOut className="h-4.5 w-4.5" />
+                      <LogOut className="h-3.5 w-3.5" />
                     </button>
                   </div>
                 ) : (
                   <Link
                     href="/login"
-                    className="inline-flex items-center gap-1.5 rounded-full border border-primary/20 hover:border-primary px-3 py-1.5 text-xs font-semibold text-primary transition-colors"
+                    className="inline-flex items-center gap-1 rounded-full border border-primary/20 hover:border-primary px-2.5 py-1 text-xs font-semibold text-primary transition-colors ml-2"
                   >
-                    <UserIcon className="h-3.5 w-3.5" /> Sign In
+                    <UserIcon className="h-3 w-3" />
                   </Link>
                 )}
               </>
             )}
-
-            {/* Cart Trigger */}
-            <button
-              onClick={() => setIsOpen(true)}
-              className="relative flex items-center justify-center p-2 text-primary hover:text-accent transition-colors cursor-pointer"
-              aria-label="Open cart"
-            >
-              <ShoppingBag className="h-6 w-6 stroke-[1.5]" />
-              {mounted && totalItems > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-accent text-[10px] font-bold text-background animate-pulse">
-                  {totalItems}
-                </span>
-              )}
-            </button>
           </div>
         </div>
       </header>
@@ -136,7 +168,7 @@ export default function Navbar() {
                         <h3 className="text-sm font-medium text-foreground">{item.name}</h3>
                         <p className="text-xs text-muted mt-0.5">SKU: {item.sku}</p>
                         <p className="text-sm font-semibold text-primary mt-2">
-                          ${(item.priceCents / 100).toFixed(2)}
+                          ₹{(item.priceCents / 100).toFixed(2)}
                         </p>
                       </div>
                       <div className="flex flex-col items-end justify-between">
@@ -149,7 +181,13 @@ export default function Navbar() {
                         </button>
                         <div className="flex items-center gap-2.5 rounded-full border border-border bg-background px-2.5 py-1">
                           <button
-                            onClick={() => updateQuantity(item.sku, item.quantity - 1)}
+                            onClick={() => {
+                              if (item.quantity - 1 === 0) {
+                                removeItem(item.sku);
+                              } else {
+                                updateQuantity(item.sku, item.quantity - 1);
+                              }
+                            }}
                             className="text-foreground/70 hover:text-primary cursor-pointer"
                           >
                             <Minus className="h-3 w-3" />
@@ -173,7 +211,7 @@ export default function Navbar() {
                 <div className="border-t border-border bg-secondary/30 p-5 space-y-4">
                   <div className="flex items-center justify-between text-sm font-medium">
                     <span className="text-foreground/70">Subtotal</span>
-                    <span className="text-primary font-semibold">${(getTotalCents() / 100).toFixed(2)}</span>
+                    <span className="text-primary font-semibold">₹{(getTotalCents() / 100).toFixed(2)}</span>
                   </div>
                   <p className="text-[11px] text-muted">Shipping and discounts calculated at checkout.</p>
                   <button
