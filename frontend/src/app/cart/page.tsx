@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '../../features/cart/cartStore';
 import { ArrowLeft, Minus, Plus, X } from 'lucide-react';
+import { useWishlistStore } from '../../features/wishlist/wishlistStore';
 
 // Temporary mock data to map cart items to full product details
 const PRODUCTS = [
@@ -20,8 +21,16 @@ const PRODUCTS = [
 
 export default function CartPage() {
   const router = useRouter();
-  const { items, removeItem, updateQuantity } = useCartStore();
+  const { items, removeItem, updateQuantity, appliedCoupon, setAppliedCoupon } = useCartStore();
+  const { toggleItem, isInWishlist } = useWishlistStore();
   const [mounted, setMounted] = useState(false);
+  const [showCouponModal, setShowCouponModal] = useState(false);
+  const [isCouponSelected, setIsCouponSelected] = useState(true);
+
+  const handleOpenModal = () => {
+    setIsCouponSelected(!!appliedCoupon);
+    setShowCouponModal(true);
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -47,19 +56,34 @@ export default function CartPage() {
 
   const totalProductPrice = enrichedItems.reduce((total, item) => total + (item.product.originalPrice * item.quantity), 0);
   const totalDiscount = enrichedItems.reduce((total, item) => total + ((item.product.originalPrice - (item.priceCents / 100)) * item.quantity), 0);
-  const orderTotal = totalProductPrice - totalDiscount;
+  const totalAppliedDiscount = totalDiscount + (appliedCoupon ? appliedCoupon.discount : 0);
+  const shippingCents = 3000;
+  const orderTotal = totalProductPrice - totalAppliedDiscount + (shippingCents / 100);
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa] py-8 font-sans" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+    <div className="min-h-screen bg-[#f4f2ee] py-8 font-sans" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
       <div className="max-w-[1000px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        <button
-          onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-[#6b7b72] hover:text-[#1c2e24] transition-colors mb-6 text-[14px] font-medium"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Shop
-        </button>
+        <div className="flex items-center justify-between mb-6">
+          <button
+            onClick={() => router.back()}
+            className="w-10 h-10 rounded-full border border-[#d1c8ba] flex items-center justify-center text-[#1c2e24] hover:bg-[#e8e5de] transition-colors"
+            aria-label="Go back"
+          >
+            <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
+          </button>
+          
+          <div className="flex-1 flex justify-center mr-10">
+            <div className="flex items-center gap-2 sm:gap-4 text-[12px] sm:text-[14px] font-bold tracking-widest text-[#03a685]">
+              <span className="border-b-2 border-[#03a685] pb-1">BAG</span>
+              <span className="w-8 sm:w-16 h-px border-t border-dashed border-[#878787]"></span>
+              <span className="text-[#878787]">ADDRESS</span>
+              <span className="w-8 sm:w-16 h-px border-t border-dashed border-[#878787]"></span>
+              <span className="text-[#878787]">PAYMENT</span>
+            </div>
+          </div>
+        </div>
 
         {items.length === 0 ? (
           <div className="bg-white rounded-lg p-10 text-center shadow-sm">
@@ -79,6 +103,21 @@ export default function CartPage() {
             <div className="flex-1">
               <h2 className="text-[18px] font-semibold text-[#333] mb-4">Product Details</h2>
               
+              <div 
+                className="bg-white border border-[#e5e7eb] rounded p-4 mb-4 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition-colors shadow-sm"
+                onClick={() => router.push('/wishlist')}
+              >
+                <div className="flex items-center gap-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#1c2e24]">
+                    <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path>
+                  </svg>
+                  <span className="text-[14px] font-bold text-[#1c2e24]">Add More From Wishlist</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#333]">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+
               <div className="space-y-3">
                 {enrichedItems.map((item) => (
                   <div key={item.sku} className="bg-white border border-[#e5e7eb] rounded overflow-hidden shadow-sm">
@@ -93,7 +132,6 @@ export default function CartPage() {
                         <div className="flex-1 flex flex-col">
                           <div className="flex justify-between items-start">
                             <h3 className="text-[15px] text-[#333] font-medium pr-4">{item.name}</h3>
-                            <button className="text-[#8c317f] text-[13px] font-bold tracking-wide">EDIT</button>
                           </div>
                           
                           <div className="flex items-center gap-2 mt-0.5">
@@ -106,26 +144,28 @@ export default function CartPage() {
                             <span>Size: {item.product.weight}</span>
                             <span className="w-[3px] h-[3px] rounded-full bg-[#878787]"></span>
                             
-                            <div className="flex items-center">
-                              <span>Qty:</span>
-                              <div className="flex items-center ml-1 font-medium">
-                                {item.quantity}
-                              </div>
+                            <div className="flex items-center ml-2 bg-[#f0f0f0] px-2 py-1 rounded">
+                              <span className="text-[#333] font-bold text-[13px]">Qty:</span>
+                              <select 
+                                className="bg-transparent border-none outline-none ml-1 cursor-pointer text-[13px] font-bold text-[#333]"
+                                value={item.quantity}
+                                onChange={(e) => updateQuantity(item.sku, parseInt(e.target.value))}
+                              >
+                                {[1,2,3,4,5,6,7,8,9,10].map(n => (
+                                  <option key={n} value={n}>{n}</option>
+                                ))}
+                              </select>
                             </div>
                           </div>
                           
-                          <button 
-                            onClick={() => {
-                              if (item.quantity <= 1) {
-                                removeItem(item.sku);
-                              } else {
-                                updateQuantity(item.sku, item.quantity - 1);
-                              }
-                            }}
-                            className="flex items-center gap-1 mt-3 text-[13px] font-medium text-[#555] hover:text-[#333] transition-colors self-start"
-                          >
-                            <X className="w-[14px] h-[14px]" /> REMOVE
-                          </button>
+                          <div className="flex items-center gap-4 mt-3 pt-3 border-t border-[#f0f0f0] text-[13px] font-bold text-[#555]">
+                            <button 
+                              onClick={() => removeItem(item.sku)}
+                              className="hover:text-[#333] transition-colors"
+                            >
+                              REMOVE
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -142,23 +182,77 @@ export default function CartPage() {
             {/* Right Column: Price Details */}
             <div className="w-full lg:w-[320px]">
               <div className="sticky top-24">
-                <h2 className="text-[16px] font-bold text-[#333] mb-4 border-b border-[#f0f0f0] pb-2">Price Details ({totalItems} Items)</h2>
+                
+                {/* Coupons Section */}
+                <h2 className="text-[12px] font-bold text-[#555] mb-2 uppercase tracking-wide">Offers & Coupons</h2>
+                <div className="bg-white border border-[#e5e7eb] rounded p-4 shadow-sm mb-4">
+                  {appliedCoupon ? (
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#333]">
+                          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                          <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                        </svg>
+                        <div>
+                          <div className="text-[14px] font-bold text-[#333]">1 Coupon applied</div>
+                          <div className="text-[12px] text-[#03a685]">You saved additional ₹{appliedCoupon.discount}</div>
+                        </div>
+                      </div>
+                      <button 
+                        onClick={handleOpenModal}
+                        className="border border-[#eab308] text-[#eab308] px-4 py-1 rounded text-[12px] font-bold hover:bg-[#fefce8] transition-colors"
+                      >
+                        EDIT
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#333]">
+                          <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                          <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                        </svg>
+                        <span className="text-[14px] font-bold text-[#333]">Apply Coupons</span>
+                      </div>
+                      <button 
+                        onClick={handleOpenModal}
+                        className="border border-[#eab308] text-[#eab308] px-4 py-1 rounded text-[12px] font-bold hover:bg-[#fefce8] transition-colors"
+                      >
+                        APPLY
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                <h2 className="text-[12px] font-bold text-[#555] mb-2 uppercase tracking-wide border-t border-[#f0f0f0] pt-4">Price Details ({totalItems} Items)</h2>
                 
                 <div className="bg-white border border-[#e5e7eb] rounded p-4 shadow-sm">
                   <div className="space-y-3 mb-4">
                     <div className="flex justify-between text-[14px] text-[#555]">
-                      <span>Product Price</span>
-                      <span>+ ₹{totalProductPrice.toFixed(0)}</span>
+                      <span>Total MRP</span>
+                      <span>₹{totalProductPrice.toFixed(0)}</span>
                     </div>
                     <div className="flex justify-between text-[14px] text-[#03a685]">
-                      <span>Total Discounts</span>
+                      <span>Discount on MRP</span>
                       <span>- ₹{totalDiscount.toFixed(0)}</span>
+                    </div>
+                    <div className="flex justify-between text-[14px] text-[#03a685]">
+                      <span className="text-[#555] flex items-center gap-1">Coupon Discount</span>
+                      {appliedCoupon ? (
+                        <span>-₹{appliedCoupon.discount}</span>
+                      ) : (
+                        <span className="text-[#eab308] font-medium cursor-pointer" onClick={handleOpenModal}>Apply Coupon</span>
+                      )}
+                    </div>
+                    <div className="flex justify-between text-[14px] text-[#555]">
+                      <span>Delivery Charges</span>
+                      <span>₹30</span>
                     </div>
                   </div>
                   
                   <div className="border-t border-dashed border-[#d5d5d5] pt-4 mb-4">
                     <div className="flex justify-between text-[16px] font-bold text-[#333]">
-                      <span>Order Total</span>
+                      <span>Total Amount</span>
                       <span>₹{orderTotal.toFixed(0)}</span>
                     </div>
                   </div>
@@ -167,7 +261,7 @@ export default function CartPage() {
                     <div className="w-[14px] h-[14px] rounded-full bg-[#03a685] text-white flex items-center justify-center text-[10px] leading-none shrink-0">
                       %
                     </div>
-                    Yay! Your total discount is ₹{totalDiscount.toFixed(0)}
+                    Yay! Your total discount is ₹{totalAppliedDiscount.toFixed(0)}
                   </div>
                   
                   <div className="text-center relative">
@@ -198,6 +292,78 @@ export default function CartPage() {
           </div>
         )}
       </div>
+
+      {/* Coupon Modal */}
+      {showCouponModal && (
+        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+          <div className="bg-white w-full max-w-[400px] h-[500px] rounded flex flex-col relative overflow-hidden shadow-xl animate-in fade-in zoom-in duration-200">
+            <div className="p-4 border-b border-[#f0f0f0] flex justify-between items-center">
+              <h3 className="text-[14px] font-bold text-[#333]">APPLY COUPON</h3>
+              <button onClick={() => setShowCouponModal(false)} className="text-[#555] hover:text-[#333]">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="p-4 bg-[#f9f9f9]">
+              <div className="flex h-[40px] bg-white border border-[#e5e7eb] rounded overflow-hidden">
+                <input 
+                  type="text" 
+                  placeholder="Enter coupon code" 
+                  className="flex-1 px-3 text-[14px] outline-none"
+                />
+                <button className="text-[#eab308] font-bold px-4 text-[14px] hover:bg-[#fefce8]">
+                  CHECK
+                </button>
+              </div>
+            </div>
+            
+            <div className="flex-1 overflow-y-auto p-4 bg-[#f9f9f9]">
+              <div className="flex gap-3 mb-4">
+                <input 
+                  type="checkbox" 
+                  checked={isCouponSelected} 
+                  onChange={(e) => setIsCouponSelected(e.target.checked)}
+                  className="mt-1 w-4 h-4 accent-[#eab308] rounded shrink-0 cursor-pointer" 
+                />
+                <div className="flex-1 border border-[#eab308] rounded bg-white relative overflow-hidden">
+                  {/* Dashed Left Border detail like myntra */}
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-[#eab308]"></div>
+                  
+                  <div className="p-3 pl-4">
+                    <div className="inline-block border border-[#eab308] border-dashed text-[#eab308] font-bold px-2 py-1 text-[14px] mb-2 rounded-sm bg-[#fefce8]">
+                      EORS50OFF
+                    </div>
+                    <div className="text-[14px] font-bold text-[#333] mb-1">Save ₹118</div>
+                    <div className="text-[13px] text-[#555] mb-2 leading-tight">50% off on minimum purchase of Rs. 149.</div>
+                    <div className="text-[12px] text-[#878787] pt-2 border-t border-[#f0f0f0]">Expires on: 14th June 2026 | 11:59 PM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="border-t border-[#f0f0f0] p-4 flex justify-between items-center bg-white shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+              <div>
+                <div className="text-[12px] text-[#555]">Maximum savings:</div>
+                <div className="text-[18px] font-bold text-[#333]">₹118</div>
+              </div>
+              <button 
+                onClick={() => {
+                  if (isCouponSelected) {
+                    setAppliedCoupon({ code: 'EORS50OFF', discount: 118 });
+                  } else {
+                    setAppliedCoupon(null);
+                  }
+                  setShowCouponModal(false);
+                }}
+                className="bg-[#eab308] text-white px-10 py-2.5 rounded font-bold text-[14px] hover:bg-[#ca8a04] transition-colors"
+              >
+                APPLY
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

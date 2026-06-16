@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Define protected paths
-  const isProtectedPath = pathname.startsWith('/checkout') && !pathname.startsWith('/checkout/success');
+  const isProtectedPath = false; // Allow guest checkout
 
   // If path is protected and no token is present, redirect to login
   if (isProtectedPath && !token) {

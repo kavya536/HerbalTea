@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Leaf, Star, Heart } from 'lucide-react';
+import { ArrowLeft, Leaf, Star, Heart, Search } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '../../features/cart/cartStore';
 
@@ -80,6 +80,55 @@ export default function ShopPage() {
         </div>
       </div>
 
+      {/* Special Herbal Discounts Section */}
+      <div className="w-full relative z-20">
+        <div className="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-0 lg:pt-12 lg:pb-0 relative">
+          
+          <div className="relative z-10 flex flex-col lg:flex-row items-center gap-10">
+            {/* Left Content */}
+            <div className="lg:w-1/3 text-center lg:text-left">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="flex flex-col items-center lg:items-start"
+              >
+                <div className="flex items-center gap-2 mb-2">
+                  <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
+                  <span className="text-[#2c4a35] font-semibold tracking-widest text-[13px] uppercase" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>Exclusive Offers</span>
+                </div>
+                <h2 className="text-3xl md:text-4xl text-[#1c2e24] font-medium mb-3 leading-none" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  Nature's Best,<br /> For Less.
+                </h2>
+                <p className="text-[#6b7b72] text-sm md:text-base leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  Enhance your holistic health journey with our premium wellness blends. Enjoy up to 20% off on our handpicked herbal selections.
+                </p>
+              </motion.div>
+            </div>
+            
+            {/* Right Content - Discounted Products */}
+            <div className="lg:w-2/3 w-full flex flex-col sm:flex-row gap-5 justify-center lg:justify-end">
+              {PRODUCTS.filter(p => p.discount && p.discount >= 15).slice(0, 3).map((product, index) => (
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  key={`discount-offer-${product.id}`} 
+                  onClick={() => router.push(`/shop/${product.id}`)}
+                  className="relative aspect-square w-full sm:w-[180px] lg:w-[200px] rounded-2xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.2)] group cursor-pointer border border-[#2c4a35]/60"
+                >
+                  <img src={product.img} alt={product.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" />
+                  <div className="absolute top-3 right-3 bg-[#e2b755] text-[#1c2e24] text-[13px] font-bold px-3 py-1 rounded-md shadow-md">
+                    {product.discount}% OFF
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Shop Content Area */}
       <div className="max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
@@ -95,25 +144,36 @@ export default function ShopPage() {
                   transition={{ duration: 0.5 }}
                   key={product.id} 
                   onClick={() => router.push(`/shop/${product.id}`)}
-                  className="flex flex-col group cursor-pointer bg-white rounded-2xl border border-[#e8e5de] p-3.5 shadow-[0_4px_20px_-6px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_32px_-8px_rgba(28,46,36,0.12)] hover:-translate-y-1.5 transition-all duration-300"
+                  className="flex flex-col group cursor-pointer bg-white rounded-[20px] border border-[#e8e5de] overflow-hidden shadow-[0_4px_20px_-6px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_32px_-8px_rgba(28,46,36,0.12)] hover:-translate-y-1.5 transition-all duration-300 aspect-[3/4]"
                 >
-                  {/* Product Image */}
-                  <div className="relative aspect-[4/5] bg-[#f9f8f6] rounded-xl overflow-hidden mb-4">
+                  {/* Product Image 70% */}
+                  <div className="relative h-[70%] w-full bg-[#f9f8f6] overflow-hidden">
                     <img 
                       src={product.img} 
                       alt={product.name} 
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
+                      className={`w-full h-full object-cover transition-transform duration-700 ease-in-out ${product.id === 1 ? 'scale-[1.35] group-hover:scale-[1.45]' : 'group-hover:scale-110'}`} 
                     />
                   </div>
                   
-                  {/* Product Details (Title, Prices, Reviews) matching Image 1 */}
-                  <div className="flex flex-col px-1 pb-2">
-                    <h4 className="font-medium text-gray-500 text-[14px] truncate mb-2" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                      {product.name}
-                    </h4>
+                  {/* Product Details 30% */}
+                  <div className="flex flex-col justify-between h-[30%] p-4">
+                    <div className="flex justify-between items-start gap-2">
+                      <h4 className="font-semibold text-[#1c2e24] text-[18px] line-clamp-1" style={{ fontFamily: 'Playfair Display, serif' }}>
+                        {product.name}
+                      </h4>
+                      {/* Rating Badge & Reviews */}
+                      <div className="flex flex-col items-end gap-1 shrink-0 mt-0.5">
+                        <div className="bg-[#e2b755] text-white text-[11px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                          {product.rating.toFixed(1)} <Star className="w-2.5 h-2.5 fill-white text-white" />
+                        </div>
+                        <span className="text-[#6b7b72] text-[10px] font-medium whitespace-nowrap">
+                          {product.reviews} reviews
+                        </span>
+                      </div>
+                    </div>
                     
-                    <div className="flex items-baseline gap-2 mb-3">
-                      <span className="font-bold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                    <div className="flex items-baseline gap-2 mt-auto">
+                      <span className="font-bold text-[#1c2e24] text-[18px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                         ₹{product.price}
                       </span>
                       {product.originalPrice && (
@@ -122,19 +182,10 @@ export default function ShopPage() {
                         </span>
                       )}
                       {product.discount && (
-                        <span className="text-[#008c5a] font-bold text-[13px]">
+                        <span className="text-[#8cb73d] font-bold text-[12px] ml-1">
                           {product.discount}% off
                         </span>
                       )}
-                    </div>
-                    
-                    <div className="flex items-center gap-2 mt-auto">
-                      <div className="bg-[#008c5a] text-white text-[12px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                        {product.rating.toFixed(1)} <Star className="w-3 h-3 fill-white" />
-                      </div>
-                      <span className="text-gray-500 text-[12px] font-medium">
-                        {product.reviews} Reviews
-                      </span>
                     </div>
                   </div>
                 </motion.div>
@@ -157,16 +208,16 @@ export default function ShopPage() {
                 <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
                 <h3 className="font-semibold text-[#1c2e24] text-[16px]" style={{ fontFamily: 'Playfair Display, serif' }}>Search by Products</h3>
               </div>
-              <div className="flex shadow-sm rounded-full bg-white">
+              <div className="relative flex items-center bg-white border border-[#e8e5de] rounded-full pl-5 pr-1.5 py-1.5 w-full shadow-sm focus-within:border-[#e2b755] focus-within:ring-1 focus-within:ring-[#e2b755] transition-all">
                 <input 
                   type="text" 
                   placeholder="Search..." 
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-transparent border-y border-l border-[#e8e5de] rounded-l-full px-5 py-2.5 w-full focus:outline-none focus:border-[#e2b755] text-[14px] text-[#1c2e24] placeholder:text-[#8b9992] transition-colors" 
+                  className="bg-transparent text-[16px] text-[#1c2e24] placeholder:text-[#8b9992] focus:outline-none w-full pr-4 py-2.5" 
                 />
-                <button className="bg-[#e2b755] text-[#1c2e24] px-6 py-2.5 rounded-r-full font-semibold text-[14px] hover:bg-[#d4a844] transition-colors border-y border-r border-[#e2b755]">
-                  Search
+                <button className="bg-[#e2b755] text-white p-3 rounded-full hover:bg-[#d4a844] transition-colors flex items-center justify-center cursor-pointer shrink-0">
+                  <Search className="h-5 w-5 text-slate-800" />
                 </button>
               </div>
             </div>
@@ -254,14 +305,14 @@ export default function ShopPage() {
               <div className="px-1 flex flex-col">
                 <input 
                   type="range" 
-                  min="4" 
+                  min="200" 
                   max="1020" 
                   value={priceValue}
                   onChange={(e) => setPriceValue(Number(e.target.value))}
                   className="w-full h-1.5 bg-[#d1c8ba] rounded-full appearance-none outline-none cursor-pointer accent-[#2c4a35] mb-3"
                 />
                 <div className="flex justify-between text-[13px] text-[#1c2e24] font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                  <span>₹4</span>
+                  <span>₹200</span>
                   <span className="text-[#8cb73d] font-bold">Max: ₹{priceValue}</span>
                   <span>₹1020</span>
                 </div>

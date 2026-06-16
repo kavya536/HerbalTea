@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Heart, Share2, ChevronLeft, ChevronRight, ArrowLeft, Check } from 'lucide-react';
 import { useCartStore } from '../../../features/cart/cartStore';
+import { useWishlistStore } from '../../../features/wishlist/wishlistStore';
 
 // Temporary mock data. In a real app, this would be fetched based on the ID.
 const PRODUCTS = [
@@ -23,6 +24,7 @@ export default function ProductDetailsPage() {
   const params = useParams();
   const router = useRouter();
   const { addItem, items, updateQuantity, removeItem } = useCartStore();
+  const { toggleItem, isInWishlist } = useWishlistStore();
   
   const [mainImageIndex, setMainImageIndex] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
@@ -35,15 +37,26 @@ export default function ProductDetailsPage() {
   const cartItem = items.find(i => i.sku === sku);
   const currentQuantity = cartItem?.quantity || 0;
 
-  // Mock gallery images
-  const gallery = [product.img, "/home/img2.jpg", "/home/img4.jpg", "/home/herbal.jpg"];
+  // Mock gallery images showing different simulated views of the same product
+  const gallery = [product.img, product.img, product.img, product.img];
+
+  // Helper to simulate different angles/zooms using CSS transforms
+  const getTransformForIndex = (index: number) => {
+    switch(index) {
+      case 1: return 'scale-110 -translate-x-2'; // Simulated side view
+      case 2: return 'scale-[1.15] translate-y-1'; // Simulated back/angle view
+      case 3: return 'scale-[1.3] translate-y-4'; // Simulated zoom
+      default: return 'scale-100'; // Default view
+    }
+  };
 
   const handleAddToCart = () => {
     if (!cartItem) {
       addItem({
         sku,
         name: product.name,
-        priceCents: product.price * 100
+        priceCents: product.price * 100,
+        image: product.img
       });
     }
     setIsAdded(true);
@@ -69,10 +82,10 @@ export default function ProductDetailsPage() {
         {/* Back Navigation */}
         <button
           onClick={() => router.back()}
-          className="inline-flex items-center gap-2 text-[#6b7b72] hover:text-[#1c2e24] transition-colors mb-8 text-[14px] font-medium"
-          style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+          className="w-10 h-10 rounded-full border border-[#d1c8ba] flex items-center justify-center text-[#1c2e24] hover:bg-[#e8e5de] transition-colors mb-8"
+          aria-label="Go back"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Shop
+          <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
         </button>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
@@ -89,7 +102,7 @@ export default function ProductDetailsPage() {
               <img
                 src={gallery[mainImageIndex]}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover transition-transform duration-500 ease-in-out ${getTransformForIndex(mainImageIndex)}`}
               />
 
               {/* Carousel Arrows */}
@@ -115,7 +128,7 @@ export default function ProductDetailsPage() {
                   onClick={() => setMainImageIndex(idx)}
                   className={`aspect-square rounded-xl overflow-hidden border-2 transition-all ${mainImageIndex === idx ? 'border-[#8cb73d]' : 'border-transparent hover:border-[#d1c8ba]'}`}
                 >
-                  <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                  <img src={img} alt={`Thumbnail ${idx + 1}`} className={`w-full h-full object-cover ${getTransformForIndex(idx)}`} />
                 </button>
               ))}
             </div>
@@ -160,8 +173,11 @@ export default function ProductDetailsPage() {
                 {product.name}
               </h1>
               <div className="flex items-center gap-3 shrink-0 pt-2">
-                <button className="text-[#e2b755] hover:text-[#d4a844] transition-colors">
-                  <Heart className="w-5 h-5 fill-current" />
+                <button 
+                  onClick={() => toggleItem(product.id)}
+                  className="text-[#e2b755] hover:text-[#d4a844] transition-colors"
+                >
+                  <Heart className={`w-5 h-5 ${isInWishlist(product.id) ? 'fill-current' : 'fill-transparent'}`} />
                 </button>
                 <button className="text-[#e2b755] hover:text-[#d4a844] transition-colors">
                   <Share2 className="w-5 h-5" />
@@ -267,6 +283,71 @@ export default function ProductDetailsPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* Similar Products Section */}
+        <div className="mt-12 md:mt-16">
+          <div className="mb-10">
+            <h2 className="text-[24px] md:text-[30px] font-bold text-[#1c2e24]" style={{ fontFamily: 'Playfair Display, serif' }}>Similar Products</h2>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {PRODUCTS.filter(p => p.id !== product.id).slice(0, 4).map((similar, idx) => (
+              <motion.div 
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1 }}
+                key={similar.id} 
+                onClick={() => router.push(`/shop/${similar.id}`)}
+                className="flex flex-col group cursor-pointer bg-white rounded-[20px] border border-[#e8e5de] overflow-hidden shadow-[0_4px_20px_-6px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_32px_-8px_rgba(28,46,36,0.12)] hover:-translate-y-1.5 transition-all duration-300 aspect-[3/4]"
+              >
+                {/* Product Image 70% */}
+                <div className="relative h-[70%] w-full bg-[#f9f8f6] overflow-hidden">
+                  <img 
+                    src={similar.img} 
+                    alt={similar.name} 
+                    className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out ${similar.id === 1 ? 'scale-[1.35] group-hover:scale-[1.45]' : ''}`} 
+                  />
+                </div>
+                
+                {/* Product Details 30% */}
+                <div className="flex flex-col justify-between h-[30%] p-4">
+                  <div className="flex justify-between items-start gap-2">
+                    <h4 className="font-semibold text-[#1c2e24] text-[18px] line-clamp-1" style={{ fontFamily: 'Playfair Display, serif' }}>
+                      {similar.name}
+                    </h4>
+                    {/* Rating Badge & Reviews */}
+                    <div className="flex flex-col items-end gap-1 shrink-0 mt-0.5">
+                      <div className="bg-[#e2b755] text-white text-[11px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
+                        {similar.rating?.toFixed(1) || "4.5"} <Star className="w-2.5 h-2.5 fill-white text-white" />
+                      </div>
+                      <span className="text-[#6b7b72] text-[10px] font-medium whitespace-nowrap">
+                        {similar.reviews || "124"} reviews
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-baseline gap-2 mt-auto">
+                    <span className="font-bold text-[#1c2e24] text-[18px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                      ₹{similar.price}
+                    </span>
+                    {similar.originalPrice && (
+                      <span className="text-gray-400 text-[13px] line-through decoration-gray-300">
+                        ₹{similar.originalPrice}
+                      </span>
+                    )}
+                    {similar.discount && (
+                      <span className="text-[#8cb73d] font-bold text-[12px] ml-1">
+                        {similar.discount}% off
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </div>
   );

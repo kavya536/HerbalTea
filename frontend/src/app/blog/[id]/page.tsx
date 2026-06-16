@@ -81,13 +81,13 @@ export default function BlogPostPage() {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Link 
-            href="/blog" 
-            className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.15em] text-[#6b7b72] hover:text-[#2c4a35] transition-all duration-300 mb-12 md:mb-16 hover:-translate-x-1"
-            style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+          <button 
+            onClick={() => window.history.back()}
+            className="w-10 h-10 rounded-full border border-[#d1c8ba] flex items-center justify-center text-[#1c2e24] hover:bg-[#e8e5de] transition-colors mb-12 md:mb-16"
+            aria-label="Go back"
           >
-            <ArrowLeft className="h-4 w-4 stroke-[2]" /> Back to Journal
-          </Link>
+            <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
+          </button>
         </motion.div>
 
         {/* Editorial Header */}

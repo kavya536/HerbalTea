@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useCartStore } from '../features/cart/cartStore';
+import { useWishlistStore } from '../features/wishlist/wishlistStore';
 import { ShoppingBag, X, Plus, Minus, Trash2, User as UserIcon, LogOut, Leaf, Search, Heart, Menu } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from '../providers/AuthProvider';
@@ -10,6 +11,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
   const { items, addItem, removeItem, updateQuantity, getTotalCents, getItemCount } = useCartStore();
+  const wishlistItems = useWishlistStore(state => state.items);
   const { user, logout } = useAuth();
   const router = useRouter();
   
@@ -22,6 +24,7 @@ export default function Navbar() {
   }, []);
 
   const totalItems = mounted ? getItemCount() : 0;
+  const wishlistCount = mounted ? wishlistItems.length : 0;
 
   return (
     <>
@@ -67,8 +70,17 @@ export default function Navbar() {
             </div>
 
             {/* Wishlist Heart */}
-            <button className="bg-[#e2b755] text-white p-2.5 rounded-full hover:bg-[#d4a844] transition-colors flex items-center justify-center cursor-pointer ml-8">
+            <button 
+              onClick={() => router.push('/wishlist')}
+              className="relative bg-[#e2b755] text-white p-2.5 rounded-full hover:bg-[#d4a844] transition-colors flex items-center justify-center cursor-pointer ml-8"
+              aria-label="Open wishlist"
+            >
               <Heart className="h-4.5 w-4.5 text-slate-800" />
+              {wishlistCount > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 flex h-4.5 w-4.5 items-center justify-center rounded-full bg-red-500 text-[9px] font-bold text-white">
+                  {wishlistCount}
+                </span>
+              )}
             </button>
 
             {/* Cart Trigger */}

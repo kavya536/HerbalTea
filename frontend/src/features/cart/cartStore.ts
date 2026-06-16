@@ -6,14 +6,22 @@ export interface CartItem {
   name: string;
   priceCents: number;
   quantity: number;
+  image?: string;
+}
+
+export interface AppliedCoupon {
+  code: string;
+  discount: number;
 }
 
 interface CartState {
   items: CartItem[];
+  appliedCoupon: AppliedCoupon | null;
   addItem: (item: Omit<CartItem, 'quantity'>) => void;
   removeItem: (sku: string) => void;
   updateQuantity: (sku: string, quantity: number) => void;
   clearCart: () => void;
+  setAppliedCoupon: (coupon: AppliedCoupon | null) => void;
   getTotalCents: () => number;
   getItemCount: () => number;
 }
@@ -22,6 +30,7 @@ export const useCartStore = create<CartState>()(
   persist(
     (set, get) => ({
       items: [],
+      appliedCoupon: null,
       addItem: (item) => set((state) => {
         const existing = state.items.find((i) => i.sku === item.sku);
         if (existing) {
@@ -41,7 +50,8 @@ export const useCartStore = create<CartState>()(
           i.sku === sku ? { ...i, quantity: Math.max(1, quantity) } : i
         ),
       })),
-      clearCart: () => set({ items: [] }),
+      clearCart: () => set({ items: [], appliedCoupon: null }),
+      setAppliedCoupon: (coupon) => set({ appliedCoupon: coupon }),
       getTotalCents: () => {
         return get().items.reduce((total, item) => total + item.priceCents * item.quantity, 0);
       },
