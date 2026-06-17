@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useCartStore } from '../features/cart/cartStore';
-import { Star, Flame, Sparkles, HeartPulse, ShieldAlert, ArrowRight, Leaf, Globe, Sprout, Heart, Wind, ShieldCheck, ChevronDown, X, Clock, ShoppingBag, ShoppingCart, CreditCard, Coffee, ClipboardCheck, Quote, ChevronLeft, ChevronRight, Award, Smile } from 'lucide-react';
+import { Star, Flame, Sparkles, HeartPulse, ShieldAlert, ArrowRight, Leaf, Globe, Sprout, Heart, Wind, ShieldCheck, ChevronDown, X, Clock, ShoppingBag, ShoppingCart, CreditCard, Coffee, ClipboardCheck, Quote, ChevronLeft, ChevronRight, Award, Smile, Eye } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 
@@ -218,46 +218,45 @@ const WELLNESS_CARDS = [
 const FEATURED_PRODUCTS = [
   {
     id: "fp-1",
-    name: "Ruby Calm Tea",
-    badge: "Women's Wellness Blend",
+    name: "Calm Herbal Tea",
+    badge: "Relaxation Blend",
     description: "A soothing blend to help you relax and find your inner calm.",
     price: 399,
     originalPrice: 499,
-    image: "/home/img1.jpg",
+    image: "/home/about_us.png",
     bestseller: true
   },
   {
     id: "fp-2",
-    name: "Golden Armor Tea",
-    badge: "Immunity Support",
-    description: "Powerful herbs that support your body's natural defenses.",
+    name: "Ruby Calm Tea",
+    badge: "Women's Wellness Blend",
+    description: "Carefully crafted to support hormonal balance and harmony from within.",
     price: 449,
     originalPrice: 599,
-    image: "/home/img2.jpg",
+    image: "/home/ruby_calm_hero.png",
     bestseller: true
   },
   {
     id: "fp-3",
-    name: "Breathe Easy Tea",
-    badge: "Respiratory Wellness",
-    description: "A refreshing blend that supports easy breathing and clarity.",
+    name: "Daily Detox Tea",
+    badge: "Purifying Blend",
+    description: "A refreshing blend that supports daily detox and inner clarity.",
     price: 349,
     originalPrice: 449,
-    image: "/home/img3.jpg",
+    image: "/home/detox_tea.png",
     bestseller: true
   },
   {
     id: "fp-4",
-    name: "Gentle Flow Tea",
-    badge: "Digestive Wellness",
-    description: "Supports healthy digestion and promotes a light, comfortable feel.",
+    name: "Zen Digest Blend",
+    badge: "Daily Digestive Relief",
+    description: "Daily digestive relief blend with Ginger, Peppermint, Fennel, and Chamomile.",
     price: 399,
     originalPrice: 499,
-    image: "/home/img4.jpg",
-    bestseller: true
+    image: "/home/digestive_herbal_img.png",
+    bestseller: false
   }
 ];
-
 function FeaturedProductCard({ product, index }: { product: any, index?: number }) {
   const addItem = useCartStore((state) => state.addItem);
 
@@ -270,41 +269,59 @@ function FeaturedProductCard({ product, index }: { product: any, index?: number 
     });
   };
 
+  const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+
   return (
-    <div className="group bg-[#fdfcf9] rounded-[24px] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 flex flex-col h-full border border-black/5">
-      {/* Top Section: Image */}
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-white">
+    <div className="group bg-white flex flex-col h-full border border-[#f0f0f0] transition-shadow duration-300 hover:shadow-lg cursor-pointer">
+      {/* Top Section: Image Area */}
+      <div className="relative aspect-[4/5] w-full bg-[#f9f9f9] flex items-center justify-center overflow-hidden">
+        {/* Discount Badge */}
+        {discount > 0 && (
+          <div className="absolute top-4 right-4 bg-[#8cb73d] text-white text-[13px] font-bold px-3 py-1 rounded-tl-[12px] rounded-tr-[12px] rounded-br-[12px] rounded-bl-sm z-10 tracking-wide">
+            {index === 0 ? 'NEW' : `-${discount}%`}
+          </div>
+        )}
         <img 
           src={product.image} 
           alt={product.name} 
-          className={`w-full h-full object-cover transition-transform duration-700 ${index === 0 ? 'scale-[1.4] group-hover:scale-[1.5]' : 'group-hover:scale-110'}`} 
+          className="w-full h-full mix-blend-multiply object-cover group-hover:scale-105 transition-transform duration-700" 
         />
+
+        {/* Hover Action Buttons */}
+        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
+          <button className="w-[60px] h-[60px] bg-white rounded-full flex items-center justify-center text-[#1a202c] hover:text-white hover:bg-[#8cb73d] transition-all shadow-md transform translate-y-4 group-hover:translate-y-0 duration-300 ease-out">
+            <Eye className="w-[26px] h-[26px]" strokeWidth={2.5} />
+          </button>
+          <button onClick={(e) => { e.stopPropagation(); handleAddToCart(); }} className="w-[60px] h-[60px] bg-white rounded-full flex items-center justify-center text-[#1a202c] hover:text-white hover:bg-[#8cb73d] transition-all shadow-md transform translate-y-4 group-hover:translate-y-0 duration-300 delay-75 ease-out">
+            <ShoppingCart className="w-[26px] h-[26px]" strokeWidth={2.5} />
+          </button>
+          <button className="w-[60px] h-[60px] bg-white rounded-full flex items-center justify-center text-[#1a202c] hover:text-white hover:bg-[#8cb73d] transition-all shadow-md transform translate-y-4 group-hover:translate-y-0 duration-300 delay-150 ease-out">
+            <Heart className="w-[26px] h-[26px]" strokeWidth={2.5} />
+          </button>
+        </div>
       </div>
 
       {/* Content Section */}
-      <div className="p-6 flex flex-col flex-grow">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-[20px] font-bold text-[#1c2e24] leading-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
-            {product.name}
-          </h3>
-        </div>
-        
-        <p className="text-[13px] text-[#6b7b72] mb-6 leading-relaxed flex-grow">
-          {product.description}
-        </p>
-        
-        <div className="flex items-end gap-2 mb-6 w-full mt-auto">
-          <span className="text-[18px] font-bold text-[#1c2e24] leading-none tracking-tight">₹{product.price}</span>
-          <span className="text-[12px] font-bold text-[#a4aca7] line-through leading-none mb-[2px]">₹{product.originalPrice}</span>
+      <div className="pt-6 pb-8 px-6 flex flex-col items-center flex-grow bg-white text-center">
+        {/* Stars */}
+        <div className="flex items-center justify-center gap-[2px] mb-4">
+          {[...Array(4)].map((_, i) => (
+            <Star key={i} className="w-[15px] h-[15px] text-[#ffc107] fill-[#ffc107]" />
+          ))}
+          <Star className="w-[15px] h-[15px] text-[#ffc107]" />
+          <span className="text-[13px] text-[#8cb73d] ml-1.5 font-semibold">(24)</span>
         </div>
 
-        <button 
-          onClick={handleAddToCart}
-          className="w-full bg-[#1c2e24] hover:bg-[#2c4a35] text-white py-3 rounded-lg text-[12px] font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center shadow-md hover:shadow-xl hover:-translate-y-0.5"
-          style={{ fontFamily: 'Nunito Sans, sans-serif' }}
-        >
-          ADD TO CART
-        </button>
+        {/* Title */}
+        <h3 className="text-[16px] font-bold text-[#1f2937] leading-tight mb-4" style={{ fontFamily: 'Inter, sans-serif' }}>
+          {product.name}
+        </h3>
+        
+        {/* Price */}
+        <div className="flex items-center justify-center gap-3">
+          <span className="text-[20px] font-extrabold text-[#8cb73d] leading-none">₹{product.price}</span>
+          <span className="text-[18px] font-bold text-[#c4c4c4] line-through leading-none">₹{product.originalPrice}</span>
+        </div>
       </div>
     </div>
   );
@@ -470,8 +487,191 @@ function HowItWorksSection() {
   );
 }
 
+function WellnessSolutionsSection() {
+  const [activeId, setActiveId] = useState<number | null>(null);
+
+  const solutions = [
+    {
+      id: 1,
+      title: "Looking For\nBetter Digestion?",
+      desc: "Support your gut\nhealth naturally.",
+      bgColor: "bg-[#e8efe2]",
+      iconColor: "text-[#4a5c3f]",
+      icon: <img src="/home/diges.png" alt="Digestion" className="w-[100px] h-[100px] object-contain scale-110" />
+    },
+    {
+      id: 2,
+      title: "Looking For\nRelaxation?",
+      desc: "Calm your mind and\nrelax your body.",
+      bgColor: "bg-[#ece5fb]", // light purple
+      iconColor: "text-[#6543b5]", // purple
+      icon: <img src="/home/meditation.png" alt="Relaxation" className="w-[100px] h-[100px] object-contain scale-110" />
+    },
+    {
+      id: 3,
+      title: "Need Detox\nSupport?",
+      desc: "Cleanse and refresh\nyour body.",
+      bgColor: "bg-[#e8efe2]",
+      iconColor: "text-[#4a5c3f]",
+      icon: <img src="/home/jar.png" alt="Detox" className="w-[100px] h-[100px] object-contain scale-110" />
+    },
+    {
+      id: 4,
+      title: "Need Hormonal\nBalance?",
+      desc: "Support your natural\nbalance everyday.",
+      bgColor: "bg-[#fce9ec]", // light pink
+      iconColor: "text-[#d6556d]", // pink/red
+      icon: <img src="/home/red_flwr.png" alt="Hormonal Balance" className="w-[100px] h-[100px] object-contain scale-110" />
+    }
+  ];
+
+  return (
+    <section className="bg-[#fdfbf6] py-20 relative border-b border-black/5">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Header */}
+        <div className="text-center mb-16 space-y-4 max-w-2xl mx-auto">
+          <h2 className="text-[32px] md:text-[40px] font-bold text-[#2c4a35] capitalize" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Wellness Solutions
+          </h2>
+          <p className="text-[15px] md:text-[16px] text-[#6b7b72] leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            Discover specialized herbal formulations crafted for your unique health needs. Find the perfect natural remedy to support your daily wellness journey.
+          </p>
+        </div>
+
+        {/* Columns Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-0 relative">
+          {solutions.map((sol) => {
+            const isActive = activeId === sol.id;
+            const isAnyActive = activeId !== null;
+
+            return (
+              <div 
+                key={sol.id} 
+                onClick={() => setActiveId(isActive ? null : sol.id)}
+                className={`flex flex-col items-center text-center px-6 py-6 relative group cursor-pointer rounded-[30px] transition-all duration-500 ease-out ${
+                  isActive ? 'bg-white shadow-[0_10px_40px_rgba(0,0,0,0.06)] scale-105 z-10' : 
+                  isAnyActive ? 'opacity-40 scale-95' : 'hover:bg-white/50'
+                }`}
+              >
+                
+                {/* Custom Shorter Divider (hidden on last item, and hidden if active state is engaged to prevent visual clutter) */}
+                {sol.id !== 4 && !isAnyActive && (
+                  <div className="hidden lg:block absolute right-0 top-[25%] bottom-[10%] w-[1px] bg-black/[0.06]" />
+                )}
+                
+                {/* Icon Circle */}
+                <motion.div 
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: sol.id * 0.3 }}
+                  className={`w-[90px] h-[90px] rounded-full flex items-center justify-center mb-7 shadow-sm transition-transform duration-300 ${isActive ? 'scale-110 shadow-md' : 'group-hover:scale-105'} ${sol.bgColor} ${sol.iconColor}`}
+                >
+                  {sol.icon}
+                </motion.div>
+
+                {/* Title */}
+                <h3 className="text-[18px] md:text-[20px] font-bold text-[#2c4a35] mb-4 whitespace-pre-line leading-[1.3] transition-colors" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  {sol.title}
+                </h3>
+
+                {/* Desc */}
+                <p className="text-[14px] md:text-[15px] text-[#6b7b72] whitespace-pre-line leading-relaxed mb-6" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  {sol.desc}
+                </p>
+
+                {/* Link */}
+                <Link href="#shop" onClick={(e) => { e.stopPropagation(); }} className={`text-[14px] font-semibold transition-all flex items-center gap-1.5 mt-auto ${isActive ? 'text-[#2c4a35] underline' : 'text-[#4a5c3f] hover:text-[#2c4a35] hover:underline'}`}>
+                  Explore Teas <span>&rarr;</span>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+function IngredientStorySection() {
+  const features = [
+    {
+      title: "Hibiscus & Beetroot",
+      desc: "Deeply detoxifies the blood, enhances natural stamina, and is rich in vital antioxidants.",
+      icon: <Heart className="w-6 h-6 text-[#8cb73d]" />
+    },
+    {
+      title: "Organic Moringa",
+      desc: "Often called the Miracle Tree, it boosts natural immunity and reduces internal inflammation.",
+      icon: <ShieldCheck className="w-6 h-6 text-[#8cb73d]" />
+    },
+    {
+      title: "Pure Mulethi",
+      desc: "Soothes sore throats, promotes digestive comfort, and helps balance hormones naturally.",
+      icon: <Sparkles className="w-6 h-6 text-[#8cb73d]" />
+    },
+    {
+      title: "3rd Party Testing",
+      desc: "Every single batch undergoes rigorous testing for purity, potency, and maximum benefits.",
+      icon: <ClipboardCheck className="w-6 h-6 text-[#8cb73d]" />
+    }
+  ];
+
+  return (
+    <section className="bg-white py-24 relative overflow-hidden">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-8">
+          
+          {/* Left Content */}
+          <div className="w-full lg:w-1/2 flex flex-col">
+            <h2 className="text-[38px] md:text-[52px] font-extrabold text-[#111827] leading-[1.15] mb-16 tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+              The Ingredient Story
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-12">
+              {features.map((f, idx) => (
+                <div key={idx} className="flex flex-col">
+                  {/* Icon Container */}
+                  <div className="w-[60px] h-[60px] rounded-full border-[2.5px] border-[#8cb73d] flex items-center justify-center mb-6 relative bg-white">
+                     {/* Leaf flair mimicking the reference leaf */}
+                     <div className="absolute -top-[14px] -right-[18px] text-[#8cb73d] opacity-90 pointer-events-none">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22L6.66 19.7C7.14 19.87 7.64 20 8 20C19 20 22 3 22 3C21 5 14 5.25 9 6.25C4 7.25 2 11.5 2 13.5C2 15.5 3.75 17.25 3.75 17.25C7 8 17 8 17 8Z"/></svg>
+                     </div>
+                     {f.icon}
+                  </div>
+                  <h3 className="text-[19px] font-bold text-[#111827] mb-3" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                    {f.title}
+                  </h3>
+                  <p className="text-[15px] text-[#6b7280] leading-relaxed font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                    {f.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right Content - The Image with Circle Background */}
+          <div className="w-full lg:w-1/2 relative flex justify-center items-center mt-16 lg:mt-0 py-8 lg:py-0 min-h-[400px] sm:min-h-[500px]">
+            {/* Perfect Yellow Circle Background */}
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] sm:w-[450px] sm:h-[450px] bg-[#fad836] rounded-full"></div>
+            
+            {/* The Ingredients Image */}
+            <img 
+              src="/home/ingredients.png" 
+              alt="Herbal Ingredients" 
+              className="relative z-10 w-full max-w-[550px] h-auto object-contain mix-blend-multiply hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function TestimonialsSection() {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const testimonials = [
     {
@@ -480,6 +680,7 @@ function TestimonialsSection() {
       role: "Yoga Instructor",
       text: "These herbal teas have become a part of my daily routine. I feel more energetic, calm and healthy. Absolutely love the taste!",
       avatar: "https://i.pravatar.cc/150?img=32",
+      productImage: "/home/ruby_calm_hero.png"
     },
     {
       id: 2,
@@ -487,6 +688,7 @@ function TestimonialsSection() {
       role: "IT Professional",
       text: "The quality is exceptional! You can truly taste the purity and freshness in every sip. My go-to tea for wellness.",
       avatar: "https://i.pravatar.cc/150?img=5",
+      productImage: "/home/calm_tea.png"
     },
     {
       id: 3,
@@ -494,6 +696,7 @@ function TestimonialsSection() {
       role: "Entrepreneur",
       text: "I was struggling with bloating and indigestion. Digestive Wellness Tea has been a game changer for me. Highly recommended!",
       avatar: "https://i.pravatar.cc/150?img=11",
+      productImage: "/home/digestive_herbal_img.png"
     },
     {
       id: 4,
@@ -501,6 +704,7 @@ function TestimonialsSection() {
       role: "Fitness Coach",
       text: "The Immunity Support blend has kept me feeling 100% all year round. The natural ingredients and rich aroma are simply unbeatable.",
       avatar: "https://i.pravatar.cc/150?img=60",
+      productImage: "/home/detox_tea.png"
     },
     {
       id: 5,
@@ -508,6 +712,7 @@ function TestimonialsSection() {
       role: "Wellness Blogger",
       text: "I have tried many herbal brands, but this one stands out. The respiratory blend really helped soothe my throat during the cold season.",
       avatar: "https://i.pravatar.cc/150?img=44",
+      productImage: "/home/hero.png"
     },
     {
       id: 6,
@@ -515,16 +720,18 @@ function TestimonialsSection() {
       role: "Nutritionist",
       text: "I recommend these blends to all my clients. The natural herbs offer fantastic digestive benefits without any artificial additives.",
       avatar: "https://i.pravatar.cc/150?img=47",
+      productImage: "/home/ruby_calm_hero.png"
     }
   ];
 
-  // We show 3 testimonials per page
-  const cardsPerPage = 3;
-  const totalPages = Math.ceil(testimonials.length / cardsPerPage);
-  const visibleCards = testimonials.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
+  const visibleCards = [
+    testimonials[currentIndex % testimonials.length],
+    testimonials[(currentIndex + 1) % testimonials.length],
+    testimonials[(currentIndex + 2) % testimonials.length],
+  ];
 
-  const nextPage = () => setCurrentPage((prev) => (prev + 1) % totalPages);
-  const prevPage = () => setCurrentPage((prev) => (prev === 0 ? totalPages - 1 : prev - 1));
+  const nextPage = () => setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  const prevPage = () => setCurrentIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
 
   return (
     <section className="bg-[#fdfbf6] py-14 relative overflow-hidden">
@@ -548,16 +755,11 @@ function TestimonialsSection() {
         <div className="relative flex flex-col items-center justify-center">
           
           <div className="flex items-center justify-between w-full">
-            {/* Left Arrow */}
-            <button onClick={prevPage} className="hidden md:flex absolute -left-4 lg:-left-10 z-20 w-9 h-9 rounded-full bg-[#5e8b42] text-white items-center justify-center hover:bg-[#4a6b3d] transition-colors shadow-lg">
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-
             {/* Cards */}
             <div className="overflow-hidden w-full px-1 py-3">
               <AnimatePresence mode="wait">
                 <motion.div 
-                  key={currentPage}
+                  key={currentIndex}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
@@ -566,7 +768,11 @@ function TestimonialsSection() {
                 >
                   {visibleCards.map((t) => (
                     <div key={t.id} className="bg-white rounded-[24px] p-6 md:p-7 shadow-[0_10px_40px_rgba(0,0,0,0.04)] flex flex-col items-center text-center border border-black/5 hover:-translate-y-1.5 transition-transform duration-300">
-                      <Quote className="w-9 h-9 text-[#5e8b42] mb-4 fill-current opacity-80" />
+                      <img 
+                        src={t.productImage} 
+                        alt="Product" 
+                        className="w-16 h-16 object-cover rounded-[12px] mb-4 shadow-sm border-[2px] border-[#8cb73d]/20 bg-white p-1" 
+                      />
                       
                       <div className="flex gap-1 mb-4">
                         {[...Array(5)].map((_, i) => (
@@ -596,23 +802,17 @@ function TestimonialsSection() {
                 </motion.div>
               </AnimatePresence>
             </div>
-
-            {/* Right Arrow */}
-            <button onClick={nextPage} className="hidden md:flex absolute -right-4 lg:-right-10 z-20 w-9 h-9 rounded-full bg-[#5e8b42] text-white items-center justify-center hover:bg-[#4a6b3d] transition-colors shadow-lg">
-              <ChevronRight className="w-5 h-5" />
-            </button>
           </div>
         </div>
 
-        {/* Pagination Dots */}
-        <div className="flex justify-center items-center gap-2.5 mt-6">
-          {[...Array(totalPages)].map((_, i) => (
-            <div 
-              key={i} 
-              onClick={() => setCurrentPage(i)}
-              className={`w-2 h-2 rounded-full ${currentPage === i ? 'bg-[#5e8b42]' : 'bg-[#d8e0c8]'} cursor-pointer hover:bg-[#8cb73d] transition-colors`}
-            ></div>
-          ))}
+        {/* Pagination Navigation */}
+        <div className="flex justify-center items-center gap-4 mt-6">
+          <button onClick={prevPage} className="w-10 h-10 rounded-full bg-[#5e8b42] text-white flex items-center justify-center hover:bg-[#4a6b3d] transition-colors shadow-md">
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button onClick={nextPage} className="w-10 h-10 rounded-full bg-[#5e8b42] text-white flex items-center justify-center hover:bg-[#4a6b3d] transition-colors shadow-md">
+            <ChevronRight className="w-5 h-5" />
+          </button>
         </div>
 
       </div>
@@ -625,7 +825,7 @@ export default function Home() {
   const addItem = useCartStore((state) => state.addItem);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [videoLoaded, setVideoLoaded] = useState(false);
+
   const [selectedWellness, setSelectedWellness] = useState<typeof WELLNESS_CARDS[0] | null>(null);
 
   useEffect(() => {
@@ -656,130 +856,214 @@ export default function Home() {
 
   return (
     <div className="flex flex-col w-full min-h-screen">
-      {/* Hero Section */}
-      <section className="relative w-full h-screen min-h-[600px] overflow-hidden flex items-center">
-        {/* Background Video */}
-        <div className="absolute inset-0 w-full h-full z-0 bg-transparent">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            onLoadedData={() => setVideoLoaded(true)}
-            className="w-full h-full object-cover"
-          >
-            <source src="/home/video_.mp4" type="video/mp4" />
-          </video>
-        </div>
+      {/* ── HERO SECTION ── */}
+      <section className="relative w-full overflow-hidden bg-gradient-to-br from-[#F4EFE6] to-[#E5E9E0]" style={{ minHeight: '88vh' }}>
+        {/* Soft background blobs */}
+        <div className="absolute top-[-80px] left-[-80px] w-[400px] h-[400px] bg-[#A8B5A2]/20 rounded-full blur-[80px] pointer-events-none" />
+        <div className="absolute bottom-[-60px] right-[-60px] w-[300px] h-[300px] bg-[#D4AF37]/10 rounded-full blur-[60px] pointer-events-none" />
 
-        {/* Content Container */}
-        <div className="relative z-20 w-full h-full flex items-center px-[5%] md:px-[8%]">
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={{
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: {
-                  staggerChildren: 0.12,
-                  delayChildren: 0.15
-                }
-              }
-            }}
-            className="w-[90%] md:w-[80%] lg:w-full lg:max-w-[800px] text-center md:text-left mx-auto md:mx-0 flex flex-col items-center md:items-start"
-          >
-            {/* Heading */}
-            <motion.h1
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              className="font-bold text-[32px] sm:text-[38px] md:text-[52px] lg:text-[64px] leading-[1.1] tracking-[-0.02em] text-[#fbfaf7] mb-[24px] max-w-full"
-              style={{ fontFamily: 'Playfair Display, serif' }}
-            >
-              <span className="block whitespace-nowrap">One Herbal Solution</span>
-              <span className="block whitespace-nowrap">for Everyday Wellness</span>
-            </motion.h1>
+        <div className="max-w-[1280px] mx-auto px-6 lg:px-10 h-full flex items-center">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-10 items-center py-16 lg:py-20">
 
-            {/* Subheading */}
-            <motion.p
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              className="font-normal text-[16px] md:text-[18px] lg:text-[20px] leading-[1.7] text-[#e8e2d7]/90 mb-[36px]"
-              style={{ fontFamily: 'Nunito Sans, sans-serif' }}
-            >
-              Naturally crafted herbal tea powders designed to support respiratory health, women's wellness, immunity, and daily well-being.
-            </motion.p>
-
-            {/* CTA Button */}
+            {/* ── LEFT: Content ── */}
             <motion.div
-              variants={{
-                hidden: { opacity: 0, y: 15 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col gap-6 max-w-[650px]"
             >
-              <Link
-                href="/shop"
-                className="inline-flex items-center justify-center font-semibold text-[15px] lg:text-[16px] text-[#1c2e24] bg-[#c49d56] hover:bg-[#d8b066] py-[16px] px-[32px] rounded-full transition-all duration-300 shadow-lg hover:shadow-accent/20 cursor-pointer"
+
+              {/* Headline */}
+              <h1
+                className="text-[38px] sm:text-[48px] lg:text-[56px] font-bold text-[#0F3D2E] leading-[1.1] tracking-[-0.02em]"
+                style={{ fontFamily: 'Playfair Display, serif' }}
+              >
+                <span className="block whitespace-nowrap">Nature's Calm,</span>
+                <span className="block whitespace-nowrap">Balanced From Within.</span>
+              </h1>
+
+              {/* Gold divider */}
+              <div className="flex items-center gap-3">
+                <div className="h-[2px] w-12 bg-[#D4AF37] rounded-full" />
+                <span className="text-[#D4AF37] text-lg">✦</span>
+              </div>
+
+              {/* Description */}
+              <p
+                className="text-[16px] text-[#5a6b60] leading-[1.8] max-w-[460px]"
                 style={{ fontFamily: 'Nunito Sans, sans-serif' }}
               >
-                Shop Collection
-              </Link>
+                Thoughtfully crafted herbal tea blends designed to support hormonal balance, menstrual wellness, digestion, relaxation, and everyday calm.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-wrap items-center gap-4 mt-2">
+                <Link
+                  href="/shop"
+                  className="inline-flex items-center gap-2 bg-[#0F3D2E] hover:bg-[#1a5240] text-white px-7 py-4 rounded-xl text-[15px] font-bold transition-all duration-300 shadow-[0_8px_20px_-4px_rgba(15,61,46,0.35)] hover:-translate-y-0.5"
+                  style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+                >
+                  Shop Collection <span>🌿</span>
+                </Link>
+                <Link
+                  href="/#about"
+                  className="inline-flex items-center gap-2 bg-transparent border-[1.5px] border-[#0F3D2E]/40 text-[#0F3D2E] hover:bg-[#0F3D2E]/5 px-7 py-3.5 rounded-xl text-[15px] font-bold transition-all duration-300 hover:-translate-y-0.5"
+                  style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+                >
+                  Our Story
+                </Link>
+              </div>
+
+              {/* Trust Icons */}
+              <div className="flex flex-wrap xl:flex-nowrap items-center gap-4 sm:gap-5 lg:gap-6 mt-4 pt-4 border-t border-[#e0dcd3]">
+                {[
+                  { img: '/home/girl_icon.png', label: 'Hormonal\nBalance', separator: true },
+                  { img: '/home/dijestive.png', label: 'Supports\nDigestion' },
+                  { img: '/home/half_flower.png', label: 'Promotes\nCalmness' },
+                  { img: '/home/2_leaves_icon.png', label: '100%\nHerbal' },
+                ].map(({ img, label, separator }, idx) => (
+                  <React.Fragment key={idx}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-14 h-14 rounded-full border-[1.5px] border-[#A8B5A2] flex items-center justify-center bg-transparent">
+                        <img src={img} alt={label.replace('\n', ' ')} className="w-8 h-8 object-contain" />
+                      </div>
+                      <span className="text-[13px] font-semibold text-[#0F3D2E] leading-[1.3] whitespace-pre-line" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                        {label}
+                      </span>
+                    </div>
+                    {separator && <div className="hidden sm:block w-[1px] h-10 bg-[#A8B5A2]/40" />}
+                  </React.Fragment>
+                ))}
+              </div>
             </motion.div>
-          </motion.div>
+
+            {/* ── RIGHT: Product Visual ── */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+              className="relative flex items-center justify-center"
+            >
+              {/* Glowing orb behind product */}
+              <div className="absolute w-[420px] h-[420px] rounded-full bg-gradient-to-br from-[#A8B5A2]/30 via-[#F8F5EE] to-[#D4AF37]/10 blur-[50px]" />
+
+              {/* Product image */}
+              <motion.div
+                animate={{ y: [0, -12, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                className="relative z-10 w-full max-w-[480px]"
+              >
+                <img
+                  src="/home/hero.png"
+                  alt="R-HerbalTea Ruby Calm Tea – Women's Wellness Blend"
+                  className="w-full h-auto object-contain drop-shadow-xl"
+                />
+              </motion.div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
-      {/* Wellness Starts with the Right Blend */}
-      <section className="bg-white py-24 border-b border-border/20 overflow-hidden relative">
+      {/* ── TRUST & WELLNESS BENEFITS STRIP ── */}
+      <section className="w-full relative bg-[#F8F5EE] py-20 lg:py-24 overflow-hidden border-b border-[#EFE7D7]">
+        {/* Subtle Background Decor */}
+        {/* Soft sage green gradients */}
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-[#A8B5A2]/10 to-transparent rounded-full blur-[80px] -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-[#D4AF37]/5 to-transparent rounded-full blur-[60px] translate-x-1/3 translate-y-1/3 pointer-events-none" />
+        
+        {/* Botanical leaf illustrations in corners */}
+        <div className="absolute top-10 left-10 w-40 h-40 opacity-[0.04] pointer-events-none rotate-45 transform -scale-x-100">
+          <img src="/home/2_leaves_icon.png" alt="" className="w-full h-full object-contain filter grayscale" />
+        </div>
+        <div className="absolute top-20 right-10 w-48 h-48 opacity-[0.03] pointer-events-none -rotate-12">
+          <img src="/home/2_leaves_icon.png" alt="" className="w-full h-full object-contain filter grayscale" />
+        </div>
+
+        {/* Faint floating leaves */}
+        <div className="absolute top-48 left-[20%] w-14 h-14 opacity-[0.03] pointer-events-none rotate-[30deg]">
+          <img src="/home/2_leaves_icon.png" alt="" className="w-full h-full object-contain filter grayscale" />
+        </div>
+        <div className="absolute bottom-40 right-[15%] w-16 h-16 opacity-[0.03] pointer-events-none -rotate-[45deg]">
+          <img src="/home/2_leaves_icon.png" alt="" className="w-full h-full object-contain filter grayscale" />
+        </div>
+
+        {/* Organic flowing shapes at bottom */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none pointer-events-none z-0 transform translate-y-[2px]">
+          <svg className="relative block w-full h-[100px] lg:h-[150px]" viewBox="0 0 1440 320" preserveAspectRatio="none">
+            <path fill="#A8B5A2" fillOpacity="0.15" d="M0,224L48,202.7C96,181,192,139,288,144C384,149,480,203,576,213.3C672,224,768,192,864,160C960,128,1056,96,1152,106.7C1248,117,1344,171,1392,197.3L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            <path fill="#EFE7D7" fillOpacity="0.3" d="M0,96L48,112C96,128,192,160,288,181.3C384,203,480,213,576,202.7C672,192,768,160,864,160C960,160,1056,192,1152,208C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+          </svg>
+        </div>
+
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-5">
-            <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#8cb73d] block">Explore Our Blends</span>
-            <h2 className="text-[28px] md:text-[36px] font-bold text-[#2c4a35] capitalize" style={{ fontFamily: 'Playfair Display, serif' }}>
-              Wellness Starts with the Right Blend
+          
+          {/* Top Label & Heading */}
+          <div className="flex flex-col items-center text-center mb-16 space-y-7">
+
+            
+            <h2 className="text-[34px] md:text-[44px] lg:text-[48px] font-bold text-[#0F3D2E] leading-[1.25] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Crafted With Nature,<br className="hidden sm:block" />
+              Designed For Everyday Wellbeing
             </h2>
-            <p className="text-[15px] md:text-[17px] text-[#6b7b72] leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-              Find the herbal tea that aligns with your wellness journey and explore how each blend can become part of your daily routine.
-            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {WELLNESS_CARDS.map((card: any, index: number) => (
-              <motion.div
-                key={card.id}
-                whileHover={{ y: -8 }}
-                onClick={() => setSelectedWellness(card)}
-                className="group cursor-pointer rounded-3xl overflow-hidden shadow-[0_8px_30px_-6px_rgba(0,0,0,0.08)] hover:shadow-[0_20px_40px_-10px_rgba(44,74,53,0.15)] transition-all duration-500 bg-white relative border border-gray-100"
+          {/* Cards Container */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-5 xl:gap-8">
+            {[
+              { img: '/home/2_leaves_icon.png', title: '100% Herbal', desc: 'Pure plant-based\ningredients.' },
+              { img: '/home/full_flower.png', title: 'Hormonal Wellness', desc: "Crafted for women's\nbalance and comfort." },
+              { img: '/home/cup_icon.png', title: 'Supports Digestion', desc: 'Helps maintain everyday\ndigestive wellbeing.' },
+              { img: '/home/moon.png', title: 'Promotes Calmness', desc: 'A soothing ritual for\nrelaxation and peace.' },
+              { img: '/home/shield_icon.png', title: 'Made In India', desc: 'Carefully blended with\npremium ingredients.' },
+            ].map((item, idx) => (
+              <div 
+                key={idx} 
+                className="group bg-white rounded-[24px] p-8 md:p-6 xl:p-8 flex flex-col items-center text-center shadow-[0_12px_40px_rgba(0,0,0,0.04)] hover:shadow-[0_24px_50px_rgba(15,61,46,0.08)] hover:-translate-y-2 transition-all duration-500 relative border border-[#EFE7D7]/30"
               >
-                <div className="aspect-square relative overflow-hidden bg-white">
-                  <img
-                    src={card.cardImage}
-                    alt={card.title}
-                    className={`w-full h-full object-cover transition-transform duration-700 block ${index === 3 ? 'scale-[1.1] translate-y-[2%]' : 'scale-[1.05]'} group-hover:scale-[1.15]`}
-                  />
-                  <div className="absolute inset-0 bg-black/5 group-hover:bg-black/10 transition-colors duration-500" />
+                {/* Icon Container */}
+                <div className="relative mb-6">
+                  {/* Soft gold glow behind icon container */}
+                  <div className="absolute inset-0 bg-[#D4AF37]/15 rounded-full blur-[20px] group-hover:bg-[#D4AF37]/25 transition-colors duration-500" />
                   
-                  <div className="absolute inset-x-0 bottom-3 flex justify-center">
-                    <div className="inline-flex items-center gap-2 text-[#1c2e24] bg-white/95 hover:bg-white px-5 py-2.5 rounded-full text-[13px] font-bold tracking-wider uppercase shadow-md border border-gray-100 transition-all duration-300">
-                      Explore Blend <ArrowRight className="w-4 h-4" />
-                    </div>
+                  {/* Thin gold circle outline */}
+                  <div className="relative w-[76px] h-[76px] rounded-full border border-[#D4AF37] bg-white group-hover:bg-[#0F3D2E] group-hover:border-[#0F3D2E] flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-sm">
+                    {/* Icon Image */}
+                    <img 
+                      src={item.img} 
+                      alt={item.title} 
+                      className="w-[36px] h-[36px] object-contain opacity-90 group-hover:opacity-100 group-hover:brightness-0 group-hover:invert group-hover:rotate-[360deg] transition-all duration-700" 
+                    />
                   </div>
                 </div>
-              </motion.div>
+
+                {/* Title */}
+                <h4 className="text-[#0F3D2E] font-bold text-[18px] md:text-[17px] xl:text-[18px] mb-3 leading-snug" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  {item.title}
+                </h4>
+
+                {/* Tiny Gold Leaf Separator */}
+                <div className="flex items-center justify-center gap-1.5 mb-4 opacity-70 group-hover:opacity-100 transition-opacity duration-300 w-full">
+                  <div className="w-[18px] h-[1px] bg-[#D4AF37]/40" />
+                  <Leaf className="w-3.5 h-3.5 text-[#D4AF37]" strokeWidth={2.5} />
+                  <div className="w-[18px] h-[1px] bg-[#D4AF37]/40" />
+                </div>
+
+                {/* Description */}
+                <p className="text-[#5a6b60] text-[13.5px] leading-[1.65] whitespace-pre-line group-hover:text-[#0F3D2E]/80 transition-colors duration-300" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  {item.desc}
+                </p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
+
+
       {/* Featured Products Collection */}
       <section className="bg-[#f4f1e6] py-20 border-b border-black/5 overflow-hidden relative">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 relative z-10">
           {/* Header */}
           <div className="flex flex-col md:flex-row items-center justify-center relative mb-14 gap-6">
             <div className="text-center max-w-3xl mx-auto flex flex-col items-center gap-3">
@@ -795,7 +1079,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 w-full mx-auto">
             {FEATURED_PRODUCTS.map((product, idx) => (
               <FeaturedProductCard key={product.id} product={product} index={idx} />
             ))}
@@ -803,7 +1087,9 @@ export default function Home() {
         </div>
       </section>
 
-      <HowItWorksSection />
+      <WellnessSolutionsSection />
+      <IngredientStorySection />
+
       <TestimonialsSection />
 
 

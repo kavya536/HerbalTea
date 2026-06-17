@@ -9,7 +9,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="space-y-5">
-            <h3 className="text-md font-semibold tracking-wider uppercase text-[#c49d56]" style={{ fontFamily: 'Playfair Display, serif' }}>Eduqra Wellness</h3>
+            <div className="flex items-center gap-3">
+              <div className="bg-[#F8F5EE] rounded-full p-1.5 flex items-center justify-center">
+                <img src="/home/herbal_logo.png" alt="HerbalTea Logo" className="h-8 w-8 object-contain" />
+              </div>
+              <h3 className="text-md font-semibold tracking-wider uppercase text-[#c49d56]" style={{ fontFamily: 'Playfair Display, serif' }}>Eduqra Wellness</h3>
+            </div>
             <p className="text-[13px] text-white/80 leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Curating premium, high-altitude herbal tea powders and holistic wellness botanical remedies to nurture your mind, body, and spirit.
             </p>
