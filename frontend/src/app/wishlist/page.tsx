@@ -3,20 +3,20 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useWishlistStore } from '../../features/wishlist/wishlistStore';
-import { ArrowLeft, Star, Heart, Trash2 } from 'lucide-react';
+import { ArrowLeft, Star, Heart, Trash2, ShoppingBasket } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 // Mock data
 const PRODUCTS = [
-  { id: 1, name: "Premium Herbal Blend", price: 450.00, originalPrice: 500, discount: 10, img: "/home/img1.jpg", rating: 4.5, reviews: 124 },
-  { id: 2, name: "Calming Chamomile", price: 350.00, originalPrice: 400, discount: 12, img: "/home/img2.jpg", rating: 4.0, reviews: 89 },
-  { id: 3, name: "Morning Matcha", price: 850.00, originalPrice: 1000, discount: 15, img: "/home/img3.jpg", rating: 4.8, reviews: 342 },
-  { id: 4, name: "Detox Green Wellness", price: 400.00, originalPrice: 500, discount: 20, img: "/home/img4.jpg", rating: 4.1, reviews: 56 },
-  { id: 5, name: "Sleepy Time Essence", price: 300.00, originalPrice: 350, discount: 14, img: "/home/img5.jpg", rating: 4.7, reviews: 210 },
-  { id: 6, name: "Energy Boost Root", price: 600.00, originalPrice: 750, discount: 20, img: "/home/img6.jpg", rating: 4.3, reviews: 112 },
-  { id: 7, name: "Immunity Shield", price: 550.00, originalPrice: 650, discount: 15, img: "/home/img7.jpg", rating: 4.9, reviews: 420 },
-  { id: 8, name: "Focus & Clarity", price: 750.00, originalPrice: 850, discount: 11, img: "/home/img8.jpg", rating: 4.6, reviews: 175 },
-  { id: 9, name: "Digestive Soothe", price: 380.00, originalPrice: 420, discount: 9, img: "/home/herbal.jpg", rating: 4.2, reviews: 93 },
+  { id: 1, name: "Premium Herbal Blend", price: 450.00, originalPrice: 500, discount: 10, img: "/shop/red_tea.png", rating: 4.5, reviews: 124, category: "Wellness Blends", type: "Herbal", weight: "15 Packets", benefit: "Relaxation", ingredient: "Mint" },
+  { id: 2, name: "Calming Chamomile", price: 350.00, originalPrice: 400, discount: 12, img: "/shop/green_tea.png", rating: 4.0, reviews: 89, category: "Loose Leaf", type: "Decaf", weight: "10 Packets", benefit: "Relaxation", ingredient: "Chamomile" },
+  { id: 3, name: "Morning Matcha", price: 850.00, originalPrice: 1000, discount: 15, img: "/shop/blue.png", rating: 4.8, reviews: 342, category: "Matcha", type: "Caffeinated", weight: "30 Packets", benefit: "Energy", ingredient: "Matcha" },
+  { id: 4, name: "Detox Green Wellness", price: 400.00, originalPrice: 500, discount: 20, img: "/shop/ruby_detox.png", rating: 4.1, reviews: 56, category: "Wellness Blends", type: "Caffeinated", weight: "15 Packets", benefit: "Digestion", ingredient: "Mint" },
+  { id: 5, name: "Sleepy Time Essence", price: 300.00, originalPrice: 350, discount: 14, img: "/shop/blue_tea1.png", rating: 4.7, reviews: 210, category: "Tea Bags", type: "Herbal", weight: "10 Packets", benefit: "Relaxation", ingredient: "Chamomile" },
+  { id: 6, name: "Energy Boost Root", price: 600.00, originalPrice: 750, discount: 20, img: "/shop/red_tea.png", rating: 4.3, reviews: 112, category: "Loose Leaf", type: "Caffeinated", weight: "20 Packets", benefit: "Energy", ingredient: "Ginger" },
+  { id: 7, name: "Immunity Shield", price: 550.00, originalPrice: 650, discount: 15, img: "/shop/green_tea.png", rating: 4.9, reviews: 420, category: "Wellness Blends", type: "Herbal", weight: "20 Packets", benefit: "Immunity", ingredient: "Ginger" },
+  { id: 8, name: "Focus & Clarity", price: 750.00, originalPrice: 850, discount: 11, img: "/shop/ruby_detox.png", rating: 4.6, reviews: 175, category: "Matcha", type: "Caffeinated", weight: "30 Packets", benefit: "Energy", ingredient: "Matcha" },
+  { id: 9, name: "Digestive Soothe", price: 380.00, originalPrice: 420, discount: 9, img: "/shop/blue_tea1.png", rating: 4.2, reviews: 93, category: "Tea Bags", type: "Herbal", weight: "10 Packets", benefit: "Digestion", ingredient: "Ginger" },
 ];
 
 export default function WishlistPage() {
@@ -28,14 +28,14 @@ export default function WishlistPage() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div className="min-h-screen bg-[#f9f8f6]"></div>;
+  if (!mounted) return <div className="min-h-screen bg-[#f4efe6]"></div>;
 
   const wishlistProducts = items
     .map(item => PRODUCTS.find(p => p.id === item.productId))
     .filter(Boolean);
 
   return (
-    <div className="min-h-screen bg-[#f9f8f6] py-8">
+    <div className="min-h-screen bg-[#f4efe6] py-8">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Back Button */}
@@ -90,14 +90,14 @@ export default function WishlistPage() {
                 transition={{ delay: idx * 0.05 }}
                 key={`wishlist-${product.id}`} 
                 onClick={() => router.push(`/shop/${product.id}`)}
-                className="flex flex-col group cursor-pointer bg-white rounded-[20px] border border-[#e8e5de] overflow-hidden shadow-[0_4px_20px_-6px_rgba(0,0,0,0.05)] hover:shadow-[0_16px_32px_-8px_rgba(28,46,36,0.12)] hover:-translate-y-1.5 transition-all duration-300 aspect-[3/4]"
+                className="flex flex-col group cursor-pointer bg-white rounded-3xl border border-[#e8e5de] hover:border-[#ffc107] p-5 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
               >
-                {/* Product Image 70% */}
-                <div className="relative h-[70%] w-full bg-[#f9f8f6] overflow-hidden">
+                {/* Product Image */}
+                <div className="relative w-full h-[280px] mb-2 flex items-center justify-center rounded-t-3xl pt-2 px-1">
                   <img 
                     src={product.img} 
                     alt={product.name} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out" 
+                    className={`w-full h-full object-contain drop-shadow-sm transition-transform duration-700 ease-in-out ${product.img.endsWith('/blue.png') ? 'scale-[1.4] translate-y-1' : (product.img.endsWith('/ruby_detox.png') || product.img.endsWith('/blue_tea1.png') ? 'scale-[1.3] translate-y-2' : '')}`} 
                   />
                   
                   {/* Remove from wishlist button */}
@@ -106,43 +106,55 @@ export default function WishlistPage() {
                       e.stopPropagation();
                       toggleItem(product.id);
                     }}
-                    className="absolute top-3 right-3 w-8 h-8 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-red-500 hover:bg-white shadow-sm transition-all"
+                    className="absolute top-3 right-3 w-8 h-8 bg-white/80 backdrop-blur rounded-full flex items-center justify-center text-red-500 hover:bg-white shadow-sm transition-all z-10"
                   >
                     <Heart className="w-4 h-4 fill-current" />
                   </button>
                 </div>
                 
-                {/* Product Details 30% */}
-                <div className="flex flex-col justify-between h-[30%] p-4">
-                  <div className="flex justify-between items-start gap-2">
-                    <h4 className="font-semibold text-[#1c2e24] text-[18px] line-clamp-1" style={{ fontFamily: 'Playfair Display, serif' }}>
-                      {product.name}
-                    </h4>
-                    {/* Rating Badge & Reviews */}
-                    <div className="flex flex-col items-end gap-1 shrink-0 mt-0.5">
-                      <div className="bg-[#e2b755] text-white text-[11px] font-bold px-1.5 py-0.5 rounded flex items-center gap-1 shadow-sm">
-                        {product.rating?.toFixed(1) || "4.5"} <Star className="w-2.5 h-2.5 fill-white text-white" />
-                      </div>
-                      <span className="text-[#6b7b72] text-[10px] font-medium whitespace-nowrap">
-                        {product.reviews || "124"} reviews
+                {/* Product Details */}
+                <div className="flex flex-col flex-1">
+                  {/* Rating (5 Stars) */}
+                  <div className="flex items-center gap-1 mb-2">
+                    {[...Array(5)].map((_, i) => (
+                       <Star key={i} className={`w-3.5 h-3.5 ${i < Math.floor(product.rating) ? 'fill-[#ffc107] text-[#ffc107]' : 'fill-[#e8e5de] text-[#e8e5de]'}`} />
+                    ))}
+                  </div>
+
+                  <h4 className="font-bold text-[#1c2e24] group-hover:text-[#4caf50] text-[18px] leading-tight mb-2 transition-colors duration-300" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                    {product.name}
+                  </h4>
+                  
+                  <span className="text-[#8b9992] text-[13px] font-medium mb-4 uppercase">
+                    {product.category} {product.weight}
+                  </span>
+                  
+                  <div className="flex items-center justify-between mt-auto gap-3">
+                    <div className="flex flex-col shrink-0">
+                      <span className="font-bold text-[#1c2e24] text-[20px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                        ₹{product.price.toFixed(2)}
                       </span>
                     </div>
-                  </div>
-                  
-                  <div className="flex items-baseline gap-2 mt-auto">
-                    <span className="font-bold text-[#1c2e24] text-[18px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                      ₹{product.price}
-                    </span>
-                    {product.originalPrice && (
-                      <span className="text-gray-400 text-[13px] line-through decoration-gray-300">
-                        ₹{product.originalPrice}
-                      </span>
-                    )}
-                    {product.discount && (
-                      <span className="text-[#8cb73d] font-bold text-[12px] ml-1">
-                        {product.discount}% off
-                      </span>
-                    )}
+                    
+                    {/* Add To Cart Button */}
+                    <button 
+                      onClick={(e) => { 
+                        e.stopPropagation(); 
+                        router.push(`/shop/${product.id}`);
+                      }}
+                      className="relative group/btn flex items-center justify-end h-10 w-10 group-hover:w-[135px] cursor-pointer transition-all duration-300"
+                    >
+                      {/* Expanding text pill */}
+                      <div className="absolute right-4 h-[26px] flex items-center rounded-l-full bg-[#4caf50] text-white overflow-hidden transition-all duration-300 w-0 group-hover:w-[115px] group-hover/btn:!bg-[#ffc107] group-hover/btn:!text-[#1c2e24] z-0">
+                        <span className="whitespace-nowrap font-bold text-[13px] pl-3">
+                          Add To Cart
+                        </span>
+                      </div>
+                      {/* Fixed yellow circle */}
+                      <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#ffc107] text-[#1c2e24] shrink-0">
+                        <ShoppingBasket className="w-5 h-5" />
+                      </div>
+                    </button>
                   </div>
                 </div>
               </motion.div>

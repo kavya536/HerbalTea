@@ -37,7 +37,7 @@ export default function Navbar() {
   const NAV_LINKS = [
     { label: 'Home', href: '/' },
     { label: 'Shop', href: '/shop' },
-    { label: 'Benefits', href: '/#benefits' },
+    { label: 'Journal', href: '/journal' },
     { label: 'Ingredients', href: '/ingredients' },
     { label: 'About', href: '/about' },
     { label: 'Blog', href: '/blog' },

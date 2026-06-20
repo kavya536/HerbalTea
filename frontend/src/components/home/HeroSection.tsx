@@ -46,7 +46,7 @@ export default function HeroSection() {
               >
                  Sip Calm.<br/>
                  Feel Balanced.<br/>
-                 <span className="text-[#d84b65] italic font-medium pr-2">Glow Naturally.</span>
+                 <span className="text-[#cda434] italic font-medium pr-2">Glow Naturally</span>
               </motion.h1>
 
               <motion.p 
@@ -65,7 +65,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="flex flex-wrap items-center gap-4 mb-8"
               >
-                 <Link href="/shop" className="bg-[#852a3b] hover:bg-[#6b1e2e] text-white px-7 md:px-8 py-3.5 rounded-full text-[14px] md:text-[15px] font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                 <Link href="/shop" className="bg-[#cda434] hover:bg-[#b8912e] text-white px-7 md:px-8 py-3.5 rounded-full text-[14px] md:text-[15px] font-bold flex items-center gap-2 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                     Shop Ruby Calm Tea <ArrowRight className="w-4 h-4" />
                  </Link>
                  <Link href="/#benefits" className="border-2 border-[#EFE8D6] text-[#EFE8D6] hover:bg-[#EFE8D6]/10 px-7 md:px-8 py-3.5 rounded-full text-[14px] md:text-[15px] font-bold flex items-center gap-2 transition-colors backdrop-blur-sm" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
