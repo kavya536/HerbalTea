@@ -86,15 +86,15 @@ export default function JournalView({ posts }: JournalViewProps) {
         </div>
       </section>
 
-      {/* SECTION 03 - ARTICLE CATEGORIES */}
+      {/* ARTICLE CATEGORIES */}
       <section className="bg-transparent pt-16 md:pt-24 pb-16 md:pb-24">
         <div className="max-w-[1050px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-[13px] font-bold text-[#0F3D2E] mb-6 tracking-widest uppercase" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-            SECTION 03 - ARTICLE CATEGORIES
+          <h3 className="text-[13px] font-bold text-[#0F3D2E] mb-8 tracking-widest uppercase text-center" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            Article Categories
           </h3>
           
           {/* Categories Row */}
-          <div className="flex flex-wrap items-center gap-3 mb-10">
+          <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
             {categories.map((cat, i) => (
               <button 
                 key={cat}
@@ -175,11 +175,11 @@ export default function JournalView({ posts }: JournalViewProps) {
         </div>
       </section>
 
-      {/* SECTION 05 - WELLNESS TIPS SECTION */}
+      {/* WELLNESS TIPS SECTION */}
       <section className="bg-transparent pb-20 md:pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-[13px] font-bold text-[#0F3D2E] mb-6 tracking-widest uppercase" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-            SECTION 05 - WELLNESS TIPS SECTION
+          <h3 className="text-[13px] font-bold text-[#0F3D2E] mb-8 tracking-widest uppercase text-center" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            Wellness Tips
           </h3>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
@@ -205,6 +205,46 @@ export default function JournalView({ posts }: JournalViewProps) {
           </div>
         </div>
       </section>
+
+      {/* Newsletter Section */}
+      <section className="w-full bg-[#2a4530] py-12 md:py-14">
+        <div className="max-w-7xl mx-auto px-8 sm:px-12 md:px-16 lg:px-24">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-16">
+            
+            {/* Left Content */}
+            <div className="w-full md:w-1/2 flex flex-col items-start text-white">
+              <h3 className="text-[24px] md:text-[28px] font-bold mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
+                Stay Inspired Naturally
+              </h3>
+              <p className="text-[14px] text-[#d1dcd5] leading-relaxed max-w-[400px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                Receive herbal insights, exclusive wellness stories and new tea releases.
+              </p>
+            </div>
+
+            {/* Right Form Area */}
+            <div className="w-full md:w-1/2 flex flex-col w-full">
+              <form className="w-full max-w-[480px] md:ml-auto" onSubmit={(e) => e.preventDefault()}>
+                <div className="flex w-full rounded-[4px] overflow-hidden">
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email" 
+                    className="flex-grow px-4 py-3 md:py-3.5 text-[#0F3D2E] bg-white outline-none text-[14px] font-medium placeholder-[#8a958f]"
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+                  />
+                  <button type="submit" className="bg-[#dcae3d] hover:bg-[#c99f36] text-white px-6 md:px-8 py-3 md:py-3.5 font-bold text-[14px] transition-colors whitespace-nowrap" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                    Subscribe
+                  </button>
+                </div>
+                <p className="text-[11px] text-[#aebbb5] mt-2.5 text-left" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  No spam, ever. Unsubscribe anytime.
+                </p>
+              </form>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }
