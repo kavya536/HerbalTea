@@ -26,13 +26,13 @@ export default function JournalView({ posts }: JournalViewProps) {
         {/* Left Content */}
         <div className="w-full md:w-[45%] flex justify-end px-6 py-12 md:p-12 lg:pr-16 z-20">
           <div className="max-w-[400px] w-full pt-10 md:pt-0">
-            <h1 className="text-[42px] md:text-[56px] lg:text-[72px] font-bold text-[#143325] mb-4 md:mb-6 leading-[1.05] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h1 className="text-[42px] md:text-[56px] lg:text-[72px] font-bold text-[#0F3D2E] mb-4 md:mb-6 leading-[1.05] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
               Wellness<br />Journal
             </h1>
-            <p className="text-[14px] md:text-[16px] text-[#4a5a51] mb-8 leading-[1.6]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            <p className="text-[14px] md:text-[16px] text-[#6b7b72] mb-8 leading-[1.6]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Insights, rituals, and natural wellness guides crafted to support your daily health journey.
             </p>
-            <button className="bg-[#1b3b2b] hover:bg-[#122a1f] text-white px-8 py-3.5 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center">
+            <button className="bg-[#2c4a35] hover:bg-[#1c2e24] text-white px-8 py-3.5 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center">
               Explore Articles
             </button>
           </div>
@@ -71,15 +71,15 @@ export default function JournalView({ posts }: JournalViewProps) {
               </span>
             </div>
 
-            <h2 className="text-[36px] md:text-[44px] lg:text-[48px] font-bold text-[#143325] mb-4 leading-[1.15] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h2 className="text-[36px] md:text-[44px] lg:text-[48px] font-bold text-[#0F3D2E] mb-4 leading-[1.15] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
               Benefits of<br />Hibiscus Tea
             </h2>
 
-            <p className="text-[14px] md:text-[16px] text-[#4a5a51] mb-8 leading-[1.6] max-w-[380px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            <p className="text-[14px] md:text-[16px] text-[#6b7b72] mb-8 leading-[1.6] max-w-[380px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Benefits, rituals, and natural wellness guides crafted to support your daily health journey.
             </p>
 
-            <button className="bg-[#1b3b2b] hover:bg-[#122a1f] text-white px-8 py-3 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center">
+            <button className="bg-[#2c4a35] hover:bg-[#1c2e24] text-white px-8 py-3 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center">
               Read Article
             </button>
           </div>
@@ -89,9 +89,9 @@ export default function JournalView({ posts }: JournalViewProps) {
       {/* ARTICLE CATEGORIES */}
       <section className="bg-transparent pt-16 md:pt-24 pb-16 md:pb-24">
         <div className="max-w-[1050px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-[13px] font-bold text-[#0F3D2E] mb-8 tracking-widest uppercase text-center" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+          <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-8 text-center" style={{ fontFamily: 'Playfair Display, serif' }}>
             Article Categories
-          </h3>
+          </h2>
           
           {/* Categories Row */}
           <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
@@ -99,10 +99,10 @@ export default function JournalView({ posts }: JournalViewProps) {
               <button 
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full border text-[13px] font-bold transition-colors ${
+                className={`px-5 py-2.5 rounded-full border text-[13px] font-bold transition-all duration-300 ${
                   activeCategory === cat 
-                    ? 'bg-[#e8f2e1] border-[#c5e1b5] text-[#1a3b2b]' 
-                    : 'bg-white border-[#e8e5de] text-[#6b7b72] hover:border-[#1a3b2b] hover:text-[#1a3b2b]'
+                    ? 'bg-[#1c2e24] border-[#1c2e24] text-white shadow-md' 
+                    : 'bg-white border-[#e8e5de] text-[#0F3D2E] hover:border-[#8cb73d]/50 hover:shadow-sm'
                 }`}
                 style={{ fontFamily: 'Nunito Sans, sans-serif' }}
               >
@@ -178,9 +178,9 @@ export default function JournalView({ posts }: JournalViewProps) {
       {/* WELLNESS TIPS SECTION */}
       <section className="bg-transparent pb-20 md:pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-[13px] font-bold text-[#0F3D2E] mb-8 tracking-widest uppercase text-center" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+          <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-8 text-center" style={{ fontFamily: 'Playfair Display, serif' }}>
             Wellness Tips
-          </h3>
+          </h2>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
             {[
@@ -196,7 +196,7 @@ export default function JournalView({ posts }: JournalViewProps) {
                   <div className="w-12 h-12 flex items-center justify-center mb-4 text-[#1b3b2b]">
                     <Icon className="w-8 h-8" strokeWidth={1.5} />
                   </div>
-                  <h4 className="text-[14px] font-bold text-[#143325] leading-[1.3]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  <h4 className="text-[14px] font-bold text-[#0F3D2E] leading-[1.3]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                     {tip.title}
                   </h4>
                 </div>
