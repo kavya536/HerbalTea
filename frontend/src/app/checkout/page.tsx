@@ -251,7 +251,7 @@ export default function CheckoutPage() {
               type="text"
               value={fullName}
               onChange={handleInputChange(setFullName, 'fullName')}
-              className={`w-full rounded-sm border ${firstErrorField === 'fullName' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+              className={`w-full rounded-sm border ${firstErrorField === 'fullName' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
               placeholder="Name*"
             />
             {firstErrorField === 'fullName' && (
@@ -263,7 +263,7 @@ export default function CheckoutPage() {
               type="tel"
               value={mobileNo}
               onChange={handleInputChange(setMobileNo, 'mobileNo')}
-              className={`w-full rounded-sm border ${firstErrorField === 'mobileNo' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+              className={`w-full rounded-sm border ${firstErrorField === 'mobileNo' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
               placeholder="Mobile No*"
             />
             {firstErrorField === 'mobileNo' && (
@@ -281,7 +281,7 @@ export default function CheckoutPage() {
               type="text"
               value={postalCode}
               onChange={handleInputChange(setPostalCode, 'postalCode')}
-              className={`w-full rounded-sm border ${firstErrorField === 'postalCode' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+              className={`w-full rounded-sm border ${firstErrorField === 'postalCode' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
               placeholder="Pin Code*"
             />
             {firstErrorField === 'postalCode' && (
@@ -293,7 +293,7 @@ export default function CheckoutPage() {
               type="text"
               value={houseNumber}
               onChange={handleInputChange(setHouseNumber, 'houseNumber')}
-              className={`w-full rounded-sm border ${firstErrorField === 'houseNumber' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+              className={`w-full rounded-sm border ${firstErrorField === 'houseNumber' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
               placeholder="House Number/Tower/Block*"
             />
             {firstErrorField === 'houseNumber' ? (
@@ -307,7 +307,7 @@ export default function CheckoutPage() {
               type="text"
               value={address}
               onChange={handleInputChange(setAddress, 'address')}
-              className={`w-full rounded-sm border ${firstErrorField === 'address' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+              className={`w-full rounded-sm border ${firstErrorField === 'address' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
               placeholder="Address (locality,building,street)*"
             />
             {firstErrorField === 'address' ? (
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
               type="text"
               value={locality}
               onChange={handleInputChange(setLocality, 'locality')}
-              className={`w-full rounded-sm border ${firstErrorField === 'locality' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+              className={`w-full rounded-sm border ${firstErrorField === 'locality' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
               placeholder="Locality / Town*"
             />
             {firstErrorField === 'locality' && (
@@ -334,7 +334,7 @@ export default function CheckoutPage() {
                 type="text"
                 value={city}
                 onChange={handleInputChange(setCity, 'city')}
-                className={`w-full rounded-sm border ${firstErrorField === 'city' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+                className={`w-full rounded-sm border ${firstErrorField === 'city' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
                 placeholder="City / District*"
               />
               {firstErrorField === 'city' && (
@@ -346,7 +346,7 @@ export default function CheckoutPage() {
                 type="text"
                 value={stateName}
                 onChange={handleInputChange(setStateName, 'stateName')}
-                className={`w-full rounded-sm border ${firstErrorField === 'stateName' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#03a685] outline-none`}
+                className={`w-full rounded-sm border ${firstErrorField === 'stateName' ? 'border-[#ff3f6c]' : 'border-[#d5d5d5]'} bg-white px-3 py-2.5 text-[14px] text-[#333] focus:border-[#0F3D2E] outline-none`}
                 placeholder="State*"
               />
               {firstErrorField === 'stateName' && (
@@ -366,7 +366,7 @@ export default function CheckoutPage() {
               name="addressType" 
               checked={addressType === 'HOME'}
               onChange={() => setAddressType('HOME')}
-              className="w-4 h-4 accent-[#03a685]" 
+              className="w-4 h-4 accent-[#0F3D2E]" 
             />
             <span className="text-[14px] text-[#333]">Home</span>
           </label>
@@ -376,7 +376,7 @@ export default function CheckoutPage() {
               name="addressType" 
               checked={addressType === 'OFFICE'}
               onChange={() => setAddressType('OFFICE')}
-              className="w-4 h-4 accent-[#03a685]" 
+              className="w-4 h-4 accent-[#0F3D2E]" 
             />
             <span className="text-[14px] text-[#333]">Office</span>
           </label>
@@ -387,11 +387,11 @@ export default function CheckoutPage() {
             <p className="text-[14px] text-[#878787]">Is your office open on weekends?<span className="text-[#ff3f6c]">*</span></p>
             <div className="flex flex-col gap-3">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-5 h-5 rounded-sm border-[#d5d5d5] accent-[#03a685]" />
+                <input type="checkbox" className="w-5 h-5 rounded-sm border-[#d5d5d5] accent-[#0F3D2E]" />
                 <span className="text-[14px] text-[#333]">Open On Saturday</span>
               </label>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-5 h-5 rounded-sm border-[#d5d5d5] accent-[#03a685]" />
+                <input type="checkbox" className="w-5 h-5 rounded-sm border-[#d5d5d5] accent-[#0F3D2E]" />
                 <span className="text-[14px] text-[#333]">Open On Sunday</span>
               </label>
             </div>
@@ -401,7 +401,7 @@ export default function CheckoutPage() {
 
       <div className="pt-6">
         <label className="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" className="w-4 h-4 rounded-sm border-[#d5d5d5] accent-[#03a685]" />
+          <input type="checkbox" className="w-4 h-4 rounded-sm border-[#d5d5d5] accent-[#0F3D2E]" />
           <span className="text-[14px] text-[#333]">Make this as my default address</span>
         </label>
       </div>
@@ -448,7 +448,7 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 form="modal-address-form"
-                className="flex-1 rounded-sm bg-[#03a685] py-3 text-[14px] font-bold text-white hover:bg-[#028b6f] transition-all uppercase tracking-widest"
+                className="flex-1 rounded-sm bg-[#0F3D2E] py-3 text-[14px] font-bold text-white hover:bg-[#1a5240] transition-all uppercase tracking-widest"
               >
                 Save
               </button>
@@ -470,10 +470,10 @@ export default function CheckoutPage() {
         <div className="flex-1 flex justify-center mr-10">
           <div className="flex items-center gap-2 sm:gap-4 text-[12px] sm:text-[14px] font-bold tracking-widest">
             <span className="text-[#878787] cursor-pointer hover:text-[#333]" onClick={() => router.push('/cart')}>BAG</span>
-            <span className="w-8 sm:w-16 h-px border-t border-dashed border-[#03a685]"></span>
-            <span className={`pb-1 ${checkoutStep === 'address-list' ? 'border-b-2 border-[#03a685] text-[#03a685]' : 'text-[#878787] cursor-pointer hover:text-[#333]'}`} onClick={() => { if (savedAddresses.length > 0) setCheckoutStep('address-list') }}>ADDRESS</span>
-            <span className={`w-8 sm:w-16 h-px border-t border-dashed ${checkoutStep === 'payment' ? 'border-[#03a685]' : 'border-[#878787]'}`}></span>
-            <span className={`pb-1 ${checkoutStep === 'payment' ? 'border-b-2 border-[#03a685] text-[#03a685]' : 'text-[#878787]'}`}>PAYMENT</span>
+            <span className="w-8 sm:w-16 h-px border-t border-dashed border-[#0F3D2E]"></span>
+            <span className={`pb-1 ${checkoutStep === 'address-list' ? 'border-b-2 border-[#0F3D2E] text-[#0F3D2E]' : 'text-[#878787] cursor-pointer hover:text-[#333]'}`} onClick={() => { if (savedAddresses.length > 0) setCheckoutStep('address-list') }}>ADDRESS</span>
+            <span className={`w-8 sm:w-16 h-px border-t border-dashed ${checkoutStep === 'payment' ? 'border-[#0F3D2E]' : 'border-[#878787]'}`}></span>
+            <span className={`pb-1 ${checkoutStep === 'payment' ? 'border-b-2 border-[#0F3D2E] text-[#0F3D2E]' : 'text-[#878787]'}`}>PAYMENT</span>
           </div>
         </div>
       </div>
@@ -498,7 +498,7 @@ export default function CheckoutPage() {
                   <div className="border-t border-[#f0f0f0] pt-6 mt-6">
                     <button
                       type="submit"
-                      className="w-full rounded-sm bg-[#03a685] py-3.5 text-[14px] font-bold text-white hover:bg-[#028b6f] transition-all uppercase tracking-widest"
+                      className="w-full rounded-sm bg-[#0F3D2E] py-3.5 text-[14px] font-bold text-white hover:bg-[#1a5240] transition-all uppercase tracking-widest"
                     >
                       Save Address
                     </button>
@@ -532,7 +532,7 @@ export default function CheckoutPage() {
                         <div className="flex-1 cursor-pointer" onClick={() => setSelectedAddressId(addr.id)}>
                           <div className="flex items-center gap-3 mb-2">
                             <span className="text-[15px] font-bold text-[#333]">{addr.fullName}</span>
-                            <span className="text-[10px] font-bold text-[#03a685] border border-[#03a685] px-2 py-0.5 rounded-full uppercase tracking-wider">{addr.addressType}</span>
+                            <span className="text-[10px] font-bold text-[#0F3D2E] border border-[#0F3D2E] px-2 py-0.5 rounded-full uppercase tracking-wider">{addr.addressType}</span>
                           </div>
                           <p className="text-[13px] text-[#555] leading-relaxed mb-2">
                             {addr.houseNumber}, {addr.address}, {addr.locality}<br/>
@@ -561,7 +561,7 @@ export default function CheckoutPage() {
                   className="bg-white border border-dashed border-[#d5d5d5] rounded-sm p-4 text-left cursor-pointer hover:bg-gray-50 transition-colors" 
                   onClick={() => { clearForm(); setShowAddressModal(true); }}
                 >
-                  <span className="text-[#03a685] font-bold text-[14px]">+ Add New Address</span>
+                  <span className="text-[#0F3D2E] font-bold text-[14px]">+ Add New Address</span>
                 </div>
               </div>
             )
@@ -571,13 +571,13 @@ export default function CheckoutPage() {
                 <h2 className="text-[16px] font-bold text-[#333] border-b border-[#f0f0f0] pb-2 mb-4">Payment Method</h2>
                 <div className="rounded border border-[#e5e7eb] bg-white p-4 flex items-center justify-between gap-4 shadow-sm">
                   <div className="flex items-center gap-3">
-                    <CreditCard className="h-5 w-5 text-[#03a685]" />
+                    <CreditCard className="h-5 w-5 text-[#0F3D2E]" />
                     <div>
                       <p className="text-[14px] font-bold text-[#333]">Simulated Secure Checkout</p>
                       <p className="text-[12px] text-[#878787]">Stripe & Razorpay simulated execution.</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1.5 rounded-full bg-[#eaf5f0] px-3 py-1 text-[12px] font-bold text-[#03a685]">
+                  <div className="flex items-center gap-1.5 rounded-full bg-[#eaf5f0] px-3 py-1 text-[12px] font-bold text-[#0F3D2E]">
                     <Lock className="h-3 w-3" /> Secure
                   </div>
                 </div>
@@ -586,7 +586,7 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 disabled={isSubmitting || items.length === 0}
-                className="w-full rounded-sm bg-[#03a685] py-3.5 text-[14px] font-bold uppercase tracking-widest text-white hover:bg-[#028b6f] transition-all shadow mt-6 disabled:bg-[#f0f0f0] disabled:text-[#878787] disabled:cursor-not-allowed cursor-pointer"
+                className="w-full rounded-sm bg-[#0F3D2E] py-3.5 text-[14px] font-bold uppercase tracking-widest text-white hover:bg-[#1a5240] transition-all shadow mt-6 disabled:bg-[#f0f0f0] disabled:text-[#878787] disabled:cursor-not-allowed cursor-pointer"
               >
                 {isSubmitting ? 'Processing Order...' : 'Place Order'}
               </button>
@@ -609,8 +609,8 @@ export default function CheckoutPage() {
                     const fDate = dDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
                     return (
                       <div key={item.sku} className={`flex items-center gap-4 ${index > 0 ? 'pt-4' : ''}`}>
-                        <div className="w-[36px] h-[48px] bg-gray-50 border border-[#e5e7eb] overflow-hidden shrink-0">
-                          <img src={item.product.img} alt="Product" className="w-full h-full object-cover" />
+                        <div className="w-[44px] h-[54px] bg-[#f9f8f6] border border-[#e8e5de] rounded-sm overflow-hidden shrink-0 flex items-center justify-center p-1.5">
+                          <img src={item.image || item.product.img} alt="Product" className={`w-full h-full object-contain ${(item.image || item.product.img).includes('.png') ? 'mix-blend-multiply drop-shadow-sm' : ''}`} />
                         </div>
                         <span className="text-[14px] text-[#333]">
                           Estimated delivery by <span className="font-bold">{fDate}</span>
@@ -646,14 +646,14 @@ export default function CheckoutPage() {
                 <span>Total MRP</span>
                 <span>₹{totalProductPrice.toFixed(0)}</span>
               </div>
-              <div className="flex justify-between text-[#03a685]">
+              <div className="flex justify-between text-[#0F3D2E]">
                 <span>Discount on MRP</span>
                 <span>- ₹{totalDiscount.toFixed(0)}</span>
               </div>
               <div className="flex justify-between text-[#555]">
                 <span className="flex items-center gap-1">Coupon Discount</span>
                 {appliedCoupon ? (
-                  <span className="text-[#03a685]">- ₹{appliedCoupon.discount}</span>
+                  <span className="text-[#0F3D2E]">- ₹{appliedCoupon.discount}</span>
                 ) : (
                   <span className="text-[#eab308] font-medium cursor-pointer" onClick={() => router.push('/cart')}>Apply Coupon</span>
                 )}
@@ -671,7 +671,7 @@ export default function CheckoutPage() {
             {checkoutStep === 'address-list' && savedAddresses.length > 0 && selectedAddressId && (
               <button
                 onClick={() => setCheckoutStep('payment')}
-                className="w-full rounded-sm bg-[#03a685] py-3.5 text-[14px] font-bold tracking-widest text-white hover:bg-[#028b6f] transition-all uppercase"
+                className="w-full rounded-sm bg-[#0F3D2E] py-3.5 text-[14px] font-bold tracking-widest text-white hover:bg-[#1a5240] transition-all uppercase"
               >
                 Continue
               </button>
