@@ -67,7 +67,7 @@ function SignupFormContent() {
           <Sparkles className="h-3 w-3" /> Registration
         </motion.div>
         <h2 className="text-2xl font-light text-primary tracking-tight">Create Account</h2>
-        <p className="text-xs text-muted">Join the Eduqra Wellness community</p>
+        <p className="text-xs text-muted">Join the Herbal Tea community</p>
       </div>
 
       {errorMsg && (

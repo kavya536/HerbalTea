@@ -36,7 +36,7 @@ function SuccessContent() {
         transition={{ delay: 0.3 }}
         className="text-xs text-muted mb-8 leading-relaxed font-light"
       >
-        Thank you for choosing Eduqra Wellness. Your botanical blend request is recorded. A confirmation message and tracking details will be dispatched to your email.
+        Thank you for choosing Herbal Tea. Your botanical blend request is recorded. A confirmation message and tracking details will be dispatched to your email.
       </motion.p>
 
       <motion.div

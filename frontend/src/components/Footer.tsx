@@ -13,7 +13,7 @@ export default function Footer() {
               <div className="bg-[#F8F5EE] rounded-full p-1.5 flex items-center justify-center">
                 <img src="/home/herbal_logo.png" alt="HerbalTea Logo" className="h-8 w-8 object-contain" />
               </div>
-              <h3 className="text-md font-semibold tracking-wider uppercase text-[#c49d56]" style={{ fontFamily: 'Playfair Display, serif' }}>Eduqra Wellness</h3>
+              <h3 className="text-md font-semibold tracking-wider uppercase text-[#c49d56]" style={{ fontFamily: 'Playfair Display, serif' }}>Herbal Tea</h3>
             </div>
             <p className="text-[13px] text-white/80 leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Curating premium, high-altitude herbal tea powders and holistic wellness botanical remedies to nurture your mind, body, and spirit.
@@ -74,7 +74,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-[12px] text-white/50">
-          <p>© {new Date().getFullYear()} Eduqra Wellness. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Herbal Tea. All rights reserved.</p>
           <div className="flex gap-6 mt-4 sm:mt-0">
             <a href="#" className="hover:text-[#d7b56d] transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-[#d7b56d] transition-colors">Terms of Service</a>

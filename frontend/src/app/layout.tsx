@@ -20,7 +20,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Eduqra Wellness | Premium Organic Herbal Tea Blends",
+  title: "Herbal Tea | Premium Organic Herbal Tea Blends",
   description: "Experience premium, high-altitude organic herbal tea powders and botanical remedies designed to nurture your body and calm your mind.",
 };
 
@@ -33,8 +33,12 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${nunito.variable} ${playfair.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+      <body 
+        className="min-h-full flex flex-col bg-background text-foreground font-sans"
+        suppressHydrationWarning
+      >
         <AuthProvider>
           <Navbar />
           <main className="flex-grow">

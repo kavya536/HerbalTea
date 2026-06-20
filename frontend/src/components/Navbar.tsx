@@ -6,7 +6,7 @@ import { useWishlistStore } from '../features/wishlist/wishlistStore';
 import { ShoppingBag, X, Plus, Minus, Trash2, User as UserIcon, LogOut, Search, Heart, Menu, ShoppingCart } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAuth } from '../providers/AuthProvider';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 export default function Navbar() {
@@ -14,12 +14,22 @@ export default function Navbar() {
   const wishlistItems = useWishlistStore(state => state.items);
   const { user, logout } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  useEffect(() => { setMounted(true); }, []);
+  useEffect(() => { 
+    setMounted(true); 
+    
+    // Force scroll to top on page reload
+    if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+  }, []);
+
 
   const totalItems = mounted ? getItemCount() : 0;
   const wishlistCount = mounted ? wishlistItems.length : 0;
@@ -28,8 +38,8 @@ export default function Navbar() {
     { label: 'Home', href: '/' },
     { label: 'Shop', href: '/shop' },
     { label: 'Benefits', href: '/#benefits' },
-    { label: 'Ingredients', href: '/#ingredients' },
-    { label: 'About', href: '/#about' },
+    { label: 'Ingredients', href: '/ingredients' },
+    { label: 'About', href: '/about' },
     { label: 'Blog', href: '/blog' },
     { label: 'Contact', href: '/contact' },
   ];
@@ -64,12 +74,15 @@ export default function Navbar() {
             className="hidden lg:flex items-center gap-6 text-[13.5px] font-semibold text-[#2c4a35]"
             style={{ fontFamily: 'Nunito Sans, sans-serif' }}
           >
-            {NAV_LINKS.map(({ label, href }) => (
-              <Link key={label} href={href} className="relative group py-1">
-                {label}
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-[#0F3D2E] rounded-full transition-all duration-300 group-hover:w-full" />
-              </Link>
-            ))}
+            {NAV_LINKS.map(({ label, href }) => {
+              const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
+              return (
+                <Link key={label} href={href} className={`relative group py-1 transition-colors ${isActive ? 'text-[#0F3D2E]' : 'hover:text-[#0F3D2E]'}`}>
+                  {label}
+                  <span className={`absolute bottom-0 left-0 h-[2px] bg-[#0F3D2E] rounded-full transition-all duration-300 ${isActive ? 'w-full' : 'w-0 group-hover:w-full'}`} />
+                </Link>
+              );
+            })}
           </nav>
 
           {/* Right Icons */}
@@ -214,11 +227,15 @@ export default function Navbar() {
                 </button>
               </div>
               <div className="flex flex-col p-5 space-y-5 mt-4">
-                {NAV_LINKS.map(({ label, href }) => (
-                  <Link key={label} href={href} onClick={() => setIsMobileMenuOpen(false)} className="text-[16px] font-semibold text-[#0F3D2E] hover:text-[#D4AF37] transition-colors">
-                    {label}
-                  </Link>
-                ))}
+                {NAV_LINKS.map(({ label, href }) => {
+                  const isActive = pathname === href || (href !== '/' && pathname.startsWith(href));
+                  return (
+                    <Link key={label} href={href} onClick={() => setIsMobileMenuOpen(false)} className={`text-[16px] font-semibold transition-colors flex items-center ${isActive ? 'text-[#D4AF37]' : 'text-[#0F3D2E] hover:text-[#D4AF37]'}`}>
+                      {label}
+                      {isActive && <span className="ml-2 w-1.5 h-1.5 rounded-full bg-[#D4AF37]" />}
+                    </Link>
+                  );
+                })}
               </div>
               <div className="mt-auto border-t border-[#e8e5de] p-5">
                 <p className="text-xs text-[#6b7b72] text-center" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>

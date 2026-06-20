@@ -63,7 +63,8 @@ public class RateLimitingFilter extends OncePerRequestFilter {
                 if (nativeClient instanceof RedisClient redisClient) {
                     StatefulRedisConnection<byte[], byte[]> connection = redisClient.connect(ByteArrayCodec.INSTANCE);
                     this.proxyManager = LettuceBasedProxyManager.builderFor(connection)
-                            .withExpirationStrategy(ExpirationAfterWriteStrategy.fixedTimeToLive(Duration.ofHours(1)))
+                            .withClientSideConfig(io.github.bucket4j.distributed.proxy.ClientSideConfig.getDefault()
+                                .withExpirationAfterWriteStrategy(ExpirationAfterWriteStrategy.fixedTimeToLive(Duration.ofHours(1))))
                             .build();
                     this.useRedis = true;
                     log.info("Initialized Redis-backed distributed rate limiter using Lettuce");

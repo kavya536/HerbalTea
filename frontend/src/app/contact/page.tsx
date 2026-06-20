@@ -145,7 +145,7 @@ export default function ContactPage() {
                 <Mail className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" strokeWidth={1.5} />
                 <div>
                   <p className="text-[14px] font-semibold text-[#1c2e24] uppercase tracking-wide mb-1" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>Email Us</p>
-                  <p className="text-[13px] text-[#6b7b72]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>hello@eduqrawellness.com</p>
+                  <p className="text-[13px] text-[#6b7b72]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>hello@herbaltea.com</p>
                 </div>
               </div>
             </div>

@@ -1,4 +1,4 @@
-package com.wellness.platform;
+package com.eduqra;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
