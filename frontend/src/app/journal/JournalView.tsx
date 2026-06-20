@@ -175,6 +175,86 @@ export default function JournalView({ posts }: JournalViewProps) {
         </div>
       </section>
 
+      {/* LATEST ARTICLES GRID */}
+      <section className="bg-transparent pb-20 md:pb-32">
+        <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-12 text-center" style={{ fontFamily: 'Playfair Display, serif' }}>
+            Latest Articles Grid
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post, idx) => (
+              <motion.article 
+                key={post.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.05 }}
+                whileHover={{ y: -8 }}
+                className="group flex flex-col bg-white rounded-[16px] overflow-hidden shadow-[0_4px_20px_-6px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_30px_-10px_rgba(44,74,53,0.15)] border border-[#e8e5de]/60 transition-all duration-500 h-full"
+              >
+                {/* Article Cover Image */}
+                <div className="relative h-[220px] w-full overflow-hidden shrink-0">
+                  <img 
+                    src={post.image} 
+                    alt={post.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="bg-white/95 backdrop-blur-sm text-[#0F3D2E] font-bold px-3.5 py-1 rounded-full text-[10px] tracking-wider uppercase shadow-sm" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                      {post.category}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card Content */}
+                <div className="p-6 md:p-7 flex flex-col flex-grow bg-white">
+                  
+                  {/* Article Title */}
+                  <h3 
+                    className="text-[19px] md:text-[21px] font-bold text-[#0F3D2E] leading-[1.3] mb-3 group-hover:text-[#2c4a35] transition-colors line-clamp-2"
+                    style={{ fontFamily: 'Playfair Display, serif' }}
+                  >
+                    {post.title}
+                  </h3>
+
+                  {/* Article Summary */}
+                  <p 
+                    className="text-[13.5px] text-[#6b7b72] mb-6 leading-[1.6] line-clamp-3" 
+                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+                  >
+                    {post.excerpt}
+                  </p>
+
+                  {/* Footer metadata: Reading time & Read More button */}
+                  <div className="mt-auto pt-5 border-t border-[#f0eee9] flex items-center justify-between">
+                    {/* Reading Time */}
+                    <div className="flex items-center gap-1.5 text-[#8a958f]">
+                      <Clock className="w-3.5 h-3.5" />
+                      <span className="text-[11.5px] font-semibold tracking-wide" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                        {post.readTime}
+                      </span>
+                    </div>
+
+                    {/* Read More Button */}
+                    <Link 
+                      href={`/journal/${post.id}`} 
+                      className="text-[13px] font-bold text-[#2c4a35] group-hover:text-[#5e8b42] flex items-center gap-1 transition-colors"
+                      style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+                    >
+                      Read More 
+                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                  </div>
+
+                </div>
+              </motion.article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* WELLNESS TIPS SECTION */}
       <section className="bg-transparent pb-20 md:pb-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
