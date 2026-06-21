@@ -2,49 +2,123 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ArrowRight, Calendar, Clock, Droplets, Moon, Coffee, Heart, Leaf } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, Clock, ChevronDown } from 'lucide-react';
 import { JournalPost } from './types';
+import SharedArticleGrid from '../../components/SharedArticleGrid';
+
+const journalFaqs = [
+  {
+    q: 'How long does delivery take?',
+    a: 'Most standard orders are processed and delivered within 3–7 business days, depending on your geographical location. If you need your tea sooner, we also offer expedited shipping options at checkout.'
+  },
+  {
+    q: 'Do you offer free shipping?',
+    a: 'Yes, we are delighted to offer free standard shipping on all domestic orders that exceed our specified minimum purchase amount. The discount is automatically applied to your cart during the checkout process.'
+  },
+  {
+    q: 'What ingredients are used in your herbal teas?',
+    a: 'Our premium herbal teas are expertly crafted from a curated selection of 100% natural herbs and botanicals. Our signature blend features a soothing combination of Beetroot, Aquatic Fern, Hibiscus, Mulethi, and Moringa.'
+  },
+  {
+    q: 'Are your products free from artificial additives?',
+    a: 'Yes, purity is our priority. We focus strictly on using whole, natural ingredients, ensuring our premium herbal blends are completely free from any added sugar, artificial additives, synthetic colors, or artificial flavors.'
+  },
+  {
+    q: 'How should I prepare the herbal tea?',
+    a: 'For the perfect cup, use one sachet per cup. Pour hot water over it and let it steep for 3-4 minutes to release its full aromatic profile. You may add honey if desired. Always store your tea in a cool, dry place away from sunlight.'
+  },
+  {
+    q: 'How often can I drink herbal tea?',
+    a: 'We recommend enjoying 1-2 cups per day, and advise not to exceed the recommended usage. Please note our teas are not for medical use and are not intended to diagnose, treat, cure, or prevent any disease.'
+  }
+];
+
+const FaqAccordionItem = ({ question, answer }: { question: string, answer: string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className={`w-full bg-white rounded-[16px] mb-4 overflow-hidden transition-all duration-300 ${isOpen ? 'border border-[#d1decb] shadow-sm' : 'border border-transparent shadow-[0_2px_10px_rgba(0,0,0,0.02)]'}`}>
+      <button 
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-between w-full text-left px-6 py-5 group focus:outline-none"
+      >
+        <h4 
+          className="text-[15px] md:text-[16px] font-medium text-[#1c2e24]" 
+          style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+        >
+          {question}
+        </h4>
+        <div className={`flex items-center justify-center w-8 h-8 rounded-full shrink-0 ml-4 transition-all duration-300 ${isOpen ? 'bg-[#1c2e24]' : 'bg-[#f0ece4] group-hover:bg-[#e8e3d9]'}`}>
+          <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#dcae3d]' : 'text-[#4a554e]'}`} />
+        </div>
+      </button>
+      
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+          >
+            <div className="px-6 pb-6 pt-1">
+              <p className="text-[14px] text-[#6b7b72] leading-[1.6]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                {answer}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 interface JournalViewProps {
   posts: JournalPost[];
 }
 
 export default function JournalView({ posts }: JournalViewProps) {
-  const [activeCategory, setActiveCategory] = useState('All Articles');
-  
-  const categories = ['All Articles', 'Research', 'Nutrition', 'Lifestyle', 'Ingredients', 'Wellness', 'Recipes'];
-
-  const filteredPosts = activeCategory === 'All Articles' 
-    ? posts 
-    : posts.filter(post => post.category.toLowerCase() === activeCategory.toLowerCase());
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-[#f5f0e6]">
       {/* Hero Section */}
-      <section className="relative w-full overflow-hidden bg-[#fdfbf7] flex flex-col md:flex-row items-center h-auto md:h-[550px]">
-        {/* Left Content */}
-        <div className="w-full md:w-[45%] flex justify-end px-6 py-12 md:p-12 lg:pr-16 z-20">
-          <div className="max-w-[400px] w-full pt-10 md:pt-0">
-            <h1 className="text-[42px] md:text-[56px] lg:text-[72px] font-bold text-[#0F3D2E] mb-4 md:mb-6 leading-[1.05] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+      <section className="relative w-full min-h-[450px] md:min-h-[600px] flex items-center bg-[#f2f4ed] overflow-hidden mb-8 md:mb-10">
+        
+        {/* Background Image Container */}
+        <div className="absolute inset-0 w-full h-full z-0">
+          <img 
+            src="/journal/journal1.png" 
+            alt="Wellness Journal" 
+            className="w-full h-full object-cover object-[center_60%]"
+          />
+        </div>
+
+        {/* Gradient Overlay for Text Readability */}
+        <div 
+          className="absolute inset-0 z-10 pointer-events-none" 
+          style={{ background: 'linear-gradient(to right, rgba(198,200,190,0.95) 0%, rgba(198,200,190,0.8) 25%, transparent 45%)' }}
+        ></div>
+
+        {/* Content Area */}
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 flex flex-col justify-center">
+          <div className="w-full md:w-[55%] lg:w-[45%] flex flex-col items-start text-[#0F3D2E]">
+            <h1 className="text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.05] mb-6 tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
               Wellness<br />Journal
             </h1>
-            <p className="text-[14px] md:text-[16px] text-[#6b7b72] mb-8 leading-[1.6]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            
+            <p className="text-[#4a554e] text-[16px] md:text-[18px] leading-relaxed mb-8 max-w-[360px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Insights, rituals, and natural wellness guides crafted to support your daily health journey.
             </p>
-            <button className="bg-[#2c4a35] hover:bg-[#1c2e24] text-white px-8 py-3.5 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center">
+            
+            <button 
+              onClick={() => document.getElementById('browse-by-topic')?.scrollIntoView({ behavior: 'smooth' })}
+              className="bg-[#1c2e24] hover:bg-[#2a3f30] text-white px-8 py-3.5 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center tracking-wide" 
+              style={{ fontFamily: 'Nunito Sans, sans-serif' }}
+            >
               Explore Articles
             </button>
           </div>
-        </div>
-
-        {/* Right Image */}
-        <div className="w-full md:w-[55%] h-[350px] md:h-full relative">
-          <img 
-            src="/journal/hero.png" 
-            alt="Wellness Journal Hero" 
-            className="w-full h-full object-cover object-left md:object-center mix-blend-multiply"
-          />
         </div>
       </section>
 
@@ -76,207 +150,49 @@ export default function JournalView({ posts }: JournalViewProps) {
             </h2>
 
             <p className="text-[14px] md:text-[16px] text-[#6b7b72] mb-8 leading-[1.6] max-w-[380px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-              Benefits, rituals, and natural wellness guides crafted to support your daily health journey.
+              Benefits, rituals, and natural wellness guides crafted to support your daily health journey. Discover how this vibrant crimson flower can naturally lower blood pressure, improve your immune system, and bring a moment of calm to your busy everyday life.
             </p>
 
-            <button className="bg-[#2c4a35] hover:bg-[#1c2e24] text-white px-8 py-3 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center">
+            <Link 
+              href="/journal/1"
+              className="bg-[#2c4a35] hover:bg-[#1c2e24] text-white px-8 py-3 rounded-[4px] font-bold text-[14px] transition-colors shadow-sm inline-flex items-center"
+            >
               Read Article
-            </button>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ARTICLE CATEGORIES */}
-      <section className="bg-transparent pt-16 md:pt-24 pb-16 md:pb-24">
-        <div className="max-w-[1050px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-8 text-center" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Article Categories
-          </h2>
-          
-          {/* Categories Row */}
-          <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
-            {categories.map((cat, i) => (
-              <button 
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2.5 rounded-full border text-[13px] font-bold transition-all duration-300 ${
-                  activeCategory === cat 
-                    ? 'bg-[#1c2e24] border-[#1c2e24] text-white shadow-md' 
-                    : 'bg-white border-[#e8e5de] text-[#0F3D2E] hover:border-[#8cb73d]/50 hover:shadow-sm'
-                }`}
-                style={{ fontFamily: 'Nunito Sans, sans-serif' }}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredPosts.map((post, idx) => (
-              <motion.article 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                key={post.id}
-                className="group flex flex-col bg-white rounded-[12px] overflow-hidden shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_-8px_rgba(44,74,53,0.1)] border border-[#f0eee9] transition-all duration-300 h-full"
-              >
-                {/* Image Container */}
-                <div className="relative h-[200px] w-full overflow-hidden shrink-0">
-                  <img 
-                    src={post.image} 
-                    alt={post.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                  />
-                </div>
 
-                {/* Content */}
-                <div className="p-5 md:p-6 flex flex-col flex-grow bg-white relative">
-                  
-                  {/* Tag Overlay */}
-                  <div className="absolute -top-[14px] left-5 bg-white px-3 py-[4px] shadow-[0_2px_8px_rgba(0,0,0,0.08)] z-10 rounded-[2px]">
-                    <span className="text-[10px] font-bold text-[#d6a524] uppercase tracking-wider" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                      {post.category}
-                    </span>
-                  </div>
-
-                  <h3 
-                    className="text-[17px] md:text-[19px] font-bold text-[#0F3D2E] leading-[1.3] mt-2 mb-2 group-hover:text-[#2c4a35] transition-colors line-clamp-2 min-h-[48px]"
-                    style={{ fontFamily: 'Playfair Display, serif' }}
-                  >
-                    {post.title}
-                  </h3>
-
-                  <p className="text-[13px] text-[#6b7b72] mb-5 leading-[1.6] line-clamp-2 min-h-[42px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                    {post.excerpt}
-                  </p>
-                  
-                  {/* Author & Meta */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <img src={`https://i.pravatar.cc/150?img=${idx + 12}`} alt={post.author} className="w-8 h-8 rounded-full object-cover shadow-sm" />
-                    <div className="flex flex-col">
-                      <span className="text-[12px] font-bold text-[#0F3D2E]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>{post.author}</span>
-                      <span className="text-[11px] text-[#8a958f]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                        {new Date(post.publishedDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} &nbsp;&bull;&nbsp; {post.readTime}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Read Article Link */}
-                  <Link href={`/journal/${post.id}`} className="mt-auto text-[13px] font-bold text-[#2c4a35] flex items-center gap-1.5 hover:text-[#5e8b42] transition-colors">
-                    Read Article <ArrowRight className="w-4 h-4" />
-                  </Link>
-
-                </div>
-              </motion.article>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* LATEST ARTICLES GRID */}
-      <section className="bg-transparent pb-20 md:pb-32">
-        <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-12 text-center" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Latest Articles Grid
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post, idx) => (
-              <motion.article 
-                key={post.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.05 }}
-                whileHover={{ y: -8 }}
-                className="group flex flex-col bg-white rounded-[16px] overflow-hidden shadow-[0_4px_20px_-6px_rgba(0,0,0,0.05)] hover:shadow-[0_12px_30px_-10px_rgba(44,74,53,0.15)] border border-[#e8e5de]/60 transition-all duration-500 h-full"
-              >
-                {/* Article Cover Image */}
-                <div className="relative h-[220px] w-full overflow-hidden shrink-0">
-                  <img 
-                    src={post.image} 
-                    alt={post.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  {/* Category Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="bg-white/95 backdrop-blur-sm text-[#0F3D2E] font-bold px-3.5 py-1 rounded-full text-[10px] tracking-wider uppercase shadow-sm" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                      {post.category}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Content */}
-                <div className="p-6 md:p-7 flex flex-col flex-grow bg-white">
-                  
-                  {/* Article Title */}
-                  <h3 
-                    className="text-[19px] md:text-[21px] font-bold text-[#0F3D2E] leading-[1.3] mb-3 group-hover:text-[#2c4a35] transition-colors line-clamp-2"
-                    style={{ fontFamily: 'Playfair Display, serif' }}
-                  >
-                    {post.title}
-                  </h3>
-
-                  {/* Article Summary */}
-                  <p 
-                    className="text-[13.5px] text-[#6b7b72] mb-6 leading-[1.6] line-clamp-3" 
-                    style={{ fontFamily: 'Nunito Sans, sans-serif' }}
-                  >
-                    {post.excerpt}
-                  </p>
-
-                  {/* Footer metadata: Reading time & Read More button */}
-                  <div className="mt-auto pt-5 border-t border-[#f0eee9] flex items-center justify-between">
-                    {/* Reading Time */}
-                    <div className="flex items-center gap-1.5 text-[#8a958f]">
-                      <Clock className="w-3.5 h-3.5" />
-                      <span className="text-[11.5px] font-semibold tracking-wide" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                        {post.readTime}
-                      </span>
-                    </div>
-
-                    {/* Read More Button */}
-                    <Link 
-                      href={`/journal/${post.id}`} 
-                      className="text-[13px] font-bold text-[#2c4a35] group-hover:text-[#5e8b42] flex items-center gap-1 transition-colors"
-                      style={{ fontFamily: 'Nunito Sans, sans-serif' }}
-                    >
-                      Read More 
-                      <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
-                    </Link>
-                  </div>
-
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SharedArticleGrid basePath="/journal" topicHeading="ARTICLE CATEGORIES" />
 
       {/* WELLNESS TIPS SECTION */}
-      <section className="bg-transparent pb-20 md:pb-32">
+      <section className="bg-transparent pb-20 md:pb-32" style={{ zoom: 0.9 }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-8 text-center" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Wellness Tips
-          </h2>
+          <div className="text-center mb-12">
+            <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Wellness Tips
+            </h2>
+            <p className="text-[#6b7b72] max-w-2xl mx-auto text-[15px] leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              Embrace a healthier lifestyle with our carefully curated wellness tips. Simple, mindful adjustments to your daily routine can naturally elevate both your physical vitality and mental clarity.
+            </p>
+          </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
             {[
-              { title: 'Stay Hydrated', icon: Droplets },
-              { title: 'Improve Sleep Quality', icon: Moon },
-              { title: 'Daily Herbal Ritual', icon: Coffee },
-              { title: 'Mindful Living', icon: Heart },
-              { title: 'Natural Stress Relief', icon: Leaf },
+              { title: 'Stay Hydrated', icon: '/journal/icon_1.png' },
+              { title: 'Improve Sleep Quality', icon: '/journal/icon_2.png' },
+              { title: 'Daily Herbal Ritual', icon: '/journal/logo_3.png' },
+              { title: 'Mindful Living', icon: '/journal/icon_4.png' },
+              { title: 'Natural Stress Relief', icon: '/journal/icon_5.png' },
             ].map((tip, i) => {
-              const Icon = tip.icon;
               return (
-                <div key={i} className="bg-white rounded-[16px] p-6 flex flex-col items-center justify-center text-center shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] border border-[#f0eee9] hover:shadow-[0_8px_24px_-8px_rgba(44,74,53,0.1)] transition-all duration-300">
-                  <div className="w-12 h-12 flex items-center justify-center mb-4 text-[#1b3b2b]">
-                    <Icon className="w-8 h-8" strokeWidth={1.5} />
+                <div key={i} className="group bg-white rounded-[16px] p-6 flex flex-col items-center justify-center text-center shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] border border-[#f0eee9] hover:shadow-[0_8px_24px_-8px_rgba(44,74,53,0.15)] transition-all duration-300 cursor-pointer">
+                  <div className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center mb-5 text-[#1b3b2b] rounded-[16px] group-hover:bg-[#1c2e24] transition-all duration-300 p-2">
+                    <img src={tip.icon} alt={tip.title} className={`w-full h-full object-contain ${i === 0 || i === 3 ? 'scale-[1.7]' : 'scale-[1.4]'} group-hover:brightness-0 group-hover:invert transition-all duration-300`} />
                   </div>
-                  <h4 className="text-[14px] font-bold text-[#0F3D2E] leading-[1.3]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  <h4 className="text-[14px] font-bold text-[#0F3D2E] transition-colors duration-300 leading-[1.3]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                     {tip.title}
                   </h4>
                 </div>
@@ -321,6 +237,26 @@ export default function JournalView({ posts }: JournalViewProps) {
               </form>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="w-full bg-[#f5f0e6] py-16 md:py-24">
+        <div className="max-w-[850px] mx-auto px-6 sm:px-10">
+          <div className="text-center mb-12">
+            <h2 className="text-[36px] md:text-[44px] font-bold text-[#1c2e24] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Frequently Asked Questions
+            </h2>
+            <p className="text-[#6b7b72] text-[15px] max-w-[650px] mx-auto leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              Everything you need to know about our herbal blends, sourcing, and brewing process. Can't find your answer? Reach out to our herbalist team.
+            </p>
+          </div>
+          
+          <div className="flex flex-col">
+            {journalFaqs.map((faq, idx) => (
+              <FaqAccordionItem key={idx} question={faq.q} answer={faq.a} />
+            ))}
           </div>
         </div>
       </section>

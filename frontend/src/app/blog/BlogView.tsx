@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ArrowRight, ArrowLeft, Leaf, Smile, Apple, Microscope, Coffee, Sun, Sprout, Calendar, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import SharedArticleGrid from '../../components/SharedArticleGrid';
 
 const CATEGORIES = [
   "Herbal Tea",
@@ -15,92 +16,10 @@ const CATEGORIES = [
   "Healthy Living"
 ];
 
-const TOPICS = [
-  { name: 'All', icon: Leaf },
-  { name: 'Wellness', icon: Smile },
-  { name: 'Nutrition', icon: Apple },
-  { name: 'Research', icon: Microscope },
-  { name: 'Recipes', icon: Coffee },
-  { name: 'Lifestyle', icon: Sun },
-  { name: 'Ingredients', icon: Sprout }
-];
-
-const ARTICLES = [
-  {
-    id: 1,
-    tag: "RESEARCH",
-    title: "What Science Says About Hibiscus Tea",
-    desc: "Studies suggest hibiscus may support healthy blood pressure and heart wellness.",
-    author: "Ananya Sharma",
-    authorImg: "https://i.pravatar.cc/150?img=32",
-    date: "May 18, 2025",
-    readTime: "6 min read",
-    img: "/blog/blog1.png"
-  },
-  {
-    id: 2,
-    tag: "NUTRITION",
-    title: "Antioxidants In Everyday Wellness",
-    desc: "Understanding antioxidants and how they protect your cells naturally.",
-    author: "Kavya Menon",
-    authorImg: "https://i.pravatar.cc/150?img=5",
-    date: "May 14, 2025",
-    readTime: "5 min read",
-    img: "/blog/blog2.png"
-  },
-  {
-    id: 3,
-    tag: "LIFESTYLE",
-    title: "Creating A Tea Ritual For Better Sleep",
-    desc: "Simple bedtime tea rituals to calm your mind and improve sleep quality.",
-    author: "Ananya Sharma",
-    authorImg: "https://i.pravatar.cc/150?img=32",
-    date: "May 12, 2025",
-    readTime: "6 min read",
-    img: "/blog/blog_3.png"
-  },
-  {
-    id: 4,
-    tag: "INGREDIENTS",
-    title: "Moringa Benefits Explained",
-    desc: "The supergreen with incredible nutritional and healing properties.",
-    author: "Kavya Menon",
-    authorImg: "https://i.pravatar.cc/150?img=5",
-    date: "May 10, 2025",
-    readTime: "6 min read",
-    img: "/blog/blog_4.png"
-  },
-  {
-    id: 5,
-    tag: "WELLNESS",
-    title: "Stress Relief Through Herbal Blends",
-    desc: "Herbal ingredients that help your body relax and manage daily stress.",
-    author: "Ananya Sharma",
-    authorImg: "https://i.pravatar.cc/150?img=32",
-    date: "May 8, 2025",
-    readTime: "6 min read",
-    img: "/blog/blog_5.png"
-  },
-  {
-    id: 6,
-    tag: "RECIPES",
-    title: "Golden Herbal Latte Recipe",
-    desc: "A soothing turmeric latte recipe to nourish your body and mind.",
-    author: "Kavya Menon",
-    authorImg: "https://i.pravatar.cc/150?img=5",
-    date: "May 6, 2025",
-    readTime: "4 min read",
-    img: "/blog/blog_6.png"
-  }
-];
+export { TOPICS, ARTICLES } from './articlesData';
 
 export default function BlogPage() {
   const router = useRouter();
-  const [activeTopic, setActiveTopic] = useState('All');
-
-  const filteredArticles = activeTopic === 'All' 
-    ? ARTICLES 
-    : ARTICLES.filter(article => article.tag.toLowerCase() === activeTopic.toLowerCase());
 
   return (
     <div className="flex flex-col w-full min-h-screen bg-[#f5f0e6]">
@@ -154,103 +73,7 @@ export default function BlogPage() {
         </Link>
       </section>
 
-      {/* Browse By Topic Section */}
-      <section className="bg-transparent pb-6 md:pb-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 id="browse-by-topic" className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-8 scroll-mt-24" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Browse By Topic
-          </h2>
-
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-            {TOPICS.map((topic, idx) => {
-              const Icon = topic.icon;
-              const isActive = topic.name === activeTopic;
-              return (
-                <button
-                  key={idx}
-                  onClick={() => setActiveTopic(topic.name)}
-                  className={`flex items-center gap-2 px-6 py-2.5 rounded-full border transition-all duration-300 ${
-                    isActive
-                      ? 'bg-[#1c2e24] border-[#1c2e24] text-white shadow-md'
-                      : 'bg-white border-[#e8e5de] text-[#0F3D2E] hover:border-[#8cb73d]/50 hover:shadow-sm'
-                  }`}
-                >
-                  <Icon className={`w-[18px] h-[18px] ${isActive ? 'text-[#d6a524]' : 'text-[#5e8b42]'}`} strokeWidth={2.5} />
-                  <span className={`text-[14px] md:text-[15px] font-bold`} style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                    {topic.name}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Blog Articles Section */}
-      <section className="bg-transparent pt-6 pb-20 md:pt-10 md:pb-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {filteredArticles.map((article, idx) => (
-              <motion.article 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: idx * 0.1 }}
-                key={article.id}
-                className="group flex flex-col bg-white rounded-[12px] overflow-hidden shadow-[0_2px_12px_-4px_rgba(0,0,0,0.05)] hover:shadow-[0_8px_24px_-8px_rgba(44,74,53,0.1)] border border-[#f0eee9] transition-all duration-300 h-full"
-              >
-                {/* Image Container */}
-                <div className="relative h-[200px] w-full overflow-hidden shrink-0">
-                  <img 
-                    src={article.img} 
-                    alt={article.title} 
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                  />
-                </div>
-
-                {/* Content */}
-                <div className="p-5 md:p-6 flex flex-col flex-grow bg-white relative">
-                  
-                  {/* Tag Overlay */}
-                  <div className="absolute -top-[14px] left-5 bg-white px-3 py-[4px] shadow-[0_2px_8px_rgba(0,0,0,0.08)] z-10 rounded-[2px]">
-                    <span className="text-[10px] font-bold text-[#d6a524] uppercase tracking-wider" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                      {article.tag}
-                    </span>
-                  </div>
-
-                  <h3 
-                    className="text-[17px] md:text-[19px] font-bold text-[#0F3D2E] leading-[1.3] mt-2 mb-2 group-hover:text-[#2c4a35] transition-colors line-clamp-2 min-h-[48px]"
-                    style={{ fontFamily: 'Playfair Display, serif' }}
-                  >
-                    {article.title}
-                  </h3>
-
-                  <p className="text-[13px] text-[#6b7b72] mb-5 leading-[1.6] line-clamp-2 min-h-[42px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                    {article.desc}
-                  </p>
-                  
-                  {/* Author & Meta */}
-                  <div className="flex items-center gap-3 mb-4">
-                    <img src={article.authorImg} alt={article.author} className="w-8 h-8 rounded-full object-cover shadow-sm" />
-                    <div className="flex flex-col">
-                      <span className="text-[12px] font-bold text-[#0F3D2E]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>{article.author}</span>
-                      <span className="text-[11px] text-[#8a958f]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                        {article.date} &nbsp;&bull;&nbsp; {article.readTime}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Read Article Link */}
-                  <Link href={`/blog/${article.id}`} className="text-[13px] font-bold text-[#2c4a35] flex items-center gap-1.5 hover:text-[#5e8b42] transition-colors mt-2">
-                    Read Article <ArrowRight className="w-4 h-4" />
-                  </Link>
-
-                </div>
-              </motion.article>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SharedArticleGrid basePath="/blog" />
 
       {/* Promotional Section */}
       <section className="w-full pb-16 md:pb-24">

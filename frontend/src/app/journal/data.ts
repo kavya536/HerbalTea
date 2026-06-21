@@ -34,7 +34,7 @@ export const JOURNAL_POSTS: JournalPost[] = [
     image: "/blog/blog_6.png",
     author: "Ananya Sharma",
     publishedDate: "2025-05-12",
-    category: "Recipes",
+    category: "Detox",
     readTime: "4 min read"
   },
   {

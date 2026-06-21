@@ -4,19 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Mail, CheckCircle2, Shield, Heart, Coffee, Leaf, Smile, Sprout, Apple } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 
-const ARTICLES = [
-  { id: 1, tag: "RESEARCH", title: "What Science Says About Hibiscus Tea", desc: "Studies suggest hibiscus may support healthy blood pressure and heart wellness.", author: "Ananya Sharma", authorImg: "https://i.pravatar.cc/150?img=32", date: "May 18, 2025", readTime: "6 min read", img: "/blog/blog1.png" },
-  { id: 2, tag: "NUTRITION", title: "Antioxidants In Everyday Wellness", desc: "Understanding antioxidants and how they protect your cells naturally.", author: "Kavya Menon", authorImg: "https://i.pravatar.cc/150?img=5", date: "May 14, 2025", readTime: "5 min read", img: "/blog/blog2.png" },
-  { id: 3, tag: "LIFESTYLE", title: "Creating A Tea Ritual For Better Sleep", desc: "Simple bedtime tea rituals to calm your mind and improve sleep quality.", author: "Ananya Sharma", authorImg: "https://i.pravatar.cc/150?img=32", date: "May 12, 2025", readTime: "6 min read", img: "/blog/blog_3.png" },
-  { id: 4, tag: "INGREDIENTS", title: "Moringa Benefits Explained", desc: "The supergreen with incredible nutritional and healing properties.", author: "Kavya Menon", authorImg: "https://i.pravatar.cc/150?img=5", date: "May 10, 2025", readTime: "6 min read", img: "/blog/blog_4.png" },
-  { id: 5, tag: "WELLNESS", title: "Stress Relief Through Herbal Blends", desc: "Herbal ingredients that help your body relax and manage daily stress.", author: "Ananya Sharma", authorImg: "https://i.pravatar.cc/150?img=32", date: "May 8, 2025", readTime: "6 min read", img: "/blog/blog_5.png" },
-  { id: 6, tag: "RECIPES", title: "Golden Herbal Latte Recipe", desc: "A soothing turmeric latte recipe to nourish your body and mind.", author: "Kavya Menon", authorImg: "https://i.pravatar.cc/150?img=5", date: "May 6, 2025", readTime: "4 min read", img: "/blog/blog_6.png" }
-];
+import { ARTICLES } from '../BlogView';
 
 export default function BlogPostPage() {
   const params = useParams();
+  const pathname = usePathname();
+  const basePath = pathname?.startsWith('/journal') ? '/journal' : '/blog';
   const articleId = params?.id ? Number(params.id) : 1;
   const article = ARTICLES.find(a => a.id === articleId) || ARTICLES[0];
   const relatedArticles = ARTICLES.filter(a => a.id !== article.id).slice(0, 3);
@@ -50,53 +45,46 @@ export default function BlogPostPage() {
     <div className="min-h-screen bg-white font-sans pb-0">
 
       {/* Dynamic Hero Section based on article */}
-      <div className="w-full flex justify-end bg-[#f8f6f0]">
-        <div className="max-w-[1400px] w-full flex flex-col md:flex-row items-center justify-between pl-4 sm:pl-8 lg:pl-16 pr-0 pb-8 md:pb-12 gap-8 md:gap-12">
-          
-          {/* Left Content Area */}
-          <div className="w-full md:w-[40%] flex flex-col items-start">
+      <div className="relative w-full min-h-[450px] md:min-h-[550px] flex items-center bg-[#0F3D2E] overflow-hidden">
+        
+        {/* Background Image Container (Restricted width to prevent over-zooming cup) */}
+        <div className="absolute inset-y-0 right-0 w-full md:w-[90%] lg:w-[75%] z-0">
+          <img 
+            src={article.img} 
+            alt={article.title} 
+            className="w-full h-full object-cover object-bottom md:object-right-bottom"
+          />
+        </div>
 
-            <h1 className="text-[36px] md:text-[46px] lg:text-[54px] font-bold text-[#0F3D2E] leading-[1.1] mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
+        {/* Full-width Screen Gradient Overlay for perfect transitioning */}
+        <div className="absolute inset-0 z-10 bg-gradient-to-r from-[#0F3D2E] from-[15%] via-[#2c4a35] via-[25%] to-transparent to-[35%] md:to-[30%]"></div>
+
+        {/* Content Area */}
+        <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 md:py-20 flex flex-col justify-center">
+          <div className="w-full md:w-[60%] lg:w-[50%] flex flex-col items-start">
+            <span className="text-[#dcae3d] text-[11px] font-bold uppercase tracking-widest block mb-4" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              {article.tag}
+            </span>
+            <h1 className="text-[36px] md:text-[46px] lg:text-[54px] font-bold text-white leading-[1.1] mb-6" style={{ fontFamily: 'Playfair Display, serif' }}>
               {article.title}
             </h1>
             
-            <p className="text-[#4a554e] text-[16px] leading-relaxed mb-8" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            <p className="text-[#d1dcd5] text-[16px] md:text-[18px] leading-relaxed mb-8" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               {article.desc}
             </p>
             
-            <div className="flex items-center gap-4 text-[#6b7b72] text-[13px] font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-              <img src={article.authorImg} alt={article.author} className="w-10 h-10 rounded-full object-cover shadow-sm" />
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[#0F3D2E] font-bold">By {article.author}</span>
-                <span className="hidden sm:inline">|</span>
-                <span>{article.date}</span>
-                <span className="hidden sm:inline">|</span>
-                <span className="flex items-center gap-1"><Coffee className="w-3.5 h-3.5" /> {article.readTime}</span>
+            <div className="flex items-center gap-4 text-white/90 text-[13px] font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              <img src={article.authorImg} alt={article.author} className="w-11 h-11 rounded-full object-cover border border-white/20 shadow-sm" />
+              <div className="flex flex-col">
+                <span className="text-white font-bold" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>By {article.author}</span>
+                <span className="flex items-center gap-2 mt-0.5 text-white/70">
+                  <span>{article.date}</span>
+                  <span className="text-[10px]">&bull;</span>
+                  <span className="flex items-center gap-1"><Coffee className="w-3 h-3" /> {article.readTime}</span>
+                </span>
               </div>
             </div>
           </div>
-
-          {/* Right Image Area */}
-          <div className="w-full md:w-[55%] relative h-[350px] md:h-[450px]">
-            <img 
-              src={article.img} 
-              alt={article.title} 
-              className="w-full h-full object-cover rounded-l-[40px] shadow-lg" 
-            />
-            {/* Floating Card */}
-            <div className="absolute -bottom-10 left-4 sm:left-6 md:left-8 bg-white rounded-xl p-5 md:p-6 shadow-[0_8px_30px_rgba(0,0,0,0.2)] max-w-[260px] sm:max-w-[280px] md:max-w-[320px] border border-[#e8e5de]">
-               <span className="text-[#dcae3d] text-[10px] font-bold uppercase tracking-widest block mb-2" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                 WELLNESS
-               </span>
-               <h3 className="text-[18px] font-bold text-[#0F3D2E] mb-2 leading-snug" style={{ fontFamily: 'Playfair Display, serif' }}>
-                 Well-being Stories, Rooted In Nature
-               </h3>
-               <p className="text-[#6b7b72] text-[12px] leading-relaxed line-clamp-2" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-                 {article.desc}
-               </p>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -109,85 +97,76 @@ export default function BlogPostPage() {
             <div className="lg:w-[70%] text-[#4a554e] font-sans">
                <div id="introduction" className="mb-12 scroll-mt-24">
                  <p className="text-[15px] leading-relaxed mb-6 text-[#0F3D2E]">
-                   <span className="float-left text-[64px] leading-[0.8] pr-2 pt-2 text-[#2c4a35] font-serif">I</span>
-                   n today's fast-paced world, more people are turning to nature for balance, clarity, and healing. Herbal teas—rooted in ancient traditions and backed by modern research—offer a simple yet powerful way to support your body and mind.
+                   <span className="float-left text-[64px] leading-[0.8] pr-2 pt-2 text-[#2c4a35] font-serif">
+                     {article.content.intro.charAt(0)}
+                   </span>
+                   {article.content.intro.slice(1)}
                  </p>
-                 <p className="text-[15px] leading-relaxed text-[#4a554e] mb-6">
-                   From calming stress to boosting immunity, each cup is a step toward a healthier, more mindful you.
-                 </p>
-                 {article.id === 4 && (
-                   <p className="text-[15px] leading-relaxed text-[#0F3D2E] font-medium bg-[#f8f6f0] p-5 rounded-xl border-l-[3px] border-[#dcae3d]">
-                     <strong>Moringa Focus:</strong> Often referred to as the "Miracle Tree," Moringa is packed with essential vitamins, minerals, and amino acids. Regular consumption deeply nourishes your body at a cellular level, naturally boosting your daily energy and supporting healthy immunity.
-                   </p>
-                 )}
                </div>
                
                <section id="health-benefits" className="mb-12 scroll-mt-24">
-                 <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-4 text-[#0F3D2E]">The Benefits Of Herbal Tea</h2>
-                 <p className="text-[15px] leading-relaxed mb-6">Herbal teas are more than just comforting beverages. They are nature's way of nurturing your well-being.</p>
+                 <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-6 text-[#0F3D2E]">{article.content.benefitsTitle}</h2>
                  <ul className="space-y-3">
-                   <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" /><span className="text-[15px]">Packed with antioxidants and plant compounds</span></li>
-                   <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" /><span className="text-[15px]">Support digestion, immunity, and heart health</span></li>
-                   <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" /><span className="text-[15px]">Calming blends promote better sleep and reduced stress</span></li>
-                   <li className="flex items-start gap-3"><CheckCircle2 className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" /><span className="text-[15px]">Naturally caffeine-free and gentle on the body</span></li>
+                   {article.content.benefits.map((benefit: string, idx: number) => (
+                     <li key={idx} className="flex items-start gap-3">
+                       <CheckCircle2 className="w-5 h-5 text-[#8cb73d] shrink-0 mt-0.5" />
+                       <span className="text-[15px]">{benefit}</span>
+                     </li>
+                   ))}
                  </ul>
                </section>
                
                <section id="research-insights" className="mb-12 scroll-mt-24">
-                  <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-4 text-[#0F3D2E]">What Research Says</h2>
-                  <p className="text-[15px] leading-relaxed mb-6">Numerous studies have highlighted the positive effects of herbal ingredients:</p>
+                  <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-6 text-[#0F3D2E]">{article.content.researchTitle}</h2>
                   <ul className="list-disc pl-5 space-y-3 text-[15px] text-[#4a554e]">
-                    <li><strong className="text-[#dcae3d]">Hibiscus</strong> may help support healthy blood pressure and heart function.</li>
-                    <li><strong className="text-[#dcae3d]">Ashwagandha</strong> is known to help the body adapt to stress and promote mental clarity.</li>
-                    <li><strong className="text-[#dcae3d]">Chamomile</strong> supports relaxation and better sleep quality.</li>
-                    <li><strong className="text-[#dcae3d]">Rosehip</strong> is rich in Vitamin C and antioxidants that support immunity.</li>
+                    {article.content.research.map((item: any, idx: number) => (
+                      <li key={idx}>
+                        <strong className="text-[#dcae3d]">{item.name}</strong>: {item.text}
+                      </li>
+                    ))}
                   </ul>
                </section>
 
                <section id="how-to-use" className="mb-12 scroll-mt-24">
-                  <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-6 text-[#0F3D2E]">How To Use Herbal Tea For Best Results</h2>
+                  <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-6 text-[#0F3D2E]">{article.content.howToUseTitle}</h2>
                   <ul className="space-y-4">
-                     <li className="flex items-start gap-4"><div className="p-2 bg-[#f8f6f0] rounded-md"><Coffee className="w-5 h-5 text-[#6e8b3d]" /></div><span className="text-[15px] mt-2">Start your morning with a detox or immunity-boosting blend.</span></li>
-                     <li className="flex items-start gap-4"><div className="p-2 bg-[#f8f6f0] rounded-md"><Leaf className="w-5 h-5 text-[#6e8b3d]" /></div><span className="text-[15px] mt-2">Sip a calming tea in the evening to unwind and relax.</span></li>
-                     <li className="flex items-start gap-4"><div className="p-2 bg-[#f8f6f0] rounded-md"><Heart className="w-5 h-5 text-[#6e8b3d]" /></div><span className="text-[15px] mt-2">Drink consistently to experience long-term wellness benefits.</span></li>
-                     <li className="flex items-start gap-4"><div className="p-2 bg-[#f8f6f0] rounded-md"><Shield className="w-5 h-5 text-[#6e8b3d]" /></div><span className="text-[15px] mt-2">Choose blends that align with your body's unique needs.</span></li>
+                    {article.content.howToUse.map((tip: string, idx: number) => {
+                       const icons = [Coffee, Leaf, Heart, Shield];
+                       const Icon = icons[idx % icons.length];
+                       return (
+                         <li key={idx} className="flex items-start gap-4">
+                           <div className="p-2 bg-[#f8f6f0] rounded-md">
+                             <Icon className="w-5 h-5 text-[#6e8b3d]" />
+                           </div>
+                           <span className="text-[15px] mt-2">{tip}</span>
+                         </li>
+                       );
+                    })}
                   </ul>
                </section>
 
                <section id="daily-wellness-tips" className="mb-12 scroll-mt-24">
-                  <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-8 text-[#0F3D2E]">Daily Wellness Tips</h2>
+                  <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-8 text-[#0F3D2E]">{article.content.tipsTitle}</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-8">
-                     <div className="pl-5 border-l-[3px] border-[#dcae3d]">
-                        <h4 className="font-bold text-[16px] text-[#0F3D2E] mb-2 flex items-center gap-2">
-                           <Coffee className="w-4 h-4 text-[#6e8b3d]" /> Hydrate Mindfully
-                        </h4>
-                        <p className="text-[14px] text-[#6b7b72] leading-relaxed">Sip warm herbal tea throughout the day to keep your body balanced and refreshed naturally.</p>
-                     </div>
-                     <div className="pl-5 border-l-[3px] border-[#dcae3d]">
-                        <h4 className="font-bold text-[16px] text-[#0F3D2E] mb-2 flex items-center gap-2">
-                           <Leaf className="w-4 h-4 text-[#6e8b3d]" /> Choose Natural
-                        </h4>
-                        <p className="text-[14px] text-[#6b7b72] leading-relaxed">Pick blends with real herbs and absolutely no artificial flavors to maximize health benefits.</p>
-                     </div>
-                     <div className="pl-5 border-l-[3px] border-[#dcae3d]">
-                        <h4 className="font-bold text-[16px] text-[#0F3D2E] mb-2 flex items-center gap-2">
-                           <Heart className="w-4 h-4 text-[#6e8b3d]" /> Listen To Your Body
-                        </h4>
-                        <p className="text-[14px] text-[#6b7b72] leading-relaxed">Choose what your body truly needs each day and adjust your herbal blends accordingly.</p>
-                     </div>
-                     <div className="pl-5 border-l-[3px] border-[#dcae3d]">
-                        <h4 className="font-bold text-[16px] text-[#0F3D2E] mb-2 flex items-center gap-2">
-                           <Shield className="w-4 h-4 text-[#6e8b3d]" /> Make It A Ritual
-                        </h4>
-                        <p className="text-[14px] text-[#6b7b72] leading-relaxed">Create a calm tea ritual for better well-being, improved focus, and daily mindfulness.</p>
-                     </div>
+                    {article.content.tips.map((tip: any, idx: number) => {
+                       const icons = [Coffee, Leaf, Heart, Shield];
+                       const Icon = icons[idx % icons.length];
+                       return (
+                         <div key={idx} className="pl-5 border-l-[3px] border-[#dcae3d]">
+                            <h4 className="font-bold text-[16px] text-[#0F3D2E] mb-2 flex items-center gap-2">
+                               <Icon className="w-4 h-4 text-[#6e8b3d]" /> {tip.title}
+                            </h4>
+                            <p className="text-[14px] text-[#6b7b72] leading-relaxed">{tip.desc}</p>
+                         </div>
+                       );
+                    })}
                   </div>
                </section>
 
                <section id="conclusion" className="mb-12 scroll-mt-24">
                  <h2 className="text-[24px] md:text-[26px] font-bold font-serif mb-4 text-[#0F3D2E]">Conclusion</h2>
                  <p className="text-[15px] leading-relaxed text-[#4a554e]">
-                   Herbal tea is more than just a beautiful beverage — it's a daily wellness ritual that supports your heart, immunity, digestion, and overall well-being. Make it a part of your daily routine and experience the benefits of nature's healing power.
+                   {article.content.conclusion}
                  </p>
                </section>
 
@@ -359,7 +338,7 @@ export default function BlogPostPage() {
                   </div>
 
                   {/* Read Article Link */}
-                  <Link href={`/blog/${relArticle.id}`} className="mt-auto pt-4 border-t border-[#f0eee9] text-[13px] font-bold text-[#2c4a35] flex items-center gap-1.5 hover:text-[#5e8b42] transition-colors">
+                  <Link href={`${basePath}/${relArticle.id}`} className="mt-auto pt-4 border-t border-[#f0eee9] text-[13px] font-bold text-[#2c4a35] flex items-center gap-1.5 hover:text-[#5e8b42] transition-colors">
                     Read Article <ArrowRight className="w-4 h-4" />
                   </Link>
 
