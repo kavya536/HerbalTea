@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { TOPICS, ARTICLES } from '../app/blog/BlogView';
+import HeadingDecorator from './HeadingDecorator';
 
 export default function SharedArticleGrid({ basePath = '/blog', topicHeading = 'Browse By Topic' }: { basePath?: string, topicHeading?: string }) {
   const [activeTopic, setActiveTopic] = useState('All');
@@ -18,9 +19,10 @@ export default function SharedArticleGrid({ basePath = '/blog', topicHeading = '
       {/* Browse By Topic Section */}
       <section className="bg-transparent pt-12 md:pt-20 pb-6 md:pb-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 id="browse-by-topic" className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-8 scroll-mt-24" style={{ fontFamily: 'Playfair Display, serif' }}>
+          <h2 id="browse-by-topic" className="text-[26px] md:text-[32px] font-bold text-[#0F3D2E] scroll-mt-24" style={{ fontFamily: 'Playfair Display, serif' }}>
             {topicHeading}
           </h2>
+          <HeadingDecorator align="center" />
 
           <div className="flex flex-wrap justify-center gap-3 md:gap-4">
             {TOPICS.map((topic, idx) => {
@@ -85,7 +87,7 @@ export default function SharedArticleGrid({ basePath = '/blog', topicHeading = '
                     {article.title}
                   </h3>
 
-                  <p className="text-[13px] text-[#6b7b72] mb-5 leading-[1.6] line-clamp-2 min-h-[42px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  <p className="text-[13px] text-[#0F3D2E] mb-5 leading-[1.6] line-clamp-2 min-h-[42px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                     {article.desc}
                   </p>
                   

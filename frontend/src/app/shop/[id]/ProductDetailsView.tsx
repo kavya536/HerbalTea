@@ -190,16 +190,6 @@ export default function ProductDetailsPage() {
           <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
         </button>
 
-        {/* Simple Text Header */}
-        <div className="mb-8 md:mb-12">
-          <h1 className="text-[#0F3D2E] text-[32px] md:text-[50px] font-bold" style={{ fontFamily: 'Playfair Display, serif' }}>
-            Shop Details
-          </h1>
-          <p className="text-[#6b7b72] text-sm md:text-xs mt-2 uppercase tracking-[0.2em] font-medium" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-            HOME <span className="text-[#ffc107] mx-1">|</span> SHOP DETAILS
-          </p>
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
 
           {/* Left Column: Image Gallery */}
@@ -210,7 +200,7 @@ export default function ProductDetailsPage() {
             className="flex flex-col gap-4"
           >
             {/* Main Large Image */}
-            <div className="relative aspect-[4/5] md:aspect-square bg-[#f9f9f9] rounded-2xl border border-[#fdbb0a] p-8 flex items-center justify-center overflow-hidden">
+            <div className="relative aspect-[4/5] md:aspect-square bg-[#f9f9f9] rounded-2xl border border-[#0F3D2E] p-8 flex items-center justify-center overflow-hidden">
               <img
                 src={currentVariant.img}
                 alt={product.name}
@@ -224,7 +214,7 @@ export default function ProductDetailsPage() {
                 <button
                   key={idx}
                   onClick={() => setMainImageIndex(idx)}
-                  className={`relative w-24 h-24 rounded-xl overflow-hidden border bg-[#f9f9f9] transition-all shrink-0 p-2 flex items-center justify-center ${mainImageIndex === idx ? 'border-[#fdbb0a]' : 'border-[#e8e5de] hover:border-[#d1c8ba]'}`}
+                  className={`relative w-24 h-24 rounded-xl overflow-hidden border bg-[#f9f9f9] transition-all shrink-0 p-2 flex items-center justify-center ${mainImageIndex === idx ? 'border-[#0F3D2E]' : 'border-[#e8e5de] hover:border-[#d1c8ba]'}`}
                 >
                   <img src={variant.img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-contain" />
                 </button>
@@ -343,13 +333,13 @@ export default function ProductDetailsPage() {
                 {currentQuantity === 0 ? (
                   <button 
                     onClick={handleAddToCart}
-                    className="flex-1 bg-[#fdbb0a] text-[#0F3D2E] hover:bg-[#e5a600] font-bold text-[16px] px-4 py-3.5 rounded-xl transition-colors shadow-sm whitespace-nowrap"
+                    className="flex-1 bg-[#dcae3d] text-[#0F3D2E] hover:bg-[#c99f36] font-bold text-[16px] px-4 py-3.5 rounded-xl transition-colors shadow-sm whitespace-nowrap"
                     style={{ fontFamily: 'Nunito Sans, sans-serif' }}
                   >
                     Add To Cart
                   </button>
                 ) : (
-                  <div className="flex-1 flex items-center justify-between bg-[#fdbb0a] text-[#0F3D2E] rounded-xl px-2 py-2 shadow-sm">
+                  <div className="flex-1 flex items-center justify-between bg-[#dcae3d] text-[#0F3D2E] rounded-xl px-2 py-2 shadow-sm">
                     <button 
                       onClick={decreaseQuantity} 
                       className="text-[#0F3D2E] hover:bg-black/10 transition-colors w-10 h-10 flex items-center justify-center rounded-lg text-2xl font-medium"
@@ -497,8 +487,8 @@ export default function ProductDetailsPage() {
                 
                 {/* Step 1 */}
                 <div className="flex flex-col items-center text-center group">
-                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#fdbb0a] group-hover:bg-white transition-all duration-300 relative z-10">
-                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#fdbb0a] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#fdbb0a] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#dcae3d] group-hover:bg-white transition-all duration-300 relative z-10">
+                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#dcae3d] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#dcae3d] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
                        1
                      </div>
                   </div>
@@ -510,8 +500,8 @@ export default function ProductDetailsPage() {
 
                 {/* Step 2 */}
                 <div className="flex flex-col items-center text-center group">
-                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#fdbb0a] group-hover:bg-white transition-all duration-300 relative z-10">
-                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#fdbb0a] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#fdbb0a] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#dcae3d] group-hover:bg-white transition-all duration-300 relative z-10">
+                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#dcae3d] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#dcae3d] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
                        2
                      </div>
                   </div>
@@ -523,8 +513,8 @@ export default function ProductDetailsPage() {
 
                 {/* Step 3 */}
                 <div className="flex flex-col items-center text-center group">
-                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#fdbb0a] group-hover:bg-white transition-all duration-300 relative z-10">
-                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#fdbb0a] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#fdbb0a] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#dcae3d] group-hover:bg-white transition-all duration-300 relative z-10">
+                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#dcae3d] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#dcae3d] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
                        3
                      </div>
                   </div>
@@ -536,8 +526,8 @@ export default function ProductDetailsPage() {
 
                 {/* Step 4 */}
                 <div className="flex flex-col items-center text-center group">
-                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#fdbb0a] group-hover:bg-white transition-all duration-300 relative z-10">
-                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#fdbb0a] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#fdbb0a] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
+                  <div className="w-[90px] h-[90px] rounded-full bg-[#f5f0e6] border border-[#e8e5de] flex items-center justify-center mb-6 shadow-[0_4px_15px_-5px_rgba(0,0,0,0.05)] group-hover:border-[#dcae3d] group-hover:bg-white transition-all duration-300 relative z-10">
+                     <div className="w-[70px] h-[70px] rounded-full bg-[#0F3D2E] text-[#dcae3d] flex items-center justify-center text-[32px] font-bold group-hover:bg-[#dcae3d] group-hover:text-[#0F3D2E] group-hover:scale-110 transition-all duration-300 shadow-inner" style={{ fontFamily: 'Playfair Display, serif' }}>
                        4
                      </div>
                   </div>
@@ -658,7 +648,7 @@ export default function ProductDetailsPage() {
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                 key={similar.id} 
                 onClick={() => router.push(`/shop/${similar.id}`)}
-                className="flex flex-col group cursor-pointer bg-white rounded-3xl border border-[#e8e5de] hover:border-[#ffc107] p-5 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                className="flex flex-col group cursor-pointer bg-white rounded-3xl border border-[#e8e5de] hover:border-[#0F3D2E] p-5 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
               >
                 {/* Product Image */}
                 <div className="relative w-full h-[280px] mb-2 flex items-center justify-center rounded-t-3xl pt-2 px-1">
@@ -678,7 +668,7 @@ export default function ProductDetailsPage() {
                     ))}
                   </div>
 
-                  <h4 className="font-bold text-[#0F3D2E] group-hover:text-[#4caf50] text-[18px] leading-tight mb-2 transition-colors duration-300" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                  <h4 className="font-bold text-[#0F3D2E] group-hover:text-[#dcae3d] text-[18px] leading-tight mb-2 transition-colors duration-300" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                     {similar.name}
                   </h4>
                   
@@ -699,13 +689,13 @@ export default function ProductDetailsPage() {
                       className="relative group/btn flex items-center justify-end h-10 w-10 group-hover:w-[135px] cursor-pointer transition-all duration-300"
                     >
                       {/* Expanding text pill */}
-                      <div className="absolute right-4 h-[26px] flex items-center rounded-l-full bg-[#4caf50] text-white overflow-hidden transition-all duration-300 w-0 group-hover:w-[115px] group-hover/btn:!bg-[#ffc107] group-hover/btn:!text-[#0F3D2E] z-0">
+                      <div className="absolute right-4 h-[26px] flex items-center rounded-l-full bg-[#dcae3d] text-white overflow-hidden transition-all duration-300 w-0 group-hover:w-[115px] group-hover/btn:!bg-[#2c4a35] group-hover/btn:!text-white z-0">
                         <span className="whitespace-nowrap font-bold text-[13px] pl-3">
                           Add To Cart
                         </span>
                       </div>
-                      {/* Fixed yellow circle */}
-                      <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#ffc107] text-[#0F3D2E] shrink-0">
+                      {/* Fixed green circle */}
+                      <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#0F3D2E] text-white shrink-0 group-hover/btn:bg-[#2c4a35] transition-colors">
                         <ShoppingBasket className="w-5 h-5" />
                       </div>
                     </button>

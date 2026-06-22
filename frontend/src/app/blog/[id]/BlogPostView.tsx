@@ -4,13 +4,14 @@ import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Mail, CheckCircle2, Shield, Heart, Coffee, Leaf, Smile, Sprout, Apple } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useParams, usePathname } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 
 import { ARTICLES } from '../BlogView';
 
 export default function BlogPostPage() {
   const params = useParams();
   const pathname = usePathname();
+  const router = useRouter();
   const basePath = pathname?.startsWith('/journal') ? '/journal' : '/blog';
   const articleId = params?.id ? Number(params.id) : 1;
   const article = ARTICLES.find(a => a.id === articleId) || ARTICLES[0];
@@ -46,6 +47,14 @@ export default function BlogPostPage() {
 
       {/* Dynamic Hero Section based on article */}
       <div className="relative w-full min-h-[450px] md:min-h-[550px] flex items-center bg-[#0F3D2E] overflow-hidden">
+        {/* Back Button */}
+        <button 
+          onClick={() => router.back()}
+          className="absolute left-4 sm:left-6 lg:left-8 top-6 md:top-8 w-10 h-10 rounded-full border border-white/50 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-sm z-30"
+          aria-label="Go back"
+        >
+          <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
+        </button>
         
         {/* Background Image Container (Restricted width to prevent over-zooming cup) */}
         <div className="absolute inset-y-0 right-0 w-full md:w-[90%] lg:w-[75%] z-0">

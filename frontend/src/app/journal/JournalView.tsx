@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Clock, ChevronDown } from 'lucide-react';
 import { JournalPost } from './types';
 import SharedArticleGrid from '../../components/SharedArticleGrid';
+import HeadingDecorator from '../../components/HeadingDecorator';
 
 const journalFaqs = [
   {
@@ -63,7 +64,7 @@ const FaqAccordionItem = ({ question, answer }: { question: string, answer: stri
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
             <div className="px-6 pb-6 pt-1">
-              <p className="text-[14px] text-[#6b7b72] leading-[1.6]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              <p className="text-[14px] text-[#0F3D2E] leading-[1.6]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                 {answer}
               </p>
             </div>
@@ -103,11 +104,12 @@ export default function JournalView({ posts }: JournalViewProps) {
         {/* Content Area */}
         <div className="relative z-20 w-full max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-12 flex flex-col justify-center">
           <div className="w-full md:w-[55%] lg:w-[45%] flex flex-col items-start text-[#0F3D2E]">
-            <h1 className="text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.05] mb-6 tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h1 className="text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.05] tracking-tight text-[#0F3D2E]" style={{ fontFamily: 'Playfair Display, serif' }}>
               Wellness<br />Journal
             </h1>
+            <HeadingDecorator align="left" />
             
-            <p className="text-[#4a554e] text-[16px] md:text-[18px] leading-relaxed mb-8 max-w-[360px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            <p className="text-[15px] md:text-[16px] text-[#556358] leading-[1.8] mb-8 max-w-[360px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Insights, rituals, and natural wellness guides crafted to support your daily health journey.
             </p>
             
@@ -140,16 +142,17 @@ export default function JournalView({ posts }: JournalViewProps) {
               <span className="bg-[#cd5c4b] text-white px-3.5 py-1 rounded-[20px] text-[11px] font-bold tracking-wide" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                 Wellness
               </span>
-              <span className="text-[#6b7b72] text-[11px] font-bold ml-4 tracking-wider uppercase" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              <span className="text-[#0F3D2E] text-[11px] font-bold ml-4 tracking-wider uppercase" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                 7 Min Read
               </span>
             </div>
 
-            <h2 className="text-[36px] md:text-[44px] lg:text-[48px] font-bold text-[#0F3D2E] mb-4 leading-[1.15] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h2 className="text-[36px] md:text-[44px] lg:text-[48px] font-bold text-[#0F3D2E] leading-[1.15] tracking-tight" style={{ fontFamily: 'Playfair Display, serif' }}>
               Benefits of<br />Hibiscus Tea
             </h2>
+            <HeadingDecorator align="left" />
 
-            <p className="text-[14px] md:text-[16px] text-[#6b7b72] mb-8 leading-[1.6] max-w-[380px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            <p className="text-[15px] md:text-[16px] text-[#556358] mb-8 leading-[1.8] max-w-[380px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Benefits, rituals, and natural wellness guides crafted to support your daily health journey. Discover how this vibrant crimson flower can naturally lower blood pressure, improve your immune system, and bring a moment of calm to your busy everyday life.
             </p>
 
@@ -171,10 +174,11 @@ export default function JournalView({ posts }: JournalViewProps) {
       <section className="bg-transparent pb-20 md:pb-32" style={{ zoom: 0.9 }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-[26px] md:text-[32px] font-bold text-[#2c4a35] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h2 className="text-[26px] md:text-[32px] font-bold text-[#0F3D2E]" style={{ fontFamily: 'Playfair Display, serif' }}>
               Wellness Tips
             </h2>
-            <p className="text-[#6b7b72] max-w-2xl mx-auto text-[15px] leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            <HeadingDecorator align="center" />
+            <p className="text-[15px] md:text-[16px] text-[#556358] max-w-2xl mx-auto leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Embrace a healthier lifestyle with our carefully curated wellness tips. Simple, mindful adjustments to your daily routine can naturally elevate both your physical vitality and mental clarity.
             </p>
           </div>
@@ -209,10 +213,11 @@ export default function JournalView({ posts }: JournalViewProps) {
             
             {/* Left Content */}
             <div className="w-full md:w-1/2 flex flex-col items-start text-white">
-              <h3 className="text-[24px] md:text-[28px] font-bold mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
+              <h3 className="text-[24px] md:text-[28px] font-bold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
                 Stay Inspired Naturally
               </h3>
-              <p className="text-[14px] text-[#d1dcd5] leading-relaxed max-w-[400px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              <HeadingDecorator align="left" />
+              <p className="text-[15px] md:text-[16px] text-[#d1dcd5] leading-[1.8] max-w-[400px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                 Receive herbal insights, exclusive wellness stories and new tea releases.
               </p>
             </div>
@@ -245,10 +250,11 @@ export default function JournalView({ posts }: JournalViewProps) {
       <section className="w-full bg-[#f5f0e6] py-16 md:py-24">
         <div className="max-w-[850px] mx-auto px-6 sm:px-10">
           <div className="text-center mb-12">
-            <h2 className="text-[36px] md:text-[44px] font-bold text-[#1c2e24] mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h2 className="text-[36px] md:text-[44px] font-bold text-[#0F3D2E]" style={{ fontFamily: 'Playfair Display, serif' }}>
               Frequently Asked Questions
             </h2>
-            <p className="text-[#6b7b72] text-[15px] max-w-[650px] mx-auto leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+            <HeadingDecorator align="center" />
+            <p className="text-[15px] md:text-[16px] text-[#556358] max-w-[650px] mx-auto leading-[1.8]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
               Everything you need to know about our herbal blends, sourcing, and brewing process. Can't find your answer? Reach out to our herbalist team.
             </p>
           </div>

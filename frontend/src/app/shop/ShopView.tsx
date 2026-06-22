@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Leaf, Star, Heart, Search, ShoppingBasket } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '../../features/cart/cartStore';
+import HeadingDecorator from '../../components/HeadingDecorator';
 
 // Herbal Tea specific products with rich data for filtering
 const PRODUCTS = [
@@ -74,12 +75,10 @@ export default function ShopPage() {
             transition={{ duration: 0.8 }}
             className="relative z-10 text-left max-w-xl"
           >
-            <h1 className="text-[40px] md:text-[64px] font-semibold text-white tracking-widest uppercase mb-4" style={{ fontFamily: 'Playfair Display, serif' }}>
-              Our Shop
+            <h1 className="text-[40px] md:text-[64px] font-semibold text-white tracking-widest uppercase" style={{ fontFamily: 'Playfair Display, serif' }}>
+              Our <span className="text-[#dcae3d]">Shop</span>
             </h1>
-            <p className="text-[16px] md:text-[20px] text-white/95 font-light tracking-wide leading-relaxed" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
-              Discover our premium collection of herbal wellness blends.
-            </p>
+            <HeadingDecorator align="left" />
           </motion.div>
         </div>
       </div>
@@ -101,7 +100,7 @@ export default function ShopPage() {
                   transition={{ duration: 0.5 }}
                   key={product.id} 
                   onClick={() => router.push(`/shop/${product.id}`)}
-                  className="flex flex-col group cursor-pointer bg-white rounded-3xl border border-[#e8e5de] hover:border-[#ffc107] p-5 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                  className="flex flex-col group cursor-pointer bg-white rounded-3xl border border-[#e8e5de] hover:border-[#0F3D2E] p-5 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                 >
                   {/* Product Image */}
                   <div className="relative w-full h-[280px] mb-2 flex items-center justify-center rounded-t-3xl pt-2 px-1">
@@ -121,7 +120,7 @@ export default function ShopPage() {
                       ))}
                     </div>
 
-                    <h4 className="font-bold text-[#0F3D2E] group-hover:text-[#4caf50] text-[18px] leading-tight mb-2 transition-colors duration-300" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+                    <h4 className="font-bold text-[#0F3D2E] group-hover:text-[#dcae3d] text-[18px] leading-tight mb-2 transition-colors duration-300" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                       {product.name}
                     </h4>
                     
@@ -142,13 +141,13 @@ export default function ShopPage() {
                         className="relative group/btn flex items-center justify-end h-10 w-10 group-hover:w-[135px] cursor-pointer transition-all duration-300"
                       >
                         {/* Expanding text pill */}
-                        <div className="absolute right-4 h-[26px] flex items-center rounded-l-full bg-[#4caf50] text-white overflow-hidden transition-all duration-300 w-0 group-hover:w-[115px] group-hover/btn:!bg-[#ffc107] group-hover/btn:!text-[#0F3D2E] z-0">
+                        <div className="absolute right-4 h-[26px] flex items-center rounded-l-full bg-[#dcae3d] text-white overflow-hidden transition-all duration-300 w-0 group-hover:w-[115px] group-hover/btn:!bg-[#2c4a35] group-hover/btn:!text-white z-0">
                           <span className="whitespace-nowrap font-bold text-[13px] pl-3">
                             Add To Cart
                           </span>
                         </div>
-                        {/* Fixed yellow circle */}
-                        <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#ffc107] text-[#0F3D2E] shrink-0">
+                        {/* Fixed green circle */}
+                        <div className="relative z-10 flex items-center justify-center w-10 h-10 rounded-full bg-[#0F3D2E] text-white shrink-0 group-hover/btn:bg-[#2c4a35] transition-colors">
                           <ShoppingBasket className="w-5 h-5" />
                         </div>
                       </button>
@@ -174,7 +173,7 @@ export default function ShopPage() {
                 <Leaf className="w-5 h-5 text-[#2c4a35] fill-[#2c4a35]" />
                 <h3 className="font-semibold text-[#0F3D2E] text-[16px]" style={{ fontFamily: 'Playfair Display, serif' }}>Search by Products</h3>
               </div>
-              <div className="relative flex items-center bg-white border border-[#e8e5de] rounded-full pl-5 pr-1.5 py-1.5 w-full shadow-sm focus-within:border-[#e2b755] focus-within:ring-1 focus-within:ring-[#e2b755] transition-all">
+              <div className="relative flex items-center bg-white border border-[#e8e5de] rounded-full pl-5 pr-1.5 py-1.5 w-full shadow-sm focus-within:border-[#0F3D2E] focus-within:ring-1 focus-within:ring-[#0F3D2E] transition-all">
                 <input 
                   type="text" 
                   placeholder="Search..." 
@@ -182,8 +181,8 @@ export default function ShopPage() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="bg-transparent text-[16px] text-[#0F3D2E] placeholder:text-[#8b9992] focus:outline-none w-full pr-4 py-2.5" 
                 />
-                <button className="bg-[#e2b755] text-white p-3 rounded-full hover:bg-[#d4a844] transition-colors flex items-center justify-center cursor-pointer shrink-0">
-                  <Search className="h-5 w-5 text-slate-800" />
+                <button className="bg-[#0F3D2E] text-white p-3 rounded-full hover:bg-[#2c4a35] transition-colors flex items-center justify-center cursor-pointer shrink-0">
+                  <Search className="h-5 w-5 text-white" />
                 </button>
               </div>
             </div>

@@ -6,6 +6,7 @@ import { ArrowRight, ArrowLeft, Leaf, Smile, Apple, Microscope, Coffee, Sun, Spr
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import SharedArticleGrid from '../../components/SharedArticleGrid';
+import HeadingDecorator from '../../components/HeadingDecorator';
 
 const CATEGORIES = [
   "Herbal Tea",
@@ -25,7 +26,15 @@ export default function BlogPage() {
     <div className="flex flex-col w-full min-h-screen bg-[#f5f0e6]">
       
       {/* Featured Article Banner / Hero */}
-      <section className="w-full">
+      <section className="w-full relative">
+        {/* Back Button */}
+        <button 
+          onClick={() => router.back()}
+          className="absolute left-4 sm:left-6 lg:left-8 top-6 md:top-8 w-10 h-10 rounded-full border border-white/50 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur-sm z-30"
+          aria-label="Go back"
+        >
+          <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
+        </button>
         <Link href="/blog/4" className="relative block w-full min-h-[400px] md:h-[450px] lg:h-[500px] overflow-hidden group">
           {/* Background Image */}
           <div className="absolute inset-0 bg-[#111]">
@@ -39,9 +48,10 @@ export default function BlogPage() {
           {/* Text Content overlaying the left side */}
           <div className="relative h-full w-full max-w-7xl mx-auto flex flex-col justify-center px-6 py-10 md:px-10 lg:px-16 z-10">
             <div className="max-w-xl">
-              <h2 className="text-[34px] md:text-[38px] lg:text-[46px] font-bold text-white mb-6 md:mb-8 leading-[1.15]" style={{ fontFamily: 'Playfair Display, serif' }}>
-                The Power Of<br />Herbal Tea In<br />Modern Wellness
+              <h2 className="text-[34px] md:text-[38px] lg:text-[46px] font-bold text-white leading-[1.15]" style={{ fontFamily: 'Playfair Display, serif' }}>
+                The Power Of<br />Herbal <span className="text-[#dcae3d]">Tea</span> In<br />Modern Wellness
               </h2>
+              <HeadingDecorator align="left" />
               
               {/* Author and Meta Info */}
               <div className="flex flex-col gap-4">
@@ -91,11 +101,12 @@ export default function BlogPage() {
 
             {/* Right Content Area */}
             <div className="w-full md:w-1/2 flex flex-col items-start">
-              <h2 className="text-[32px] md:text-[40px] font-bold text-[#0F3D2E] mb-4 leading-[1.1]" style={{ fontFamily: 'Playfair Display, serif' }}>
+              <h2 className="text-[32px] md:text-[40px] font-bold text-[#0F3D2E] leading-[1.1]" style={{ fontFamily: 'Playfair Display, serif' }}>
                 Sip The Wellness<br />You Read About
               </h2>
+              <HeadingDecorator align="left" />
 
-              <p className="text-[15px] md:text-[16px] text-[#6b7b72] mb-8 leading-relaxed max-w-[450px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              <p className="text-[15px] md:text-[16px] text-[#556358] mb-8 leading-[1.8] max-w-[450px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                 Bring ancient herbal wisdom into your daily ritual with our best-selling blends. Each cup is thoughtfully crafted to nourish your body and elevate your well-being.
               </p>
 
@@ -138,10 +149,11 @@ export default function BlogPage() {
             
             {/* Left Content */}
             <div className="w-full md:w-1/2 flex flex-col items-start text-white">
-              <h3 className="text-[24px] md:text-[28px] font-bold mb-2" style={{ fontFamily: 'Playfair Display, serif' }}>
+              <h3 className="text-[24px] md:text-[28px] font-bold text-white" style={{ fontFamily: 'Playfair Display, serif' }}>
                 Stay Inspired Naturally
               </h3>
-              <p className="text-[14px] text-[#d1dcd5] leading-relaxed max-w-[400px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
+              <HeadingDecorator align="left" />
+              <p className="text-[15px] md:text-[16px] text-[#d1dcd5] leading-[1.8] max-w-[400px]" style={{ fontFamily: 'Nunito Sans, sans-serif' }}>
                 Receive herbal insights, exclusive wellness stories and new tea releases.
               </p>
             </div>
